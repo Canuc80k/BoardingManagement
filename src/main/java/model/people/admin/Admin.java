@@ -1,5 +1,6 @@
 package model.people.admin;
 
-public class Admin {
+import model.people.People;
+public class Admin extends People{
     
 }
