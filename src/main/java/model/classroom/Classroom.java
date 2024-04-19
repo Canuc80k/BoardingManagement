@@ -8,21 +8,21 @@ public class Classroom {
 	public String getClassID() {
 		return classID;
 	}
-	private void setClassID(String classID) {
+	public void setClassID(String classID) {
 		this.classID = classID;
 	}
 	
 	public String getRoom() {
 		return room;
 	}
-	private void setRoom(String room) {
+	public void setRoom(String room) {
 		this.room = room;
 	}
 	
 	public int getQuantity() {
 		return quantity;
 	}
-	private void setQuantity(int quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 }

@@ -6,7 +6,7 @@ public class Calendar {
 	public Calendar getCalendarID() {
 		return calendarID;
 	}
-	private void setCalendarID(Calendar calendarID) {
+	public void setCalendarID(Calendar calendarID) {
 		this.calendarID = calendarID;
 	}
 }
