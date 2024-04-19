@@ -11,35 +11,35 @@ public class Pupil extends People{
     public String getClassID() {
     	return classID;
     }
-    private void setClassID(String ClassID) {
-    	this.classID = ClassID;
+    public void setClassID(String classID) {
+    	this.classID = classID;
     }
     
     public String getParentName() {
     	return parentName;
     }
-    private void setParentName(String ParentName) {
-    	this.parentName = ParentName;
+    public void setParentName(String parentName) {
+    	this.parentName = parentName;
     }
     
     public String getBoardingroom() {
     	return boardingroom;
     }
-    private void setBoardingroom(String Boardingroom) {
-    	this.boardingroom = Boardingroom;
+    public void setBoardingroom(String boardingroom) {
+    	this.boardingroom = boardingroom;
     }
     
     public int getAbsentday() {
     	return absentday;
     }
-    private void setAbsentday(int Absentday) {
-    	this.absentday = Absentday;
+    public void setAbsentday(int absentday) {
+    	this.absentday = absentday;
     }
     
     public boolean getGender() {
     	return gender;
     }
-    private void setGender(boolean Gender) {
-    	this.gender = Gender;
+    public void setGender(boolean gender) {
+    	this.gender = gender;
     }
 }

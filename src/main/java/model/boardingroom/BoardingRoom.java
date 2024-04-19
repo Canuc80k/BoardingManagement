@@ -8,21 +8,21 @@ public class BoardingRoom {
 	public String getManagerID() {
 		return managerID;
 	}
-	private void setManagerID(String ManagerID) {
-		this.managerID = ManagerID;
+	public void setManagerID(String managerID) {
+		this.managerID = managerID;
 	}
 	
 	public String getRoom() {
 		return room;
 	}
-	private void setRoom(String Room) {
-		this.room = Room;
+	public void setRoom(String room) {
+		this.room = room;
 	}
 	
 	public int getQuantity() {
 		return quantity;
 	}
-	private void setQuantity(int Quantity) {
-		this.quantity = Quantity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }

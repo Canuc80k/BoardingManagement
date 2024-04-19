@@ -7,7 +7,7 @@ public class Teacher extends People{
     public String getClassID() {
     	return classID;
     }
-    private void setClassID(String ClassID) {
-    	this.classID = ClassID;
+    public void setClassID(String classID) {
+    	this.classID = classID;
     }
 }
