@@ -7,7 +7,7 @@ public class BoardingTeacher extends People {
     public String getBoardingroom() {
     	return boardingroom;
     }
-    private void setBoardingroom(String Boardingroom) {
-    	this.boardingroom = Boardingroom;
+    private void setBoardingroom(String boardingroom) {
+    	this.boardingroom = boardingroom;
     }
 }

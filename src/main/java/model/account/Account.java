@@ -9,26 +9,26 @@ public class Account {
     public String getID() {
     	return id;
     }
-    private void setID(String ID) {
-    	this.id = ID; 
+    private void setID(String id) {
+    	this.id = id; 
     }
     
     public String getPassword() {
     	return password;
     }
-    private void setPassword(String Password) {
-    	this.password = Password; 
+    private void setPassword(String password) {
+    	this.password = password; 
     }
     public String getUsername() {
     	return username;
     }
-    private void setUsername(String Username) {
-    	this.username = Username; 
+    private void setUsername(String username) {
+    	this.username = username; 
     }
     public int getRole() {
     	return role;
     }
-    private void setRole(int Role) {
-    	this.role = Role; 
+    private void setRole(int role) {
+    	this.role = role; 
     }
 }

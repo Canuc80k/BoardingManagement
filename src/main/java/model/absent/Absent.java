@@ -8,13 +8,13 @@ public class Absent {
     public String getPupilID() {
     	return pupilID;
     }
-    private void setPupilID(String PupilID) {
-    	this.pupilID = PupilID;
+    private void setPupilID(String pupilID) {
+    	this.pupilID = pupilID;
     }
     public Calendar getCalendarID() {
     	return calendarID;
     }
-    private void setCalendarID(Calendar CalendarID) {
-    	this.calendarID = CalendarID;
+    private void setCalendarID(Calendar calendarID) {
+    	this.calendarID = calendarID;
     }
 }

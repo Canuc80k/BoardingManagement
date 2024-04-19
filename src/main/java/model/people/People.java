@@ -12,29 +12,29 @@ public class People {
     public String getID() {
     	return id;
     }
-    private void setID(String ID) {
-    	this.id = ID; 
+    private void setID(String id) {
+    	this.id = id; 
     }
     
     public String getName() {
     	return name;
     }
-    private void setName(String Name) {
-    	this.name = Name; 
+    private void setName(String name) {
+    	this.name = name; 
     }
     
     public LocalDateTime getDoB() {
     	return dob;
     }
-    private void setDoB(LocalDateTime DoB) {
-    	this.dob = DoB; 
+    private void setDoB(LocalDateTime dob) {
+    	this.dob = dob; 
     }
     
     public String getPhone() {
     	return phone;
     }
-    private void setPhone(String Phone) {
-    	this.phone = Phone; 
+    private void setPhone(String phone) {
+    	this.phone = phone; 
     }
     
     public String getAddress() {
