@@ -1,13 +1,21 @@
 package model.people;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 public class People {
     private String id;
     private String name;
-    private LocalDateTime dob;
+    private Date dob;
     private String phone;
     private String address;
     
+    public People(String id, String name, Date dob, String phone, String address) {
+        this.id = id;
+        this.name=  name;
+        this.dob = dob;
+        this.phone = phone;
+        this.address = address;
+    }
+
     public String getID() {
     	return id;
     }
@@ -22,10 +30,10 @@ public class People {
     	this.name = name; 
     }
     
-    public LocalDateTime getDoB() {
+    public Date getDoB() {
     	return dob;
     }
-    public void setDoB(LocalDateTime dob) {
+    public void setDoB(Date dob) {
     	this.dob = dob; 
     }
     

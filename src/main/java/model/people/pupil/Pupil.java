@@ -1,5 +1,7 @@
 package model.people.pupil;
 
+import java.util.Date;
+
 import model.people.People;
 public class Pupil extends People{
     private String classID;
@@ -8,6 +10,9 @@ public class Pupil extends People{
     private int absentday;
     private boolean gender;
     
+    public Pupil(String id, String name, Date dob, String phone, String address) {
+        super(id, name, dob, phone, address);
+    }
     public String getClassID() {
     	return classID;
     }
