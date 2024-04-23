@@ -11,7 +11,7 @@ public class Launcher {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         new Login().setVisible(true);
 
-        List<Teacher> ls = TeacherDatabase.get("SELECT * from teacher");
+        List<Teacher> ls = TeacherDatabase.getAllTeacher("SELECT * from teacher");
         System.out.println(ls.size());
     }
 }
