@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherDatabase {
-    public static List<Teacher> get(String query) throws SQLException, ClassNotFoundException {
+    public static List<Teacher> getAllTeacher(String query) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");  
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");  
         Statement stmt = con.createStatement(); 
