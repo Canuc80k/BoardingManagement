@@ -12,6 +12,9 @@ public class Launcher {
         new Login().setVisible(true);
 
         List<Teacher> ls = TeacherDatabase.getAllTeacher("SELECT * from teacher");
-        System.out.println(ls.size());
+        
+        for (int i = 0; i < ls.size(); i++) {
+                System.out.println(ls.get(i).getName()); // Assuming Teacher class has a method getName() to retrieve the name
+            }
     }
 }
