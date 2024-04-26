@@ -1,18 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package bean;
-import javax.swing.*;
-/**
- *
- * @author huant
- */
+package controller.dashboard_controller;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 public class DanhMucBean {
     private String kind;
     private JPanel jpn;
     private JLabel jlb;
-    public DanhMucBean(){
+
+    public DanhMucBean() {
         
     }
 

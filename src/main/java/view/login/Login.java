@@ -1,24 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.login;
 
-import controller.account_controller.AccountController;
-import java.util.Arrays;
-/**
- *
- * @author huant
- */
-import view.dashboard.AdminDashboard;
-public class Login extends javax.swing.JFrame {
+import controller.login_controller.LoginController;
 
-    /**
-     * Creates new form Login
-     */
+public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
-        AccountController controller=new AccountController(this,btnSubmit,jtfUsername,jpfPassword,jlbMsg);  
+        LoginController controller = new LoginController(this, submitButton, usernameTextField, passwordTextField, messageLabel);  
         controller.setEvent();
     }
 
@@ -33,15 +20,15 @@ public class Login extends javax.swing.JFrame {
 
         jpnRoot = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jtfUsername = new javax.swing.JTextField();
-        jpfPassword = new javax.swing.JPasswordField();
+        usernameTextField = new javax.swing.JTextField();
+        passwordTextField = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
-        btnSubmit = new javax.swing.JButton();
+        submitButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jlbMsg = new javax.swing.JLabel();
+        messageLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,45 +51,45 @@ public class Login extends javax.swing.JFrame {
 
         jpnRoot.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 430));
 
-        jtfUsername.setText("Username");
-        jtfUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+        usernameTextField.setText("Username\0");
+        usernameTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtfUsernameMouseClicked(evt);
+                usernameTextFieldMouseClicked(evt);
             }
         });
-        jtfUsername.addActionListener(new java.awt.event.ActionListener() {
+        usernameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfUsernameActionPerformed(evt);
+                usernameTextFieldActionPerformed(evt);
             }
         });
-        jpnRoot.add(jtfUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 156, 180, 30));
+        jpnRoot.add(usernameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 156, 180, 30));
 
-        jpfPassword.setText("jPasswordField1");
-        jpfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+        passwordTextField.setText("123456789\0");
+        passwordTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jpfPasswordMouseClicked(evt);
+                passwordTextFieldMouseClicked(evt);
             }
         });
-        jpfPassword.addActionListener(new java.awt.event.ActionListener() {
+        passwordTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jpfPasswordActionPerformed(evt);
+                passwordTextFieldActionPerformed(evt);
             }
         });
-        jpnRoot.add(jpfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 180, 30));
+        jpnRoot.add(passwordTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 180, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 255));
         jLabel1.setText("Boarding Management");
         jpnRoot.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, -1, -1));
 
-        btnSubmit.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
-        btnSubmit.setText("Login");
-        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+        submitButton.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        submitButton.setText("Login");
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitActionPerformed(evt);
+                submitButtonActionPerformed(evt);
             }
         });
-        jpnRoot.add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, -1, -1));
+        jpnRoot.add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 102, 255));
@@ -120,9 +107,9 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/baseline_lock_black_24dp.png"))); // NOI18N
         jpnRoot.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 40, -1));
 
-        jlbMsg.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
-        jlbMsg.setForeground(new java.awt.Color(255, 0, 0));
-        jpnRoot.add(jlbMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
+        messageLabel.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        messageLabel.setForeground(new java.awt.Color(255, 0, 0));
+        jpnRoot.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
 
         getContentPane().add(jpnRoot, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 430));
 
@@ -130,31 +117,31 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jpfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfPasswordActionPerformed
+    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
         
-    }//GEN-LAST:event_jpfPasswordActionPerformed
+    }//GEN-LAST:event_passwordTextFieldActionPerformed
 
-    private void jtfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUsernameActionPerformed
+    private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextFieldActionPerformed
        
-    }//GEN-LAST:event_jtfUsernameActionPerformed
+    }//GEN-LAST:event_usernameTextFieldActionPerformed
 
-    private void jtfUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfUsernameMouseClicked
+    private void usernameTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameTextFieldMouseClicked
         // TODO add your handling code here:
-         jtfUsername.setText("");
-    }//GEN-LAST:event_jtfUsernameMouseClicked
+        if (usernameTextField.getText().equals("Username\0")) usernameTextField.setText("");
+    }//GEN-LAST:event_usernameTextFieldMouseClicked
 
-    private void jpfPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jpfPasswordMouseClicked
+    private void passwordTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordTextFieldMouseClicked
         // TODO add your handling code here:
-        jpfPassword.setText("");
-    }//GEN-LAST:event_jpfPasswordMouseClicked
+        if (passwordTextField.getText().equals("123456789\0")) passwordTextField.setText("");
+    }//GEN-LAST:event_passwordTextFieldMouseClicked
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
-//        if (jtfUsername.getText().equals("admin") && Arrays.equals(jpfPassword.getPassword(), "123".toCharArray())) {
+//        if (usernameTextField.getText().equals("admin") && Arrays.equals(passwordTextField.getPassword(), "123".toCharArray())) {
 //        new AdminDashboard().setVisible(true);
 //}
 
-    }//GEN-LAST:event_btnSubmitActionPerformed
+    }//GEN-LAST:event_submitButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,16 +149,16 @@ public class Login extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton submitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel jlbMsg;
-    private javax.swing.JPasswordField jpfPassword;
+    private javax.swing.JLabel messageLabel;
+    private javax.swing.JPasswordField passwordTextField;
     private javax.swing.JPanel jpnRoot;
-    private javax.swing.JTextField jtfUsername;
+    private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
 }

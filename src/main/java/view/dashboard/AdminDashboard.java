@@ -4,8 +4,9 @@
  */
 package view.dashboard;
 
-import bean.DanhMucBean;
 import controller.ChuyenManHinh.ChuyenManHinh;
+import controller.dashboard_controller.DanhMucBean;
+
 import java.util.ArrayList;
 import java.util.List;
 /**

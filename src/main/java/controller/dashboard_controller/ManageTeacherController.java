@@ -21,7 +21,7 @@ import service.TeacherServiceImpl;
 import utility.ClassTableModel;
 import view.dashboard.ManageTeacherJFrame;
 
-public class ManageTeacher_controller {
+public class ManageTeacherController {
 
     private JPanel jpnView;
     private JButton btnAdd;
@@ -30,7 +30,7 @@ public class ManageTeacher_controller {
     private String[] listColumn = {"Teacher ID", "Name", "Date of birth", "Phone", "Address", "Class ID"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public ManageTeacher_controller(JPanel jpnView, JButton btnAdd, JTextField jtfSearch) {
+    public ManageTeacherController(JPanel jpnView, JButton btnAdd, JTextField jtfSearch) {
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
         this.jtfSearch = jtfSearch;

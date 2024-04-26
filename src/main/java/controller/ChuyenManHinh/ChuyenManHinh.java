@@ -1,8 +1,10 @@
 package controller.ChuyenManHinh;
 
-import bean.DanhMucBean;
 import java.awt.Color;
 import javax.swing.*;
+
+import controller.dashboard_controller.DanhMucBean;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;

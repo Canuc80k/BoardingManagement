@@ -1,7 +1,7 @@
 
 package view.dashboard;
 
-import controller.dashboard_controller.ManageTeacher_controller;
+import controller.dashboard_controller.ManageTeacherController;
 import java.sql.SQLException;
 
 public class TeacherJPanel extends javax.swing.JPanel {
@@ -9,7 +9,7 @@ public class TeacherJPanel extends javax.swing.JPanel {
 
     public TeacherJPanel() throws SQLException, ClassNotFoundException {
         initComponents();
-        ManageTeacher_controller controller=new ManageTeacher_controller(jpnView,btnAdd,jtfSearch);
+        ManageTeacherController controller=new ManageTeacherController(jpnView,btnAdd,jtfSearch);
         controller.setDataToTable();
         controller.setEvent();
     }

@@ -7,7 +7,7 @@ public class DBConnect {
         try {
             Connection con= null;
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:4306/boardingmanagement","root","");
+            con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/boardingmanagement","root","");
             return con;
         } catch (Exception ex) {
            ex.printStackTrace();
