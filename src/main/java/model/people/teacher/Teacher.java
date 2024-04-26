@@ -8,6 +8,9 @@ public class Teacher extends People {
         super(id, name, dob, phone, address);
     }
     private String classID;
+
+ 
+ 
     
     public String getClassID() {
     	return classID;
@@ -15,4 +18,5 @@ public class Teacher extends People {
     public void setClassID(String classID) {
     	this.classID = classID;
     }
+    
 }
