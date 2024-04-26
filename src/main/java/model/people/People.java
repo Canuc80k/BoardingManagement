@@ -50,4 +50,10 @@ public class People {
     public void setAddress(String Address) {
     	this.address = Address;
     }
+
+    @Override
+    public String toString() {
+        return  "id=" + id + ", name=" + name + ' ';
+    }
+    
 }

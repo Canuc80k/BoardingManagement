@@ -5,6 +5,11 @@ public class Account {
     private String password;
     private String username;
     private int role;
+
+    public Account(String password, String username) {
+        this.password = password;
+        this.username = username;
+    }
     
     public String getID() {
     	return id;
