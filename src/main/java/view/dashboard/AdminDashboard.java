@@ -3,8 +3,8 @@ package view.dashboard;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.dashboard_controller.SideFeatureOption;
 import controller.dashboard_controller.admin_dashboard_controller.AdminDashboardController;
-import controller.dashboard_controller.admin_dashboard_controller.SideFeatureOption;
 
 public class AdminDashboard extends javax.swing.JFrame {
 

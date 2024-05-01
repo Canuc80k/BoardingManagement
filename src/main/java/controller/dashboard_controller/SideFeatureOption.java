@@ -1,4 +1,4 @@
-package controller.dashboard_controller.admin_dashboard_controller;
+package controller.dashboard_controller;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

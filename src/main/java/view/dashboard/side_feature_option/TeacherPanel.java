@@ -1,20 +1,20 @@
 
-package view.dashboard;
+package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.ManageTeacherController;
 import java.sql.SQLException;
 
-public class TeacherJPanel extends javax.swing.JPanel {
+import controller.dashboard_controller.ManageTeacherController;
+
+public class TeacherPanel extends javax.swing.JPanel {
 
 
-    public TeacherJPanel() throws SQLException, ClassNotFoundException {
+    public TeacherPanel() throws SQLException, ClassNotFoundException {
         initComponents();
         ManageTeacherController controller=new ManageTeacherController(jpnView,btnAdd,jtfSearch);
         controller.setDataToTable();
         controller.setEvent();
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

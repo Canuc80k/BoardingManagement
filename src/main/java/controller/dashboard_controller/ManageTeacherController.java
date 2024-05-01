@@ -1,23 +1,30 @@
 package controller.dashboard_controller;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import model.people.teacher.Teacher;
-import model.people.teacher.TeacherDatabase;
-import java.util.List;
 import service.TeacherService;
 import service.TeacherServiceImpl;
-
 import utility.ClassTableModel;
 import view.dashboard.ManageTeacherJFrame;
 
