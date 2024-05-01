@@ -46,7 +46,7 @@ public class LoginController {
 
                     boolean loginSuccess = Account.login(
                         usernameTextField.getText(), 
-                        passwordTextField.getText(), 
+                        String.valueOf(passwordTextField.getPassword()), 
                         loginByID
                     );
                     if (!loginSuccess) {

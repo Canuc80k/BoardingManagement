@@ -4,11 +4,11 @@
  */
 package view.dashboard;
 
-import controller.ChuyenManHinh.ChuyenManHinh;
-import controller.dashboard_controller.DanhMucBean;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import controller.dashboard_controller.admin_dashboard_controller.AdminDashboardController;
+import controller.dashboard_controller.admin_dashboard_controller.SideFeatureOption;
 /**
  *
  * @author huant
@@ -22,16 +22,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         initComponents();
         setTitle("Boarding Management");
         
-        ChuyenManHinh controller = new ChuyenManHinh(jpnView);
-        controller.setView(jpnMain,jlbMain);
-        List<DanhMucBean> listItem=new ArrayList<>();
-        listItem.add(new DanhMucBean("Main",jpnMain,jlbMain));
-        listItem.add(new DanhMucBean("Teacher",jpnTeacher,jlbTeacher));
-        listItem.add(new DanhMucBean("Pupil",jpnPupil,jlbPupil));
-        listItem.add(new DanhMucBean("Class",jpnClass,jlbClass));
-        listItem.add(new DanhMucBean("BoardingRoom",jpnBoardingRoom,jlbBoardingRoom));
-        listItem.add(new DanhMucBean("Payment",jpnPayment,jlbPayment));
-        listItem.add(new DanhMucBean("Info",jpnInfo,jlbInfo));
+        AdminDashboardController controller = new AdminDashboardController(rootPanel, mainPanel, mainLabel);
+        List<SideFeatureOption> listItem = new ArrayList<>();
+        listItem.add(new SideFeatureOption("Main", mainPanel, mainLabel));
+        listItem.add(new SideFeatureOption("Teacher", teacherPanel, teacherLabel));
+        listItem.add(new SideFeatureOption("Pupil", pupilPanel, pupilLabel));
+        listItem.add(new SideFeatureOption("Class", classPanel, classLabel));
+        listItem.add(new SideFeatureOption("BoardingRoom", boardingRoomPanel, boardingRoomLabel));
+        listItem.add(new SideFeatureOption("Payment", paymentPanel, paymentLabel));
+        listItem.add(new SideFeatureOption("Info", informationPanel, informationLabel));
         controller.setEvent(listItem);
     }
 
@@ -45,219 +44,219 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnRoot = new javax.swing.JPanel();
-        jpnView = new javax.swing.JPanel();
+        rootPanel = new javax.swing.JPanel();
         jpMenu = new javax.swing.JPanel();
-        jpnMain = new javax.swing.JPanel();
-        jlbMain = new javax.swing.JLabel();
-        jlbTeacher1 = new javax.swing.JLabel();
-        jpnTeacher = new javax.swing.JPanel();
-        jlbTeacher = new javax.swing.JLabel();
-        jpnBoardingRoom = new javax.swing.JPanel();
-        jlbBoardingRoom = new javax.swing.JLabel();
-        jpnClass = new javax.swing.JPanel();
-        jlbClass = new javax.swing.JLabel();
-        jpnPupil = new javax.swing.JPanel();
-        jlbPupil = new javax.swing.JLabel();
-        jpnPayment = new javax.swing.JPanel();
-        jlbPayment = new javax.swing.JLabel();
-        jpnInfo = new javax.swing.JPanel();
-        jlbInfo = new javax.swing.JLabel();
+        mainPanel = new javax.swing.JPanel();
+        mainLabel = new javax.swing.JLabel();
+        teacherLabel1 = new javax.swing.JLabel();
+        teacherPanel = new javax.swing.JPanel();
+        teacherLabel = new javax.swing.JLabel();
+        boardingRoomPanel = new javax.swing.JPanel();
+        boardingRoomLabel = new javax.swing.JLabel();
+        classPanel = new javax.swing.JPanel();
+        classLabel = new javax.swing.JLabel();
+        pupilPanel = new javax.swing.JPanel();
+        pupilLabel = new javax.swing.JLabel();
+        paymentPanel = new javax.swing.JPanel();
+        paymentLabel = new javax.swing.JLabel();
+        informationPanel = new javax.swing.JPanel();
+        informationLabel = new javax.swing.JLabel();
         jlbLogOut = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 765));
         setPreferredSize(new java.awt.Dimension(1500, 765));
 
-        javax.swing.GroupLayout jpnViewLayout = new javax.swing.GroupLayout(jpnView);
-        jpnView.setLayout(jpnViewLayout);
-        jpnViewLayout.setHorizontalGroup(
-            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout rootPanelLayout = new javax.swing.GroupLayout(rootPanel);
+        rootPanel.setLayout(rootPanelLayout);
+        rootPanelLayout.setHorizontalGroup(
+            rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1210, Short.MAX_VALUE)
         );
-        jpnViewLayout.setVerticalGroup(
-            jpnViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        rootPanelLayout.setVerticalGroup(
+            rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jpMenu.setBackground(new java.awt.Color(74, 188, 253));
 
-        jpnMain.setBackground(new java.awt.Color(255, 255, 255));
+        mainPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jlbMain.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jlbMain.setText("Boarding Management");
+        mainLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        mainLabel.setText("Boarding Management");
 
-        jlbTeacher1.setBackground(new java.awt.Color(238, 238, 228));
-        jlbTeacher1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jlbTeacher1.setForeground(new java.awt.Color(153, 153, 153));
-        jlbTeacher1.setText("Hi, Admin");
+        teacherLabel1.setBackground(new java.awt.Color(238, 238, 228));
+        teacherLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        teacherLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        teacherLabel1.setText("Hi, Admin");
 
-        javax.swing.GroupLayout jpnMainLayout = new javax.swing.GroupLayout(jpnMain);
-        jpnMain.setLayout(jpnMainLayout);
-        jpnMainLayout.setHorizontalGroup(
-            jpnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnMainLayout.createSequentialGroup()
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jpnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlbTeacher1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbMain))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(teacherLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mainLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpnMainLayout.setVerticalGroup(
-            jpnMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnMainLayout.createSequentialGroup()
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jlbMain, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbTeacher1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(teacherLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jpnTeacher.setBackground(new java.awt.Color(0, 153, 255));
+        teacherPanel.setBackground(new java.awt.Color(0, 153, 255));
 
-        jlbTeacher.setBackground(new java.awt.Color(238, 238, 228));
-        jlbTeacher.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jlbTeacher.setForeground(new java.awt.Color(238, 238, 228));
-        jlbTeacher.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/teacher (1).png"))); // NOI18N
-        jlbTeacher.setText("Manage Teacher");
+        teacherLabel.setBackground(new java.awt.Color(238, 238, 228));
+        teacherLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        teacherLabel.setForeground(new java.awt.Color(238, 238, 228));
+        teacherLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/teacher (1).png"))); // NOI18N
+        teacherLabel.setText("Manage Teacher");
 
-        javax.swing.GroupLayout jpnTeacherLayout = new javax.swing.GroupLayout(jpnTeacher);
-        jpnTeacher.setLayout(jpnTeacherLayout);
-        jpnTeacherLayout.setHorizontalGroup(
-            jpnTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnTeacherLayout.createSequentialGroup()
+        javax.swing.GroupLayout teacherPanelLayout = new javax.swing.GroupLayout(teacherPanel);
+        teacherPanel.setLayout(teacherPanelLayout);
+        teacherPanelLayout.setHorizontalGroup(
+            teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(teacherPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jlbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(teacherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
-        jpnTeacherLayout.setVerticalGroup(
-            jpnTeacherLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnTeacherLayout.createSequentialGroup()
+        teacherPanelLayout.setVerticalGroup(
+            teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, teacherPanelLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jlbTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(teacherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
 
-        jpnBoardingRoom.setBackground(new java.awt.Color(0, 153, 255));
+        boardingRoomPanel.setBackground(new java.awt.Color(0, 153, 255));
 
-        jlbBoardingRoom.setBackground(new java.awt.Color(238, 238, 228));
-        jlbBoardingRoom.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jlbBoardingRoom.setForeground(new java.awt.Color(238, 238, 228));
-        jlbBoardingRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/restaurant.png"))); // NOI18N
-        jlbBoardingRoom.setText("Manage Boarding Room");
+        boardingRoomLabel.setBackground(new java.awt.Color(238, 238, 228));
+        boardingRoomLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        boardingRoomLabel.setForeground(new java.awt.Color(238, 238, 228));
+        boardingRoomLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/restaurant.png"))); // NOI18N
+        boardingRoomLabel.setText("Manage Boarding Room");
 
-        javax.swing.GroupLayout jpnBoardingRoomLayout = new javax.swing.GroupLayout(jpnBoardingRoom);
-        jpnBoardingRoom.setLayout(jpnBoardingRoomLayout);
-        jpnBoardingRoomLayout.setHorizontalGroup(
-            jpnBoardingRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnBoardingRoomLayout.createSequentialGroup()
+        javax.swing.GroupLayout boardingRoomPanelLayout = new javax.swing.GroupLayout(boardingRoomPanel);
+        boardingRoomPanel.setLayout(boardingRoomPanelLayout);
+        boardingRoomPanelLayout.setHorizontalGroup(
+            boardingRoomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(boardingRoomPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jlbBoardingRoom)
+                .addComponent(boardingRoomLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpnBoardingRoomLayout.setVerticalGroup(
-            jpnBoardingRoomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnBoardingRoomLayout.createSequentialGroup()
+        boardingRoomPanelLayout.setVerticalGroup(
+            boardingRoomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(boardingRoomPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jlbBoardingRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boardingRoomLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jpnClass.setBackground(new java.awt.Color(0, 153, 255));
+        classPanel.setBackground(new java.awt.Color(0, 153, 255));
 
-        jlbClass.setBackground(new java.awt.Color(238, 238, 228));
-        jlbClass.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jlbClass.setForeground(new java.awt.Color(238, 238, 228));
-        jlbClass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/classroom-32.png"))); // NOI18N
-        jlbClass.setText("Manage Class");
+        classLabel.setBackground(new java.awt.Color(238, 238, 228));
+        classLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        classLabel.setForeground(new java.awt.Color(238, 238, 228));
+        classLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/classroom-32.png"))); // NOI18N
+        classLabel.setText("Manage Class");
 
-        javax.swing.GroupLayout jpnClassLayout = new javax.swing.GroupLayout(jpnClass);
-        jpnClass.setLayout(jpnClassLayout);
-        jpnClassLayout.setHorizontalGroup(
-            jpnClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnClassLayout.createSequentialGroup()
+        javax.swing.GroupLayout classPanelLayout = new javax.swing.GroupLayout(classPanel);
+        classPanel.setLayout(classPanelLayout);
+        classPanelLayout.setHorizontalGroup(
+            classPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(classPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jlbClass, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(classLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpnClassLayout.setVerticalGroup(
-            jpnClassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnClassLayout.createSequentialGroup()
+        classPanelLayout.setVerticalGroup(
+            classPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(classPanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jlbClass, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(classLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        jpnPupil.setBackground(new java.awt.Color(0, 153, 255));
+        pupilPanel.setBackground(new java.awt.Color(0, 153, 255));
 
-        jlbPupil.setBackground(new java.awt.Color(238, 238, 228));
-        jlbPupil.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jlbPupil.setForeground(new java.awt.Color(238, 238, 228));
-        jlbPupil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student_little_boy.png"))); // NOI18N
-        jlbPupil.setText("Manage Pupil");
+        pupilLabel.setBackground(new java.awt.Color(238, 238, 228));
+        pupilLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        pupilLabel.setForeground(new java.awt.Color(238, 238, 228));
+        pupilLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/student_little_boy.png"))); // NOI18N
+        pupilLabel.setText("Manage Pupil");
 
-        javax.swing.GroupLayout jpnPupilLayout = new javax.swing.GroupLayout(jpnPupil);
-        jpnPupil.setLayout(jpnPupilLayout);
-        jpnPupilLayout.setHorizontalGroup(
-            jpnPupilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnPupilLayout.createSequentialGroup()
+        javax.swing.GroupLayout pupilPanelLayout = new javax.swing.GroupLayout(pupilPanel);
+        pupilPanel.setLayout(pupilPanelLayout);
+        pupilPanelLayout.setHorizontalGroup(
+            pupilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pupilPanelLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jlbPupil, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pupilLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpnPupilLayout.setVerticalGroup(
-            jpnPupilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnPupilLayout.createSequentialGroup()
+        pupilPanelLayout.setVerticalGroup(
+            pupilPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pupilPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jlbPupil, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pupilLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jpnPayment.setBackground(new java.awt.Color(0, 153, 255));
+        paymentPanel.setBackground(new java.awt.Color(0, 153, 255));
 
-        jlbPayment.setBackground(new java.awt.Color(238, 238, 228));
-        jlbPayment.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jlbPayment.setForeground(new java.awt.Color(238, 238, 228));
-        jlbPayment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wallet.png"))); // NOI18N
-        jlbPayment.setText("Manage Payment");
+        paymentLabel.setBackground(new java.awt.Color(238, 238, 228));
+        paymentLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        paymentLabel.setForeground(new java.awt.Color(238, 238, 228));
+        paymentLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wallet.png"))); // NOI18N
+        paymentLabel.setText("Manage Payment");
 
-        javax.swing.GroupLayout jpnPaymentLayout = new javax.swing.GroupLayout(jpnPayment);
-        jpnPayment.setLayout(jpnPaymentLayout);
-        jpnPaymentLayout.setHorizontalGroup(
-            jpnPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnPaymentLayout.createSequentialGroup()
+        javax.swing.GroupLayout paymentPanelLayout = new javax.swing.GroupLayout(paymentPanel);
+        paymentPanel.setLayout(paymentPanelLayout);
+        paymentPanelLayout.setHorizontalGroup(
+            paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paymentPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jlbPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(paymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpnPaymentLayout.setVerticalGroup(
-            jpnPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnPaymentLayout.createSequentialGroup()
+        paymentPanelLayout.setVerticalGroup(
+            paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paymentPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jlbPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(paymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jpnInfo.setBackground(new java.awt.Color(0, 153, 255));
+        informationPanel.setBackground(new java.awt.Color(0, 153, 255));
 
-        jlbInfo.setBackground(new java.awt.Color(238, 238, 228));
-        jlbInfo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        jlbInfo.setForeground(new java.awt.Color(238, 238, 228));
-        jlbInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/information.png"))); // NOI18N
-        jlbInfo.setText("Change Information");
+        informationLabel.setBackground(new java.awt.Color(238, 238, 228));
+        informationLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        informationLabel.setForeground(new java.awt.Color(238, 238, 228));
+        informationLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/information.png"))); // NOI18N
+        informationLabel.setText("Change Information");
 
-        javax.swing.GroupLayout jpnInfoLayout = new javax.swing.GroupLayout(jpnInfo);
-        jpnInfo.setLayout(jpnInfoLayout);
-        jpnInfoLayout.setHorizontalGroup(
-            jpnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnInfoLayout.createSequentialGroup()
+        javax.swing.GroupLayout informationPanelLayout = new javax.swing.GroupLayout(informationPanel);
+        informationPanel.setLayout(informationPanelLayout);
+        informationPanelLayout.setHorizontalGroup(
+            informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informationPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
-        jpnInfoLayout.setVerticalGroup(
-            jpnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpnInfoLayout.createSequentialGroup()
+        informationPanelLayout.setVerticalGroup(
+            informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(informationPanelLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jlbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -271,25 +270,25 @@ public class AdminDashboard extends javax.swing.JFrame {
         jpMenu.setLayout(jpMenuLayout);
         jpMenuLayout.setHorizontalGroup(
             jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuLayout.createSequentialGroup()
                         .addGroup(jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpnTeacher, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jpnPupil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(teacherPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pupilPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(5, 5, 5))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuLayout.createSequentialGroup()
-                        .addComponent(jpnBoardingRoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(boardingRoomPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuLayout.createSequentialGroup()
-                        .addComponent(jpnClass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(classPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuLayout.createSequentialGroup()
                         .addGroup(jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jpnPayment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jpnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(paymentPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(informationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -299,19 +298,19 @@ public class AdminDashboard extends javax.swing.JFrame {
         jpMenuLayout.setVerticalGroup(
             jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMenuLayout.createSequentialGroup()
-                .addComponent(jpnMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jpnTeacher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(teacherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnPupil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pupilPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(classPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnBoardingRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boardingRoomPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jpnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(informationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(93, Short.MAX_VALUE))
@@ -324,12 +323,12 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(jpnRootLayout.createSequentialGroup()
                 .addComponent(jpMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jpnView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(rootPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jpMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(rootPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -384,24 +383,24 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jlbBoardingRoom;
-    private javax.swing.JLabel jlbClass;
-    private javax.swing.JLabel jlbInfo;
+    private javax.swing.JLabel boardingRoomLabel;
+    private javax.swing.JLabel classLabel;
+    private javax.swing.JLabel informationLabel;
     private javax.swing.JLabel jlbLogOut;
-    private javax.swing.JLabel jlbMain;
-    private javax.swing.JLabel jlbPayment;
-    private javax.swing.JLabel jlbPupil;
-    private javax.swing.JLabel jlbTeacher;
-    private javax.swing.JLabel jlbTeacher1;
+    private javax.swing.JLabel mainLabel;
+    private javax.swing.JLabel paymentLabel;
+    private javax.swing.JLabel pupilLabel;
+    private javax.swing.JLabel teacherLabel;
+    private javax.swing.JLabel teacherLabel1;
     private javax.swing.JPanel jpMenu;
-    private javax.swing.JPanel jpnBoardingRoom;
-    private javax.swing.JPanel jpnClass;
-    private javax.swing.JPanel jpnInfo;
-    private javax.swing.JPanel jpnMain;
-    private javax.swing.JPanel jpnPayment;
-    private javax.swing.JPanel jpnPupil;
+    private javax.swing.JPanel boardingRoomPanel;
+    private javax.swing.JPanel classPanel;
+    private javax.swing.JPanel informationPanel;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel paymentPanel;
+    private javax.swing.JPanel pupilPanel;
     private javax.swing.JPanel jpnRoot;
-    private javax.swing.JPanel jpnTeacher;
-    private javax.swing.JPanel jpnView;
+    private javax.swing.JPanel teacherPanel;
+    private javax.swing.JPanel rootPanel;
     // End of variables declaration//GEN-END:variables
 }
