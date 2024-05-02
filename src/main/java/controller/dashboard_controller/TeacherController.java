@@ -9,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -23,6 +25,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import model.people.teacher.Teacher;
+import model.people.teacher.TeacherDatabase;
 import service.TeacherService;
 import service.TeacherServiceImpl;
 import utility.ClassTableModel;
@@ -35,7 +38,7 @@ public class TeacherController {
     private JButton btnRefresh;
     private JTextField jtfSearch;
     private JTable table;
-    private TeacherService teacherService = null;
+    private TeacherDatabase teacherDatabase = null;
     private String[] listColumn = {"Teacher ID", "Name", "Date of birth", "Phone", "Address", "Class ID"};
     private TableRowSorter<TableModel> rowSorter = null;
 
@@ -44,11 +47,11 @@ public class TeacherController {
         this.btnAdd = btnAdd;
         this.jtfSearch = jtfSearch;
         this.btnRefresh = btnRefresh;
-        this.teacherService = new TeacherServiceImpl();
+   //     this.teacherService = new TeacherServiceImpl();
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
-        List<Teacher> listItem = teacherService.getList();
+        List<Teacher> listItem = teacherDatabase.getAllTeacher("Select * from teacher");
         DefaultTableModel model = new ClassTableModel().setTableTeacher(listItem, listColumn);// new ClassTableModel().setTableTeacher(listItem, listColumn);
         table = new JTable(model);
         rowSorter = new TableRowSorter<>(table.getModel());
@@ -149,16 +152,22 @@ public class TeacherController {
         btnRefresh.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Refresh clicked");
-                // Retrieve the updated data from the database
-                List<Teacher> listItem = teacherService.getList();
-
-                // Update the data model of the existing JTable with the new data
-                DefaultTableModel model = new ClassTableModel().setTableTeacher(listItem, listColumn);
-                table.setModel(model); // Set the updated model to the existing JTable
-
-                // Optionally, reapply the RowSorter if needed
-                table.setRowSorter(new TableRowSorter<>(model)); // Create a new RowSorter for the updated model
+                try {
+                    System.out.println("Refresh clicked");
+                    // Retrieve the updated data from the database
+                    List<Teacher> listItem = teacherDatabase.getAllTeacher("Select * from teacher");
+                    
+                    // Update the data model of the existing JTable with the new data
+                    DefaultTableModel model = new ClassTableModel().setTableTeacher(listItem, listColumn);
+                    table.setModel(model); // Set the updated model to the existing JTable
+                    
+                    // Optionally, reapply the RowSorter if needed
+                    table.setRowSorter(new TableRowSorter<>(model)); // Create a new RowSorter for the updated model
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
