@@ -37,7 +37,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jpMenu = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
         mainLabel = new javax.swing.JLabel();
-        teacherLabel1 = new javax.swing.JLabel();
+        jlbTeacher1 = new javax.swing.JLabel();
         teacherPanel = new javax.swing.JPanel();
         teacherLabel = new javax.swing.JLabel();
         boardingRoomPanel = new javax.swing.JPanel();
@@ -54,7 +54,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 765));
-        setPreferredSize(new java.awt.Dimension(1500, 765));
 
         javax.swing.GroupLayout rootPanelLayout = new javax.swing.GroupLayout(rootPanel);
         rootPanel.setLayout(rootPanelLayout);
@@ -74,10 +73,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         mainLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         mainLabel.setText("Boarding Management");
 
-        teacherLabel1.setBackground(new java.awt.Color(238, 238, 228));
-        teacherLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        teacherLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        teacherLabel1.setText("Hi, Admin");
+        jlbTeacher1.setBackground(new java.awt.Color(238, 238, 228));
+        jlbTeacher1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jlbTeacher1.setForeground(new java.awt.Color(153, 153, 153));
+        jlbTeacher1.setText("Hi, Admin");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -86,7 +85,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(teacherLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbTeacher1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(mainLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -96,7 +95,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(mainLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(teacherLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jlbTeacher1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         teacherPanel.setBackground(new java.awt.Color(0, 153, 255));
@@ -114,7 +113,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(teacherPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(teacherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         teacherPanelLayout.setVerticalGroup(
             teacherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +138,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(boardingRoomPanelLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(boardingRoomLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         boardingRoomPanelLayout.setVerticalGroup(
             boardingRoomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,10 +278,10 @@ public class AdminDashboard extends javax.swing.JFrame {
                             .addComponent(paymentPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(informationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jpMenuLayout.createSequentialGroup()
+                .addGap(81, 81, 81)
                 .addComponent(jlbLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jpMenuLayout.setVerticalGroup(
             jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,9 +299,9 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(informationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jlbLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout jpnRootLayout = new javax.swing.GroupLayout(jpnRoot);
@@ -373,23 +372,23 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel boardingRoomLabel;
-    private javax.swing.JLabel classLabel;
-    private javax.swing.JLabel informationLabel;
-    private javax.swing.JLabel jlbLogOut;
-    private javax.swing.JLabel mainLabel;
-    private javax.swing.JLabel paymentLabel;
-    private javax.swing.JLabel pupilLabel;
-    private javax.swing.JLabel teacherLabel;
-    private javax.swing.JLabel teacherLabel1;
-    private javax.swing.JPanel jpMenu;
     private javax.swing.JPanel boardingRoomPanel;
+    private javax.swing.JLabel classLabel;
     private javax.swing.JPanel classPanel;
+    private javax.swing.JLabel informationLabel;
     private javax.swing.JPanel informationPanel;
-    private javax.swing.JPanel mainPanel;
-    private javax.swing.JPanel paymentPanel;
-    private javax.swing.JPanel pupilPanel;
+    private javax.swing.JLabel jlbLogOut;
+    private javax.swing.JLabel jlbTeacher1;
+    private javax.swing.JPanel jpMenu;
     private javax.swing.JPanel jpnRoot;
-    private javax.swing.JPanel teacherPanel;
+    private javax.swing.JLabel mainLabel;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel paymentLabel;
+    private javax.swing.JPanel paymentPanel;
+    private javax.swing.JLabel pupilLabel;
+    private javax.swing.JPanel pupilPanel;
     private javax.swing.JPanel rootPanel;
+    private javax.swing.JLabel teacherLabel;
+    private javax.swing.JPanel teacherPanel;
     // End of variables declaration//GEN-END:variables
 }

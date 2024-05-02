@@ -26,7 +26,7 @@ public class AccountDAOImpl implements AccountDAO{
             ps.setString(2,password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                account=new Account(username,password);
+//                account=new Account(username,password);
                 account.setRole(rs.getInt("role"));
                 account.setID(rs.getString("ID"));
                
