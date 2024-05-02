@@ -1,11 +1,13 @@
 package view.login;
 
 import controller.login_controller.LoginController;
+import java.awt.event.KeyEvent;
 
 public class Login extends javax.swing.JFrame {
+
     public Login() {
         initComponents();
-        LoginController controller = new LoginController(this, submitButton, usernameTextField, passwordTextField, messageLabel);  
+        LoginController controller = new LoginController(this, submitButton, usernameTextField, passwordTextField, messageLabel);
         controller.setEvent();
     }
 
@@ -51,7 +53,7 @@ public class Login extends javax.swing.JFrame {
 
         jpnRoot.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 430));
 
-        usernameTextField.setText("Username\0");
+        usernameTextField.setText("Username");
         usernameTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 usernameTextFieldMouseClicked(evt);
@@ -62,9 +64,19 @@ public class Login extends javax.swing.JFrame {
                 usernameTextFieldActionPerformed(evt);
             }
         });
+        usernameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                usernameTextFieldKeyPressed(evt);
+            }
+        });
         jpnRoot.add(usernameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 156, 180, 30));
 
-        passwordTextField.setText("123456789\0");
+        passwordTextField.setText("jPasswordField1");
+        passwordTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordTextFieldFocusGained(evt);
+            }
+        });
         passwordTextField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 passwordTextFieldMouseClicked(evt);
@@ -73,6 +85,11 @@ public class Login extends javax.swing.JFrame {
         passwordTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordTextFieldActionPerformed(evt);
+            }
+        });
+        passwordTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordTextFieldKeyPressed(evt);
             }
         });
         jpnRoot.add(passwordTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 180, 30));
@@ -118,47 +135,91 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
-        
+//        String temp = "123456789";
+//        char[] currentText = passwordTextField.getPassword();
+//
+//        // Check if the current text equals the default text
+//        if (currentText.equals(temp)) {
+//            // Clear the text field
+//            passwordTextField.setText("");
+//        }
     }//GEN-LAST:event_passwordTextFieldActionPerformed
 
     private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextFieldActionPerformed
-       
+//        String temp = "Username";
+//        String currentText = usernameTextField.getText();
+//
+//        // Check if the current text equals the default text
+//        if (currentText.equals(temp)) {
+//            // Clear the text field
+//            usernameTextField.setText("");
+//        }
     }//GEN-LAST:event_usernameTextFieldActionPerformed
 
     private void usernameTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameTextFieldMouseClicked
         // TODO add your handling code here:
-        if (usernameTextField.getText().equals("Username\0")) usernameTextField.setText("");
+//        if (usernameTextField.getText().equals("Username\0"))
+//            usernameTextField.setText("");
     }//GEN-LAST:event_usernameTextFieldMouseClicked
 
     private void passwordTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordTextFieldMouseClicked
         // TODO add your handling code here:
-        if (passwordTextField.getText().equals("123456789\0")) passwordTextField.setText("");
+//        if (passwordTextField.getPassword().equals("123456789\0"))
+//            passwordTextField.setText("");
     }//GEN-LAST:event_passwordTextFieldMouseClicked
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         // TODO add your handling code here:
 //        if (usernameTextField.getText().equals("admin") && Arrays.equals(passwordTextField.getPassword(), "123".toCharArray())) {
 //        new AdminDashboard().setVisible(true);
-//}
-
+//} 
+    
     }//GEN-LAST:event_submitButtonActionPerformed
+
+    private void usernameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameTextFieldKeyPressed
+        // TODO add your handling code here:
+                String temp = "Username";
+        String currentText = usernameTextField.getText();
+
+        // Check if the current text equals the default text
+        if (currentText.contains(temp)) {
+            // Clear the text field
+            usernameTextField.setText("");
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    passwordTextField.requestFocusInWindow();
+                }
+    }//GEN-LAST:event_usernameTextFieldKeyPressed
+
+    private void passwordTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTextFieldKeyPressed
+        // TODO add your handling code here:
+      if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                    // Perform action here, for example, submit login
+                    submitButton.doClick(PROPERTIES);
+                }
+    }//GEN-LAST:event_passwordTextFieldKeyPressed
+
+    private void passwordTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordTextFieldFocusGained
+        // TODO add your handling code here:
+        passwordTextField.setText("");
+        
+    }//GEN-LAST:event_passwordTextFieldFocusGained
 
     /**
      * @param args the command line arguments
      */
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton submitButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPanel jpnRoot;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JPasswordField passwordTextField;
-    private javax.swing.JPanel jpnRoot;
+    private javax.swing.JButton submitButton;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
 }

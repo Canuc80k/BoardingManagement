@@ -21,20 +21,20 @@ import view.dashboard.side_feature_option.PupilPanel;
 import view.dashboard.side_feature_option.TeacherPanel;
 
 public class AdminDashboardController {
-    private JPanel rootPanel;
+    private JPanel viewPanel;
     private String selectedPanelTitle = "";
     private List<SideFeatureOption> listItem;
 
-    public AdminDashboardController(JPanel rootPanel, JPanel selectedPanel, JLabel selectedLabel) {
-        this.rootPanel = rootPanel;
+    public AdminDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel) {
+        this.viewPanel = viewPanel;
         selectedPanelTitle = "Init";
         selectedPanel.setBackground(new Color(96, 100, 191));
         selectedLabel.setBackground(new Color(96, 100, 191));
-        rootPanel.removeAll();
-        rootPanel.setLayout(new FlowLayout());
-        rootPanel.add(new InitPanel());
-        rootPanel.validate();
-        rootPanel.repaint();
+        viewPanel.removeAll();
+        viewPanel.setLayout(new BorderLayout());
+        viewPanel.add(new InitPanel());
+        viewPanel.validate();
+        viewPanel.repaint();
     }
 
     public void setEvent(List<SideFeatureOption> listItem) {
@@ -51,7 +51,7 @@ public class AdminDashboardController {
     }
 
     class LabelEvent implements MouseListener {
-        private JPanel root;
+        private JPanel view;
         private String sideFeatureOptionTitle;
         private JPanel sideFeatureOptionPanel;
         private JLabel sideFeatureOptionLabel;
@@ -66,12 +66,12 @@ public class AdminDashboardController {
         public void mouseClicked(MouseEvent e) {
             switch (sideFeatureOptionTitle) {
                 case "Init": {
-                    root = new InitPanel();
+                    view = new InitPanel();
                     break;
                 }
                 case "Teacher": {
                     try {
-                        root = new TeacherPanel();
+                        view = new TeacherPanel();
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     } catch (ClassNotFoundException ex) {
@@ -80,35 +80,35 @@ public class AdminDashboardController {
                     break;
                 }
                 case "Pupil": {
-                    root = new PupilPanel();
+                    view = new PupilPanel();
                     break;
                 }
                 case "Class": {
-                    root = new ClassPanel();
+                    view = new ClassPanel();
                     break;
                 }
                 case "BoardingRoom": {
-                    root = new BoardingRoomPanel();
+                    view = new BoardingRoomPanel();
                     break;
                 }
                 case "Payment": {
-                    root = new PaymentPanel();
+                    view = new PaymentPanel();
                     break;    
                 }
                 case "Info": {
-                    root = new InformationPanel();
+                    view = new InformationPanel();
                     break;
                 }
                 default: {
-                    root = new InitPanel();
+                    view = new InitPanel();
                     break;
                 }
             }
-            rootPanel.removeAll();
-            rootPanel.setLayout(new BorderLayout());
-            rootPanel.add(root);
-            rootPanel.validate();
-            rootPanel.repaint();
+            viewPanel.removeAll();
+            viewPanel.setLayout(new BorderLayout());
+            viewPanel.add(view);
+            viewPanel.validate();
+            viewPanel.repaint();
             setChangeBackground(sideFeatureOptionTitle);
         }
 

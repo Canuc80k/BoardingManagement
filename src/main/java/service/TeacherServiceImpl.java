@@ -23,4 +23,14 @@ public class TeacherServiceImpl implements TeacherService{
        return temp.createOrUpdate(teacher);
     }
     
+
+    @Override
+    public int create(Teacher teacher) {
+        return temp.create(teacher);
+    }
+
+    @Override
+    public int update(Teacher teacher) {
+        return temp.update(teacher);
+    }
 }
