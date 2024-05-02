@@ -3,10 +3,6 @@ package view.dashboard.side_feature_option;
 import java.sql.SQLException;
 
 import controller.dashboard_controller.TeacherController;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import model.people.teacher.Teacher;
-import utility.ClassTableModel;
 
 public class TeacherPanel extends javax.swing.JPanel {
 

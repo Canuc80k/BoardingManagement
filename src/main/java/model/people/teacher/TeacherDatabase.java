@@ -38,17 +38,16 @@ public class TeacherDatabase {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
             Statement stmt = con.createStatement();
-
+            
             String query = "INSERT INTO teacher(ID, name, dateofbirth, phonenumber, address, classID) "
                     + "VALUES ('" + teacher.getID() + "', '" + teacher.getName() + "', '"
                     + new Date(teacher.getDoB().getTime()) + "', '" + teacher.getPhone() + "', '"
                     + teacher.getAddress() + "', '" + teacher.getClassID() + "')";
-
+            
             int rowsInserted = stmt.executeUpdate(query);
 
             stmt.close();
             con.close();
-
             return rowsInserted; // Return number of rows inserted
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -56,7 +55,7 @@ public class TeacherDatabase {
         return 0;
     }
 
-    public int update(Teacher teacher) throws ClassNotFoundException {
+    public static int update(Teacher teacher) throws ClassNotFoundException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");

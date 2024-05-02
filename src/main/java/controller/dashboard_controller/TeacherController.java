@@ -26,10 +26,8 @@ import javax.swing.table.TableRowSorter;
 
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
-import service.TeacherService;
-import service.TeacherServiceImpl;
 import utility.ClassTableModel;
-import view.dashboard.ManageTeacherJFrame;
+import view.dashboard.admin_dashboard.ManageTeacherJFrame;
 
 public class TeacherController {
 
@@ -38,7 +36,6 @@ public class TeacherController {
     private JButton btnRefresh;
     private JTextField jtfSearch;
     private JTable table;
-    private TeacherDatabase teacherDatabase = null;
     private String[] listColumn = {"Teacher ID", "Name", "Date of birth", "Phone", "Address", "Class ID"};
     private TableRowSorter<TableModel> rowSorter = null;
 
@@ -47,11 +44,10 @@ public class TeacherController {
         this.btnAdd = btnAdd;
         this.jtfSearch = jtfSearch;
         this.btnRefresh = btnRefresh;
-   //     this.teacherService = new TeacherServiceImpl();
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
-        List<Teacher> listItem = teacherDatabase.getAllTeacher("Select * from teacher");
+        List<Teacher> listItem = TeacherDatabase.getAllTeacher("Select * from teacher");
         DefaultTableModel model = new ClassTableModel().setTableTeacher(listItem, listColumn);// new ClassTableModel().setTableTeacher(listItem, listColumn);
         table = new JTable(model);
         rowSorter = new TableRowSorter<>(table.getModel());
@@ -155,7 +151,7 @@ public class TeacherController {
                 try {
                     System.out.println("Refresh clicked");
                     // Retrieve the updated data from the database
-                    List<Teacher> listItem = teacherDatabase.getAllTeacher("Select * from teacher");
+                    List<Teacher> listItem = TeacherDatabase.getAllTeacher("Select * from teacher");
                     
                     // Update the data model of the existing JTable with the new data
                     DefaultTableModel model = new ClassTableModel().setTableTeacher(listItem, listColumn);

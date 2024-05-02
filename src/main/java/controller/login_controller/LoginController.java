@@ -12,7 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import model.account.Account;
-import view.dashboard.AdminDashboard;
+import view.dashboard.admin_dashboard.AdminDashboard;
 
 public class LoginController {
     private JFrame loginFrame;

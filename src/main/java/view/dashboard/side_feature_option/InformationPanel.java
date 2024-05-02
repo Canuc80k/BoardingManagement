@@ -5,10 +5,8 @@
 package view.dashboard.side_feature_option;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import view.dashboard.side_feature_option.EditAccountPanel;
-import view.dashboard.side_feature_option.EditUserPanel;
-import javax.swing.*;
+
+import javax.swing.JPanel;
 /**
  *
  * @author huant

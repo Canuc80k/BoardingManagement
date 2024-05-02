@@ -1,4 +1,4 @@
-package view.dashboard;
+package view.dashboard.admin_dashboard;
 
 import java.util.ArrayList;
 import java.util.List;

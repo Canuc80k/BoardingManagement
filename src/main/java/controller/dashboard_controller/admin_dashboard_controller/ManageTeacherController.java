@@ -1,17 +1,17 @@
-package controller.dashboard_controller;
+package controller.dashboard_controller.admin_dashboard_controller;
 
-import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
-import java.awt.TextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
+
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
-import service.TeacherService;
-import service.TeacherServiceImpl;
 
 public class ManageTeacherController {
 
@@ -25,7 +25,6 @@ public class ManageTeacherController {
     private JTextField classIDTextField;
     private Teacher teacher = null;
     private JLabel messageLabel;
-    private TeacherDatabase teacherDatabase=null;
 
     public ManageTeacherController(JButton btnSave, JButton btnDelete, JTextField jtfTeacherID, JTextField jtfName,
             JDateChooser jdcNgaySinh, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, Teacher teacher, JLabel jlbMsg) {
@@ -38,7 +37,6 @@ public class ManageTeacherController {
         this.addressTextField = jtfAddress;
         this.classIDTextField = jtfClassID;
         this.messageLabel = jlbMsg;
-        // this.teacherService=new TeacherServiceImpl();
     }
 
     public void setView(Teacher teacher) {
@@ -48,8 +46,7 @@ public class ManageTeacherController {
         phoneTextField.setText(teacher.getPhone());
         addressTextField.setText(teacher.getAddress());
         dobDayChooser.setDate(teacher.getDoB());
-
-        classIDTextField.setText(teacher.getClassID());//System.out.println(teacher.getAddress()+" "+teacher.getClassID());
+        classIDTextField.setText(teacher.getClassID());
     }
 
     public void setEvent(String editOrAdd) {
@@ -64,20 +61,18 @@ public class ManageTeacherController {
                         teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), dobDayChooser.getDate(), phoneTextField.getText(), addressTextField.getText());
                         teacher.setClassID(classIDTextField.getText());
                         int check = -1;
-                        if (editOrAdd == "Add") {
-                            check = teacherDatabase.create(teacher);
+                        if (editOrAdd.equals("add")) {
+                            check = TeacherDatabase.create(teacher);
                         } else {
-                            check = teacherDatabase.update(teacher);
+                            check = TeacherDatabase.update(teacher);
                         }
                         if (check > 0) {
-
                             messageLabel.setText("Update Success");
                         } else {
                             messageLabel.setText("Update Fail");
                         }
-                        //  controller.
                     } catch (ClassNotFoundException ex) {
-                        messageLabel.setText("Exception");
+                        ex.printStackTrace();
                     }
                 }
             }
@@ -104,7 +99,7 @@ public class ManageTeacherController {
                         teacher.setClassID(classIDTextField.getText());
                         int check = -1;
                        
-                        check = teacherDatabase.delete(teacher);
+                        check = TeacherDatabase.delete(teacher);
                         
                         if (check > 0) {
 
