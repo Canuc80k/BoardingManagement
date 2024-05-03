@@ -9,7 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
-
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.account.Account;
+import model.account.AccountDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 
@@ -25,9 +30,12 @@ public class ManageTeacherController {
     private JTextField classIDTextField;
     private Teacher teacher = null;
     private JLabel messageLabel;
+    private JTextField usernameTextField;
+    private JTextField passwordTextField;
+    private Account account = null;
 
     public ManageTeacherController(JButton btnSave, JButton btnDelete, JTextField jtfTeacherID, JTextField jtfName,
-            JDateChooser jdcNgaySinh, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, Teacher teacher, JLabel jlbMsg) {
+            JDateChooser jdcNgaySinh, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, JTextField jtfUsername, JTextField jtfPassword, Teacher teacher, JLabel jlbMsg) {
         this.saveButton = btnSave;
         this.deleteButton = btnDelete;
         this.teacherIDTextField = jtfTeacherID;
@@ -36,42 +44,66 @@ public class ManageTeacherController {
         this.phoneTextField = jtfPhone;
         this.addressTextField = jtfAddress;
         this.classIDTextField = jtfClassID;
+        this.usernameTextField = jtfUsername;
+        this.passwordTextField = jtfPassword;
         this.messageLabel = jlbMsg;
     }
 
-    public void setView(Teacher teacher) {
-        this.teacher = teacher;
-        teacherIDTextField.setText(teacher.getID());
-        nameTextField.setText(teacher.getName());
-        phoneTextField.setText(teacher.getPhone());
-        addressTextField.setText(teacher.getAddress());
-        dobDayChooser.setDate(teacher.getDoB());
-        classIDTextField.setText(teacher.getClassID());
+    public void setView(Teacher teacher, String editOrAdd) {
+        try {
+            this.teacher = teacher;
+            String teacherID = teacher.getID();
+            teacherIDTextField.setText(teacher.getID());
+            nameTextField.setText(teacher.getName());
+            phoneTextField.setText(teacher.getPhone());
+            addressTextField.setText(teacher.getAddress());
+            dobDayChooser.setDate(teacher.getDoB());
+            classIDTextField.setText(teacher.getClassID());
+
+            if (editOrAdd.equals("add")) {
+                account = new Account("", "", "", 2);
+                usernameTextField.setText("");
+                passwordTextField.setText("");
+            } else {
+                account = AccountDatabase.getAccountByID(teacherID);
+                usernameTextField.setText(account.getUsername());
+                passwordTextField.setText(account.getPassword());
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ManageTeacherController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void setEvent(String editOrAdd) {
         saveButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.print("Saving");
                 if (nameTextField.getText().length() == 0 || dobDayChooser.getDate() == null) {
                     messageLabel.setText("Please enter fill compulsory informations");
                 } else {
                     try {
-                        teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), dobDayChooser.getDate(), phoneTextField.getText(), addressTextField.getText());
+                        account = new Account(teacherIDTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 2);
+                        teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()), phoneTextField.getText(), addressTextField.getText());
                         teacher.setClassID(classIDTextField.getText());
-                        int check = -1;
+                        int checkTeacher = -1;
+                        int checkAccount = -1;
                         if (editOrAdd.equals("add")) {
-                            check = TeacherDatabase.create(teacher);
+                            if (AccountDatabase.getAccountByID(account.getID()) != null) {
+                                messageLabel.setText("ID invalid");
+                            } else {
+                                checkAccount = AccountDatabase.create(account);
+                                checkTeacher = TeacherDatabase.create(teacher);
+                            }
                         } else {
-                            check = TeacherDatabase.update(teacher);
+                            checkAccount = AccountDatabase.update(account);
+                            checkTeacher = TeacherDatabase.update(teacher);
                         }
-                        if (check > 0) {
+                        if (checkTeacher > 0 && checkAccount > 0) {
                             messageLabel.setText("Update Success");
                         } else {
                             messageLabel.setText("Update Fail");
                         }
-                    } catch (ClassNotFoundException ex) {
+                    } catch (ClassNotFoundException | SQLException ex) {
                         ex.printStackTrace();
                     }
                 }
@@ -86,7 +118,6 @@ public class ManageTeacherController {
             public void mouseExited(MouseEvent e) {
                 saveButton.setBackground(new Color(100, 221, 23));
             }
-
         });
         deleteButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -97,17 +128,15 @@ public class ManageTeacherController {
                     try {
                         teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), dobDayChooser.getDate(), phoneTextField.getText(), addressTextField.getText());
                         teacher.setClassID(classIDTextField.getText());
-                        int check = -1;
-                       
-                        check = TeacherDatabase.delete(teacher);
-                        
-                        if (check > 0) {
+                        account = new Account(teacherIDTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 2);
+                        int checkTeacher = TeacherDatabase.delete(teacher);
+                        int checkAccount = AccountDatabase.delete(account);
 
+                        if (checkTeacher > 0 && checkAccount > 0) {
                             messageLabel.setText("Delete Success");
                         } else {
                             messageLabel.setText("Delete Fail");
                         }
-                        //  controller.
                     } catch (ClassNotFoundException ex) {
                         messageLabel.setText("Exception");
                     }
@@ -116,14 +145,13 @@ public class ManageTeacherController {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-               // Button.setBackground(new Color(0, 200, 83));
+                // Button.setBackground(new Color(0, 200, 83));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-               // saveButton.setBackground(new Color(100, 221, 23));
+                // saveButton.setBackground(new Color(100, 221, 23));
             }
-
         });
     }
 }
