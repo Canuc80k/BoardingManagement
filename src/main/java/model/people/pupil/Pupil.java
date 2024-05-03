@@ -9,15 +9,15 @@ public class Pupil extends People {
     private String parentName;
     private String boardingroom;
     private int absentday;
-    private boolean gender;
+   // private boolean gender;
 
-    public Pupil(String id, String name, Date dob, String phone, String address, String classID, String parentName, String boardingroom, int absentday, boolean gender) {
+    public Pupil(String id, String name, Date dob, String phone, String address, String classID, String parentName, String boardingroom, int absentday) {
         super(id, name, dob, phone, address);
         this.classID = classID;
         this.parentName = parentName;
         this.boardingroom = boardingroom;
         this.absentday = absentday;
-        this.gender = gender;
+        //this.gender = gender;
     }
 
     public String getClassID() {
@@ -52,11 +52,11 @@ public class Pupil extends People {
         this.absentday = absentday;
     }
 
-    public boolean getGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
+//    public boolean getGender() {
+//        return gender;
+//    }
+//
+//    public void setGender(boolean gender) {
+//        this.gender = gender;
+//    }
 }
