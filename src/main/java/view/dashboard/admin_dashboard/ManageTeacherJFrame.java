@@ -4,6 +4,8 @@
  */
 package view.dashboard.admin_dashboard;
 
+import java.awt.Font;
+
 import controller.dashboard_controller.admin_dashboard_controller.ManageTeacherController;
 import model.people.teacher.Teacher;
 
@@ -54,9 +56,9 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
         saveButton.setBackground(new java.awt.Color(51, 153, 0));
         saveButton.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         saveButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -90,13 +92,13 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
 
         idTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
 
-        nameTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
+        // nameTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
 
-        phoneTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
+        // phoneTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
 
-        addressTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
+        // addressTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
 
-        classIDTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
+        // classIDTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 14)); // NOI18N
 
         dobDayChooser.setDateFormatString("yyyy-MM-dd");
 

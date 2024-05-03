@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TeacherDatabase {
@@ -54,7 +53,7 @@ public static int create(Teacher teacher) {
 
             pstmt.close();
             con.close();
-            return rowsInserted; // Return number of rows inserted
+            return rowsInserted;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -75,12 +74,12 @@ public static int create(Teacher teacher) {
             pstmt.setString(4, teacher.getAddress());
             pstmt.setString(5, teacher.getID());
 
-            int rowsUpdated = pstmt.executeUpdate(); // Execute the update query
+            int rowsUpdated = pstmt.executeUpdate();
 
             pstmt.close();
             con.close();
 
-            return rowsUpdated; // Return the number of rows updated
+            return rowsUpdated;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -95,12 +94,12 @@ public static int create(Teacher teacher) {
 
             String query = "DELETE FROM teacher WHERE ID='" + teacher.getID() + "'";
 
-            int rowsDeleted = stmt.executeUpdate(query); // Execute the delete query
+            int rowsDeleted = stmt.executeUpdate(query); 
 
             stmt.close();
             con.close();
 
-            return rowsDeleted; // Return the number of rows deleted
+            return rowsDeleted;
         } catch (SQLException e) {
             e.printStackTrace();
         }

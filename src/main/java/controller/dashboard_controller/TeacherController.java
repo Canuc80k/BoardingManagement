@@ -89,7 +89,6 @@ public class TeacherController {
                     // Retrieve data from the selected row in the model
                     String id = model.getValueAt(selectedRowIndex, 0).toString();
                     String name = model.getValueAt(selectedRowIndex, 1).toString();
-                    String dateString = model.getValueAt(selectedRowIndex, 2).toString();
                     String email = model.getValueAt(selectedRowIndex, 3).toString();
                     String phone = model.getValueAt(selectedRowIndex, 4).toString();
                     String classId = model.getValueAt(selectedRowIndex, 5).toString();

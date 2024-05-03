@@ -8,14 +8,14 @@ public class Menu {
     public String getFoodName() {
     	return foodName;
     }
-    private void setFoodName(String foodName) {
+    public void setFoodName(String foodName) {
     	this.foodName = foodName;
     }
     
     public Calendar getCalendarID() {
     	return calendarID;
     }
-    private void setCalendarID(Calendar calendarID) {
+    public void setCalendarID(Calendar calendarID) {
     	this.calendarID = calendarID;
     }
 }
