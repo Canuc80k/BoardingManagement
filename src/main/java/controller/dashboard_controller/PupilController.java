@@ -1,15 +1,14 @@
 package controller.dashboard_controller;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,11 +20,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
-import model.people.teacher.Teacher;
 import view.dashboard.admin_dashboard.ManagePupilJFrame;
-import view.dashboard.admin_dashboard.ManageTeacherJFrame;
 
 public class PupilController {
 
