@@ -1,4 +1,6 @@
-package model.people.teacher;
+
+
+package model.people.pupil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,25 +9,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class TeacherDatabase {
+public class PupilDatabase {
 
-    public TeacherDatabase() {
+    public PupilDatabase() {
     }
 
-    public static List<Teacher> getAllTeacher(String query) throws SQLException, ClassNotFoundException {
+    public static List<Pupil> getAllPupils(String query) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 
-        List<Teacher> res = new ArrayList<Teacher>();
+        List<Pupil> res = new ArrayList<>();
         while (rs.next()) {
-            //res.add(new Teacher(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getString(5)));
-            Teacher temp = new Teacher(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getString(5));
-            temp.setClassID(rs.getString(6));
+            Pupil temp = new Pupil(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getInt(9),rs.getBoolean(10));
+
             res.add(temp);
         }
         rs.close();
@@ -34,21 +34,25 @@ public class TeacherDatabase {
         return res;
     }
 
-public static int create(Teacher teacher) {
+    public static int create(Pupil pupil) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
 
-            String query = "INSERT INTO teacher(ID, name, dateofbirth, phonenumber, address, classID) "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
-            
+            String query = "INSERT INTO pupil(ID, name, dateofbirth, phonenumber, address, classID, parentName, boardingroom, absentday, gender) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, teacher.getID());
-            pstmt.setString(2, teacher.getName());
-            pstmt.setDate(3, new java.sql.Date(teacher.getDoB().getTime()));
-            pstmt.setString(4, teacher.getPhone());
-            pstmt.setString(5, teacher.getAddress());
-            pstmt.setString(6, teacher.getClassID());
+            pstmt.setString(1, pupil.getID());
+            pstmt.setString(2, pupil.getName());
+            pstmt.setDate(3, new java.sql.Date(pupil.getDoB().getTime()));
+            pstmt.setString(4, pupil.getPhone());
+            pstmt.setString(5, pupil.getAddress());
+            pstmt.setString(6, pupil.getClassID());
+            pstmt.setString(7, pupil.getParentName());
+            pstmt.setString(8, pupil.getBoardingroom());
+            pstmt.setInt(9, pupil.getAbsentday());
+            pstmt.setBoolean(10, pupil.getGender());
 
             int rowsInserted = pstmt.executeUpdate();
 
@@ -61,19 +65,24 @@ public static int create(Teacher teacher) {
         return 0;
     }
 
-    public static int update(Teacher teacher) {
+    public static int update(Pupil pupil) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
 
-            String query = "UPDATE teacher SET name=?, dateofbirth=?, phonenumber=?, address=? WHERE ID=?";
-            
+            String query = "UPDATE pupil SET name=?, dateofbirth=?, phonenumber=?, address=?, classID=?, parentName=?, boardingroom=?, absentday=?, gender=? WHERE ID=?";
+
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, teacher.getName());
-            pstmt.setDate(2, new java.sql.Date(teacher.getDoB().getTime()));
-            pstmt.setString(3, teacher.getPhone());
-            pstmt.setString(4, teacher.getAddress());
-            pstmt.setString(5, teacher.getID());
+            pstmt.setString(1, pupil.getName());
+            pstmt.setDate(2, new java.sql.Date(pupil.getDoB().getTime()));
+            pstmt.setString(3, pupil.getPhone());
+            pstmt.setString(4, pupil.getAddress());
+            pstmt.setString(5, pupil.getClassID());
+            pstmt.setString(6, pupil.getParentName());
+            pstmt.setString(7, pupil.getBoardingroom());
+            pstmt.setInt(8, pupil.getAbsentday());
+            pstmt.setBoolean(9, pupil.getGender());
+            pstmt.setString(10, pupil.getID());
 
             int rowsUpdated = pstmt.executeUpdate(); // Execute the update query
 
@@ -87,13 +96,13 @@ public static int create(Teacher teacher) {
         return 0;
     }
 
-    public static int delete(Teacher teacher) throws ClassNotFoundException {
+    public static int delete(Pupil pupil) throws ClassNotFoundException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
             Statement stmt = con.createStatement();
 
-            String query = "DELETE FROM teacher WHERE ID='" + teacher.getID() + "'";
+            String query = "DELETE FROM pupil WHERE ID='" + pupil.getID() + "'";
 
             int rowsDeleted = stmt.executeUpdate(query); // Execute the delete query
 
@@ -106,5 +115,4 @@ public static int create(Teacher teacher) {
         }
         return 0;
     }
-
 }
