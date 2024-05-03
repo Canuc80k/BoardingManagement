@@ -24,8 +24,7 @@ public class PupilDatabase {
 
         List<Pupil> res = new ArrayList<>();
         while (rs.next()) {
-            Pupil temp = new Pupil(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getInt(9),rs.getBoolean(10));
-
+            Pupil temp = new Pupil(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getInt(9));
             res.add(temp);
         }
         rs.close();
@@ -39,20 +38,20 @@ public class PupilDatabase {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
 
-            String query = "INSERT INTO pupil(ID, name, dateofbirth, phonenumber, address, classID, parentName, boardingroom, absentday, gender) "
+            String query = "INSERT INTO pupil(ID,name,dateofbirth,class,parentname,phonenumber,address,boardingroom,absentday) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, pupil.getID());
             pstmt.setString(2, pupil.getName());
             pstmt.setDate(3, new java.sql.Date(pupil.getDoB().getTime()));
-            pstmt.setString(4, pupil.getPhone());
-            pstmt.setString(5, pupil.getAddress());
-            pstmt.setString(6, pupil.getClassID());
-            pstmt.setString(7, pupil.getParentName());
+            pstmt.setString(4, pupil.getClassID());
+            pstmt.setString(5, pupil.getParentName());
+            pstmt.setString(6, pupil.getPhone());
+            pstmt.setString(7, pupil.getAddress());
             pstmt.setString(8, pupil.getBoardingroom());
             pstmt.setInt(9, pupil.getAbsentday());
-            pstmt.setBoolean(10, pupil.getGender());
+           // pstmt.setBoolean(10, pupil.getGender());
 
             int rowsInserted = pstmt.executeUpdate();
 
@@ -81,8 +80,8 @@ public class PupilDatabase {
             pstmt.setString(6, pupil.getParentName());
             pstmt.setString(7, pupil.getBoardingroom());
             pstmt.setInt(8, pupil.getAbsentday());
-            pstmt.setBoolean(9, pupil.getGender());
-            pstmt.setString(10, pupil.getID());
+            //pstmt.setBoolean(9, pupil.getGender());
+            pstmt.setString(9, pupil.getID());
 
             int rowsUpdated = pstmt.executeUpdate(); // Execute the update query
 

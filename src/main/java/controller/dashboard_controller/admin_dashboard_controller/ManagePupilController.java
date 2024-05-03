@@ -1,0 +1,193 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package controller.dashboard_controller.admin_dashboard_controller;
+
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import com.toedter.calendar.JDateChooser;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.people.pupil.Pupil;
+import model.people.pupil.PupilDatabase;
+import model.account.Account;
+import model.account.AccountDatabase;
+
+public class ManagePupilController {
+
+    private JButton saveButton;
+    private JButton deleteButton;
+    private JButton cancelButton;
+    private JLabel messageLabel;
+    private JTextField idTextField;
+    private JTextField nameTextField;
+    private JTextField parentNameTextField;
+    private JTextField usernameTextField;
+    private JTextField passwordTextField;
+    private JTextField phoneTextField;
+    private JTextField addressTextField;
+    private JTextField classIDTextField;
+    private JTextField absentDayTextField;
+    private JTextField boardingRoomTextField;
+    private JDateChooser dobDayChooser;
+    private Pupil pupil = null;
+    private Account account = null;
+
+    public ManagePupilController(JButton btnSave, JButton btnDelete, JButton btnCancel,  JTextField jtfId, JTextField jtfName, JDateChooser jdcDob,JTextField jtfClassID,
+            JTextField jtfParentName, JTextField jtfPhone,  JTextField jtfAddress, JTextField jtfBoardingRoom,
+             JTextField jtfAbsentDay,JTextField jtfUsername, JTextField jtfPassword ,Pupil pupil,JLabel jlbMsg) {
+        this.saveButton = btnSave;
+        this.deleteButton = btnDelete;
+        this.cancelButton = btnCancel;
+        this.messageLabel = jlbMsg;
+        this.idTextField = jtfId;
+        this.nameTextField = jtfName;
+        this.parentNameTextField = jtfParentName;
+        this.usernameTextField = jtfUsername;
+        this.passwordTextField = jtfPassword;
+        this.phoneTextField = jtfPhone;
+        this.addressTextField = jtfAddress;
+        this.classIDTextField = jtfClassID;
+        this.absentDayTextField = jtfAbsentDay;
+        this.boardingRoomTextField = jtfBoardingRoom;
+        this.dobDayChooser = jdcDob;
+    }
+
+    public void setView(Pupil pupil, String editOrAdd) {
+        try {
+            this.pupil = pupil;
+            String pupilID = pupil.getID();
+            idTextField.setText(pupil.getID());
+            nameTextField.setText(pupil.getName());
+            parentNameTextField.setText(pupil.getParentName());
+            phoneTextField.setText(pupil.getPhone());
+            addressTextField.setText(pupil.getAddress());
+            dobDayChooser.setDate(pupil.getDoB());
+            classIDTextField.setText(pupil.getClassID());
+            absentDayTextField.setText(String.valueOf(pupil.getAbsentday()));
+            boardingRoomTextField.setText(pupil.getBoardingroom());
+
+            if (editOrAdd.equals("add")) {
+                account = new Account("", "", "", 3);
+                usernameTextField.setText("");
+                passwordTextField.setText("");
+            } else {
+                account = AccountDatabase.getAccountByID(pupilID);
+                usernameTextField.setText(account.getUsername());
+                passwordTextField.setText(account.getPassword());
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ManagePupilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setEvent(String editOrAdd) {
+        saveButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (nameTextField.getText().isEmpty() || dobDayChooser.getDate() == null) {
+                    messageLabel.setText("Please fill in all required information");
+                } else {
+                    try {
+                        account = new Account(idTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 3);
+                        pupil = new Pupil(idTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),
+                                classIDTextField.getText(), parentNameTextField.getText(), phoneTextField.getText(), addressTextField.getText(),
+                                boardingRoomTextField.getText(), Integer.parseInt(absentDayTextField.getText()));
+                        int checkPupil = -1;
+                        int checkAccount = -1;
+                        if (editOrAdd.equals("add")) {
+                            if (AccountDatabase.getAccountByID(account.getID()) != null) {
+                                messageLabel.setText("Invalid ID");
+                            } else {
+                                checkAccount = AccountDatabase.create(account);
+                                checkPupil = PupilDatabase.create(pupil);
+                            }
+                        } else {
+                            checkAccount = AccountDatabase.update(account);
+                            checkPupil = PupilDatabase.update(pupil);
+                        }
+                        if (checkPupil > 0 && checkAccount > 0) {
+                            messageLabel.setText("Update Successful");
+                        } else {
+                            messageLabel.setText("Update Failed");
+                        }
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                saveButton.setBackground(new Color(0, 200, 83));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                saveButton.setBackground(new Color(100, 221, 23));
+            }
+        });
+
+        deleteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (nameTextField.getText().isEmpty() || dobDayChooser.getDate() == null) {
+                    messageLabel.setText("Can't delete null values");
+                } else {
+                    try {
+                        pupil = new Pupil(idTextField.getText(), nameTextField.getText(), dobDayChooser.getDate(), classIDTextField.getText(),
+                                parentNameTextField.getText(), phoneTextField.getText(), addressTextField.getText(), boardingRoomTextField.getText(),
+                                Integer.parseInt(absentDayTextField.getText()));
+                        account = new Account(idTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 1);
+                        int checkPupil = PupilDatabase.delete(pupil);
+                        int checkAccount = AccountDatabase.delete(account);
+
+                        if (checkPupil > 0 && checkAccount > 0) {
+                            messageLabel.setText("Delete Successful");
+                        } else {
+                            messageLabel.setText("Delete Failed");
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        messageLabel.setText("Exception");
+                    }
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // deleteButton.setBackground(new Color(0, 200, 83));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // deleteButton.setBackground(new Color(100, 221, 23));
+            }
+        });
+
+        cancelButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Your code to handle cancel button click
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                // cancelButton.setBackground(new Color(0, 200, 83));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                // cancelButton.setBackground(new Color(100, 221, 23));
+            }
+        });
+    }
+}

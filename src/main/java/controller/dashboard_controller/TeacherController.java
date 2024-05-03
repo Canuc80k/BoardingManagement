@@ -1,5 +1,4 @@
 package controller.dashboard_controller;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -95,7 +94,7 @@ public class TeacherController {
                     String classId = model.getValueAt(selectedRowIndex, 5).toString();
                     // Parse the date string into a Date object (assuming dateString is in "yyyy-MM-dd" format)
                     Date dateOfBirth = (Date) model.getValueAt(selectedRowIndex, 2);
-
+  // String dateString = model.getValueAt(selectedRowIndex, 2).toString();
                     // Create a new Teacher object with the parsed data
                     Teacher teacher = new Teacher(id, name, dateOfBirth, email, phone);
                     teacher.setClassID(classId);
