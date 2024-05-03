@@ -4,13 +4,13 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.people.teacher.Teacher;
 
-
 public class ClassTableModel {
-       public DefaultTableModel setTableTeacher(List<Teacher> listItem,String[] listColumn){
-           DefaultTableModel model=new DefaultTableModel(){
+       public DefaultTableModel setTableTeacher(List<Teacher> listItem, String[] listColumn) {
+           DefaultTableModel model = new DefaultTableModel(){
                @Override
-               public boolean isCellEditable(int row, int column) {
-                   return false;               }
+                public boolean isCellEditable(int row, int column) {
+                   return false;
+                }
                
            };
            model.setColumnIdentifiers(listColumn);
