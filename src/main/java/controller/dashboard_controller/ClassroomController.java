@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,6 +27,7 @@ import javax.swing.table.TableRowSorter;
 import model.classroom.Classroom;
 import model.classroom.ClassroomDatabase;
 import view.dashboard.admin_dashboard.ManageClassroomJFrame;
+import view.dashboard.admin_dashboard.ShowDetailJFrame;
 
 public class ClassroomController {
 
@@ -36,7 +40,7 @@ public class ClassroomController {
     private String[] listColumn = {"Class ID", "Room", "Quantity"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public ClassroomController(JPanel jpnView, JButton btnAdd, JButton btnDetail,JTextField jtfSearch, JButton btnRefresh) {
+    public ClassroomController(JPanel jpnView, JButton btnAdd, JButton btnDetail, JTextField jtfSearch, JButton btnRefresh) {
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
         this.btnDetail = btnDetail;
@@ -177,6 +181,45 @@ public class ClassroomController {
                 btnRefresh.setBackground(Color.GRAY);
             }
         });
+        btnDetail.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Detail clicked");
+                // Retrieve the updated data from the database
+
+                if (e.getClickCount() == 1 && table.getSelectedRow() != -1) {
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    int selectedRowIndex = table.getSelectedRow();
+                    selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
+                    // Retrieve data from the selected row in the model
+                    String classID = model.getValueAt(selectedRowIndex, 0).toString();
+                    String room = model.getValueAt(selectedRowIndex, 1).toString();
+                    int quantity = Integer.parseInt(model.getValueAt(selectedRowIndex, 2).toString());
+                    // Create a new Classroom object with the parsed data
+                    Classroom classroom = new Classroom(classID, room, quantity);
+                    // Open the ManageClassroomJFrame to display detailed classroom information
+                    ShowDetailJFrame frame1 = new ShowDetailJFrame(classroom);
+                    frame1 = new ShowDetailJFrame(classroom);
+                    frame1.setTitle("Classroom Detail");
+                    frame1.setResizable(false);
+                    frame1.setLocationRelativeTo(null);
+                    frame1.setVisible(true);
+                }
+
+            }
+
+            @Override
+
+            public void mouseEntered(MouseEvent e) {
+                btnDetail.setBackground(new Color(252, 44, 3));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnDetail.setBackground(Color.GRAY);
+            }
+        }
+        );
 
     }
 }
