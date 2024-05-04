@@ -23,7 +23,7 @@ public class InitPanel extends javax.swing.JPanel {
     public InitPanel(Account account) {
         try {
             initComponents();
-            InitController controller = new InitController(viewPanel, searchTextField,teacherLabel,pupilLabel,classroomLabel,boardingroomLabel);
+            InitController controller = new InitController(viewPanel, searchTextField,teacherLabel,pupilLabel,classroomLabel,boardingroomLabel,account);
             controller.setDataToTable();
             //controller.setEvent();
         } catch (SQLException ex) {

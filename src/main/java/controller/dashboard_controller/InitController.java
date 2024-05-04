@@ -1,4 +1,5 @@
 package controller.dashboard_controller;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,8 +28,12 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.account.Account;
 import model.boardingroom.BoardingroomDatabase;
 import model.classroom.ClassroomDatabase;
+import model.people.admin.Admin;
+import model.people.admin.AdminDatabase;
+import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
@@ -44,10 +49,12 @@ public class InitController {
     private JLabel classroomLabel;
     private JLabel boardingroomLabel;
     private JTable table;
+    private Account account;
     private String[] listColumn = {"ID", "Name", "Class", "Time"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public InitController(JPanel jpnView, JTextField jtfSearch, JLabel teacherLabel, JLabel pupilLabel, JLabel classroomLabel, JLabel boardingroomLabel) {
+    public InitController(JPanel jpnView, JTextField jtfSearch, JLabel teacherLabel, JLabel pupilLabel, JLabel classroomLabel, JLabel boardingroomLabel, Account account) {
+        this.account = account;
         this.jpnView = jpnView;
         this.jtfSearch = jtfSearch;
         this.teacherLabel = teacherLabel;
@@ -102,24 +109,54 @@ public class InitController {
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
-        List<Teacher> listItem = TeacherDatabase.getAllTeacher("SELECT * FROM teacher where ID="+"");
-        DefaultTableModel model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        model.setColumnIdentifiers(listColumn);
+        System.out.println("..........................SetDatatoTable InitPanel..........................");
+        List<Teacher> listItemTeacher = TeacherDatabase.getAllTeacher("SELECT * FROM teacher where ID=" + account.getID());
+        List<Admin> listItemAdmin = AdminDatabase.getAllAdmin("SELECT * FROM admin where ID=" + account.getID());
+        List<Pupil> listItemPupil = PupilDatabase.getAllPupil("SELECT * FROM pupil where ID=" + account.getID());
+        //  System.out.println("SQL Query: " + "SELECT * FROM teacher where ID=" + account.getID());
+        DefaultTableModel model = loadFromFile(FileName);
+        //model.setColumnIdentifiers(listColumn);
 
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedTime = currentTime.format(formatter);
+        //    System.out.println("Time:" + formattedTime);
+        for (Teacher teacher : listItemTeacher) {
+//            System.out.println("ID:" + teacher.getID());
+//            System.out.println("Name:" + teacher.getID());
+//            System.out.println("ClassID:" + teacher.getClassID());
+//            System.out.println("Time:" + formattedTime);
 
-        for (Teacher teacher : listItem) {
             model.addRow(new Object[]{
                 teacher.getID(),
                 teacher.getName(),
                 teacher.getClassID(),
+                formattedTime // Adding the current date/time to each row
+            });
+        }
+        for (Pupil pupil : listItemPupil) {
+//            System.out.println("ID:" + teacher.getID());
+//            System.out.println("Name:" + teacher.getID());
+//            System.out.println("ClassID:" + teacher.getClassID());
+//            System.out.println("Time:" + formattedTime);
+
+            model.addRow(new Object[]{
+                pupil.getID(),
+                pupil.getName(),
+                pupil.getClassID(),
+                formattedTime // Adding the current date/time to each row
+            });
+        }
+        for (Admin admin : listItemAdmin) {
+//            System.out.println("ID:" + teacher.getID());
+//            System.out.println("Name:" + teacher.getID());
+//            System.out.println("ClassID:" + teacher.getClassID());
+//            System.out.println("Time:" + formattedTime);
+
+            model.addRow(new Object[]{
+                admin.getID(),
+                admin.getName(),
+                "Admin",
                 formattedTime // Adding the current date/time to each row
             });
         }
@@ -183,10 +220,10 @@ public class InitController {
             int boardingroomCount = BoardingroomDatabase.countBoardingrooms(); // Assuming countBoardingrooms() is a method in BoardingroomDatabase class
 
             // Update the labels with the counts
-            teacherLabel.setText(""+teacherCount);
-            pupilLabel.setText(""+pupilCount);
-            classroomLabel.setText(""+classroomCount);
-            boardingroomLabel.setText(""+boardingroomCount);
+            teacherLabel.setText("" + teacherCount);
+            pupilLabel.setText("" + pupilCount);
+            classroomLabel.setText("" + classroomCount);
+            boardingroomLabel.setText("" + boardingroomCount);
         } catch (SQLException ex) {
             // Handle exception
             ex.printStackTrace();

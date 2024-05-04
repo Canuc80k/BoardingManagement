@@ -49,7 +49,7 @@ public class PupilController {
 
     public void setDataToTable() {
         try {
-            List<Pupil> listItem = PupilDatabase.getAllPupils("SELECT * FROM pupil");
+            List<Pupil> listItem = PupilDatabase.getAllPupil("SELECT * FROM pupil");
             //DefaultTableModel model = new DefaultTableModel();
             DefaultTableModel model = new DefaultTableModel() {
                 @Override

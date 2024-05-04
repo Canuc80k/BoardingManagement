@@ -140,6 +140,7 @@ public class ManagePupilController {
                         if (checkPupil > 0 && checkAccount > 0) {
                             messageLabel.setText("Update Successful");
                         } else {
+                            if(editOrAdd.equals("add"))AccountDatabase.delete(account);
                             messageLabel.setText("Update Failed");
                         }
                     } catch (ClassNotFoundException | SQLException ex) {

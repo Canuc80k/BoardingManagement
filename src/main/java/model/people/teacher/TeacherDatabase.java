@@ -60,7 +60,7 @@ public class TeacherDatabase {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
 
             String query = "INSERT INTO teacher(ID, name, dateofbirth,gender, phonenumber, address, classID) "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?,?)";
 
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, teacher.getID());
@@ -87,7 +87,7 @@ public class TeacherDatabase {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
 
-            String query = "UPDATE teacher SET name=?, dateofbirth=?,gender=?, phonenumber=?, address=? WHERE ID=?";
+            String query = "UPDATE teacher SET name=?, dateofbirth=?,gender=?, phonenumber=?, address=?,classID=? WHERE ID=?";
 
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setString(1, teacher.getName());
@@ -95,7 +95,8 @@ public class TeacherDatabase {
             pstmt.setInt(3, teacher.getGender());
             pstmt.setString(4, teacher.getPhone());
             pstmt.setString(5, teacher.getAddress());
-            pstmt.setString(6, teacher.getID());
+            pstmt.setString(6, teacher.getClassID());
+            pstmt.setString(7, teacher.getID());
 
             int rowsUpdated = pstmt.executeUpdate();
 

@@ -111,6 +111,7 @@ public class ManageTeacherController {
                         if (checkTeacher > 0 && checkAccount > 0) {
                             messageLabel.setText("Update Success");
                         } else {
+                            if(editOrAdd.equals("add"))AccountDatabase.delete(account);
                             messageLabel.setText("Update Fail");
                         }
                     } catch (ClassNotFoundException | SQLException ex) {
