@@ -8,16 +8,16 @@ public class Pupil extends People {
     private String classID;
     private String parentName;
     private String boardingroom;
-    private int absentday;
-   // private boolean gender;
+    //private int absentday;
+   
 
-    public Pupil(String id, String name, Date dob, String phone, String address, String classID, String parentName, String boardingroom, int absentday) {
-        super(id, name, dob, phone, address);
+    public Pupil(String id, String name, Date dob,int gender, String classID,  String parentName, String phone,String address, String boardingroom) {
+        super(id, name, dob, gender,phone, address);
         this.classID = classID;
         this.parentName = parentName;
         this.boardingroom = boardingroom;
-        this.absentday = absentday;
-        //this.gender = gender;
+       // this.absentday = absentday;
+       // this.gender = gender;
     }
 
     public String getClassID() {
@@ -44,19 +44,4 @@ public class Pupil extends People {
         this.boardingroom = boardingroom;
     }
 
-    public int getAbsentday() {
-        return absentday;
-    }
-
-    public void setAbsentday(int absentday) {
-        this.absentday = absentday;
-    }
-
-//    public boolean getGender() {
-//        return gender;
-//    }
-//
-//    public void setGender(boolean gender) {
-//        this.gender = gender;
-//    }
 }

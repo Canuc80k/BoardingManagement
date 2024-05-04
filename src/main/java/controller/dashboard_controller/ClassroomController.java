@@ -1,16 +1,15 @@
 package controller.dashboard_controller;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,60 +21,48 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.people.pupil.Pupil;
+import model.classroom.Classroom;
+import model.classroom.ClassroomDatabase;
+import view.dashboard.admin_dashboard.ManageClassroomJFrame;
 
-import model.people.pupil.Pupil;
-import model.people.pupil.PupilDatabase;
-import model.people.teacher.Teacher;
-import view.dashboard.admin_dashboard.ManagePupilJFrame;
-import view.dashboard.admin_dashboard.ManageTeacherJFrame;
-
-public class PupilController {
+public class ClassroomController {
 
     private JPanel jpnView;
     private JButton btnAdd;
+    private JButton btnDetail;
     private JButton btnRefresh;
     private JTextField jtfSearch;
     private JTable table;
-    private String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
+    private String[] listColumn = {"Class ID", "Room", "Quantity"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public PupilController(JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh) {
+    public ClassroomController(JPanel jpnView, JButton btnAdd, JButton btnDetail,JTextField jtfSearch, JButton btnRefresh) {
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
+        this.btnDetail = btnDetail;
         this.jtfSearch = jtfSearch;
         this.btnRefresh = btnRefresh;
     }
 
-    public void setDataToTable() {
+    public void setDataToTable() throws ClassNotFoundException {
         try {
-            List<Pupil> listItem = PupilDatabase.getAllPupils("SELECT * FROM pupil");
-            //DefaultTableModel model = new DefaultTableModel();
+            List<Classroom> listItem = ClassroomDatabase.getAllClassrooms("Select * from classroom");
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
-
             };
             model.setColumnIdentifiers(listColumn);
-            for (Pupil pupil : listItem) {
+            for (Classroom classroom : listItem) {
                 model.addRow(new Object[]{
-                    pupil.getID(),
-                    pupil.getName(),
-                    pupil.getDoB(),
-                    // pupil.getGender(),
-                    (pupil.getGender() == 0) ? "Male" : "Female",
-                    pupil.getClassID(),
-                    pupil.getParentName(),
-                    pupil.getPhone(),
-                    pupil.getAddress(),
-                    pupil.getBoardingroom(), // pupil.getAbsentday()
+                    classroom.getClassID(),
+                    classroom.getRoom(),
+                    classroom.getQuantity()
                 });
             }
 
             table = new JTable(model);
-            //table.setEnabled(false);
             rowSorter = new TableRowSorter<>(table.getModel());
             table.setRowSorter(rowSorter);
             jtfSearch.getDocument().addDocumentListener(new DocumentListener() {
@@ -104,47 +91,35 @@ public class PupilController {
 
                 }
             });
-            // Other settings for table (font, size, etc.)
-
             table.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mousePressed(MouseEvent e) {
+                public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
                         DefaultTableModel model = (DefaultTableModel) table.getModel();
                         int selectedRowIndex = table.getSelectedRow();
                         selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
 
                         // Retrieve data from the selected row in the model
-                        String id = model.getValueAt(selectedRowIndex, 0).toString();
-                        String name = model.getValueAt(selectedRowIndex, 1).toString();
-                        Date dateOfBirth = (Date) model.getValueAt(selectedRowIndex, 2);
-                        int gender = ("Male".equals(model.getValueAt(selectedRowIndex, 3).toString())) ? 0 : 1;
+                        String classID = model.getValueAt(selectedRowIndex, 0).toString();
+                        String room = model.getValueAt(selectedRowIndex, 1).toString();
+                        int quantity = Integer.parseInt(model.getValueAt(selectedRowIndex, 2).toString());
 
-                        String classId = model.getValueAt(selectedRowIndex, 4).toString();
-                        String parentName = model.getValueAt(selectedRowIndex, 5).toString();
-                        String phone = model.getValueAt(selectedRowIndex, 6).toString();
-                        String address = model.getValueAt(selectedRowIndex, 7).toString();
-                        String boardingRoom = model.getValueAt(selectedRowIndex, 8).toString();
-                        //int absentDay = Integer.parseInt(model.getValueAt(selectedRowIndex, 9).toString());
+                        // Create a new Classroom object with the parsed data
+                        Classroom classroom = new Classroom(classID, room, quantity);
 
-                        // Create a new Pupil object with the parsed data
-                        Pupil pupil = new Pupil(id, name, dateOfBirth, gender, classId, parentName, phone, address, boardingRoom);
-
-                        // Open the ManagePupilJFrame to display detailed pupil information for editing
-                        ManagePupilJFrame frame = new ManagePupilJFrame(pupil, "edit");
-                        frame.setTitle("Pupil Information");
+                        // Open the ManageClassroomJFrame to display detailed classroom information
+                        ManageClassroomJFrame frame = new ManageClassroomJFrame(classroom, "edit");
+                        frame.setTitle("Classroom Information");
                         frame.setResizable(false);
                         frame.setLocationRelativeTo(null);
                         frame.setVisible(true);
                     }
                 }
             });
-
-            table.getTableHeader().setFont(new Font("Arrial", Font.BOLD, 14));
+            table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
             table.getTableHeader().setPreferredSize(new Dimension(100, 50));
             table.setRowHeight(50);
             table.validate();
-            // Set up UI for the JPanel
             JScrollPane scrollPane = new JScrollPane();
             scrollPane.getViewport().add(table);
             scrollPane.setPreferredSize(new Dimension(1100, 400));
@@ -153,8 +128,8 @@ public class PupilController {
             jpnView.add(scrollPane);
             jpnView.validate();
             jpnView.repaint();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(PupilController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClassroomController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -162,29 +137,46 @@ public class PupilController {
         btnAdd.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Open the frame to manage pupils for adding new pupil
-                ManagePupilJFrame frame = new ManagePupilJFrame(new Pupil("", "", null, 0, "", "", "", "", ""), "add");
-                frame.setTitle("Pupil Information");
+                ManageClassroomJFrame frame = new ManageClassroomJFrame((new Classroom("", "", 0)), "add");
+                frame.setTitle("Classroom Information");
                 frame.setResizable(false);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
 
-            // Other mouse listener methods for button events (enter, exit, etc.)
-        });
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnAdd.setBackground(new Color(0, 200, 83));
+            }
 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnAdd.setBackground(new Color(100, 221, 23));
+            }
+
+        });
         btnRefresh.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    // Refresh button clicked, update the table data
+                    System.out.println("Refresh clicked");
+                    // Retrieve the updated data from the database
                     setDataToTable();
-                } catch (Exception ex) {
-                    Logger.getLogger(PupilController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ClassroomController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
-            // Other mouse listener methods for button events (enter, exit, etc.)
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnRefresh.setBackground(new Color(252, 44, 3));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnRefresh.setBackground(Color.GRAY);
+            }
         });
+
     }
 }

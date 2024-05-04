@@ -5,13 +5,23 @@ public class People {
     private String id;
     private String name;
     private Date dob;
+    private int gender;
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
     private String phone;
     private String address;
     
-    public People(String id, String name, Date dob, String phone, String address) {
+    public People(String id, String name, Date dob,int gender, String phone, String address) {
         this.id = id;
         this.name=  name;
         this.dob = dob;
+        this.gender=gender;
         this.phone = phone;
         this.address = address;
     }
