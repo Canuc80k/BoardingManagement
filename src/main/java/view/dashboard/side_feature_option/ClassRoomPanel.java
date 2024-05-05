@@ -4,22 +4,20 @@
  */
 package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.BoardingroomController;
-import java.sql.SQLException;
-import model.boardingroom.Boardingroom;
+import controller.dashboard_controller.ClassroomController;
 
 /**
  *
  * @author huant
  */
-public class BoardingroomPanel extends javax.swing.JPanel {
+public class ClassroomPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form BoardingRoomJPanel
+     * Creates new form ClassJPanel
      */
-    public BoardingroomPanel() throws SQLException, ClassNotFoundException {
+    public ClassroomPanel() throws ClassNotFoundException {
         initComponents();
-        BoardingroomController controller = new BoardingroomController(viewPanel, addButton, detailButton, searchTextField, refreshButton);
+        ClassroomController controller = new ClassroomController(viewPanel, addButton,detailButton, searchTextField,refreshButton);
         controller.setDataToTable();
         controller.setEvent();
     }
@@ -112,7 +110,7 @@ public class BoardingroomPanel extends javax.swing.JPanel {
                     .addComponent(detailButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(viewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

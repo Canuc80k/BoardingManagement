@@ -1,9 +1,15 @@
 package model.boardingroom;
 
-public class BoardingRoom {
+public class Boardingroom {
 	private String managerID;
 	private String room;
 	private int quantity;
+
+    public Boardingroom(String managerID, String room, int quantity) {
+        this.managerID = managerID;
+        this.room = room;
+        this.quantity = quantity;
+    }
 	
 	public String getManagerID() {
 		return managerID;

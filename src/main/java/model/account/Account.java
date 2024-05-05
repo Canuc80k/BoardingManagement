@@ -15,14 +15,14 @@ public class Account {
         this.role=role;
     }
 
-    public static boolean login(String data, String password, boolean loginByID) throws ClassNotFoundException, SQLException {
+    public static Account login(String data, String password, boolean loginByID) throws ClassNotFoundException, SQLException {
         Account account = null;
         if (loginByID) account = AccountDatabase.getAccountByID(data);
         else account = AccountDatabase.getAccountByUsername(data);
         
-        if (account == null) return false;
-        if (!account.getPassword().equals(password)) return false;
-        return true;
+        if (account == null) return null;
+        if (!account.getPassword().equals(password)) return null;
+        return account;
     }
 
     public Account(String username, String password) {
