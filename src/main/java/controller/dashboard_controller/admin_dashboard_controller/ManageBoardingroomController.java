@@ -1,9 +1,8 @@
-package controller.dashboard_controller.admin_dashboard;
+package controller.dashboard_controller.admin_dashboard_controller;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

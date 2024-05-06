@@ -1,9 +1,8 @@
 
 package view.dashboard.admin_dashboard;
 
-import controller.dashboard_controller.admin_dashboard.ManageBoardingroomController;
+import controller.dashboard_controller.admin_dashboard_controller.ManageBoardingroomController;
 import model.boardingroom.Boardingroom;
-import model.classroom.Classroom;
 
 public class ManageBoardingroomJFrame extends javax.swing.JFrame {
 

@@ -1,9 +1,5 @@
-<<<<<<< HEAD:src/main/java/controller/dashboard_controller/admin_dashboard_controller/PupilController.java
 package controller.dashboard_controller.admin_dashboard_controller;
-=======
-package controller.dashboard_controller;
 
->>>>>>> 972e11e2d7adf3889e9dcf72931a511f63480392:src/main/java/controller/dashboard_controller/PupilController.java
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -26,13 +22,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import model.people.pupil.Pupil;
 
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
-import model.people.teacher.Teacher;
 import view.dashboard.admin_dashboard.ManagePupilJFrame;
-import view.dashboard.admin_dashboard.ManageTeacherJFrame;
 
 public class PupilController {
     private JPanel jpnView;

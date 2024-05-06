@@ -6,13 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.dashboard_controller.SideFeatureOption;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.account.Account;
 import view.dashboard.side_feature_option.BoardingroomPanel;
 import view.dashboard.side_feature_option.ClassroomPanel;

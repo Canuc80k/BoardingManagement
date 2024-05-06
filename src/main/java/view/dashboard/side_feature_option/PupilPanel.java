@@ -4,12 +4,9 @@
  */
 package view.dashboard.side_feature_option;
 
-<<<<<<< HEAD
-import controller.dashboard_controller.admin_dashboard_controller.PupilController;
-=======
-import controller.dashboard_controller.PupilController;
 import java.sql.SQLException;
->>>>>>> 972e11e2d7adf3889e9dcf72931a511f63480392
+
+import controller.dashboard_controller.admin_dashboard_controller.PupilController;
 
 /**
  *

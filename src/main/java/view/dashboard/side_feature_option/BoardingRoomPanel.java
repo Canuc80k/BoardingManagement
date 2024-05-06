@@ -4,9 +4,9 @@
  */
 package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.BoardingroomController;
 import java.sql.SQLException;
-import model.boardingroom.Boardingroom;
+
+import controller.dashboard_controller.BoardingroomController;
 
 /**
  *

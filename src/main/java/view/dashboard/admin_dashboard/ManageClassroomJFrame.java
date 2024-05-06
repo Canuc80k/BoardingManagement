@@ -1,7 +1,7 @@
 
 package view.dashboard.admin_dashboard;
 
-import controller.dashboard_controller.ManageClassroomController;
+import controller.dashboard_controller.admin_dashboard_controller.ManageClassroomController;
 import model.classroom.Classroom;
 
 public class ManageClassroomJFrame extends javax.swing.JFrame {

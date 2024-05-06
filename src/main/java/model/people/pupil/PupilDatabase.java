@@ -14,11 +14,7 @@ public class PupilDatabase {
     public PupilDatabase() {
     }
 
-<<<<<<< HEAD
-    public static List<Pupil> getAllPupils() throws SQLException, ClassNotFoundException {
-=======
     public static List<Pupil> getAllPupil(String query) throws SQLException, ClassNotFoundException {
->>>>>>> 972e11e2d7adf3889e9dcf72931a511f63480392
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
         Statement stmt = con.createStatement();

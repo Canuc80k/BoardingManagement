@@ -4,8 +4,6 @@
  */
 package view.dashboard.admin_dashboard;
 
-import java.awt.Font;
-
 import controller.dashboard_controller.admin_dashboard_controller.ManageTeacherController;
 import model.people.teacher.Teacher;
 
