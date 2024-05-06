@@ -4,7 +4,12 @@
  */
 package view.dashboard.side_feature_option;
 
+<<<<<<< HEAD
 import controller.dashboard_controller.admin_dashboard_controller.PupilController;
+=======
+import controller.dashboard_controller.PupilController;
+import java.sql.SQLException;
+>>>>>>> 972e11e2d7adf3889e9dcf72931a511f63480392
 
 /**
  *
@@ -15,7 +20,7 @@ public class PupilPanel extends javax.swing.JPanel {
     /**
      * Creates new form PupilJPanel
      */
-    public PupilPanel() {
+    public PupilPanel() throws SQLException, ClassNotFoundException{
         initComponents();
         PupilController controller = new PupilController(viewPanel, addButton, searchTextField,refreshButton);
         controller.setDataToTable();
@@ -46,6 +51,8 @@ public class PupilPanel extends javax.swing.JPanel {
                 addButtonActionPerformed(evt);
             }
         });
+
+        viewPanel.setEnabled(false);
 
         javax.swing.GroupLayout viewPanelLayout = new javax.swing.GroupLayout(viewPanel);
         viewPanel.setLayout(viewPanelLayout);
@@ -79,7 +86,7 @@ public class PupilPanel extends javax.swing.JPanel {
                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(refreshButton)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +98,7 @@ public class PupilPanel extends javax.swing.JPanel {
                     .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(viewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -102,7 +109,7 @@ public class PupilPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpnRoot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnRoot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

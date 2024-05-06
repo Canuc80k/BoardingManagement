@@ -4,8 +4,9 @@ import java.util.Date;
 
 import model.people.People;
 public class Teacher extends People {
-    public Teacher(String id, String name, Date dob, String phone, String address) {
-        super(id, name, dob, phone, address);
+    public Teacher(String id, String name, Date dob,int gender, String phone, String address,String classID) {
+        super(id, name, dob,gender, phone, address);
+        this.classID=classID;
     }
     private String classID;
    

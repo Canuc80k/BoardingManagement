@@ -11,27 +11,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.dashboard_controller.SideFeatureOption;
-import view.dashboard.side_feature_option.BoardingRoomPanel;
-import view.dashboard.side_feature_option.ClassPanel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.account.Account;
+import view.dashboard.side_feature_option.BoardingroomPanel;
+import view.dashboard.side_feature_option.ClassroomPanel;
 import view.dashboard.side_feature_option.InformationPanel;
 import view.dashboard.side_feature_option.InitPanel;
+import view.dashboard.side_feature_option.ManagerPanel;
 import view.dashboard.side_feature_option.PaymentPanel;
 import view.dashboard.side_feature_option.PupilPanel;
 import view.dashboard.side_feature_option.TeacherPanel;
 
 public class AdminDashboardController {
+
     private JPanel viewPanel;
     private String selectedPanelTitle = "";
     private List<SideFeatureOption> listItem;
-
-    public AdminDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel) {
+    private Account account=null;
+    public AdminDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel,Account account) {
         this.viewPanel = viewPanel;
+        this.account=account;
         selectedPanelTitle = "Init";
         selectedPanel.setBackground(new Color(96, 100, 191));
         selectedLabel.setBackground(new Color(96, 100, 191));
         viewPanel.removeAll();
         viewPanel.setLayout(new BorderLayout());
-        viewPanel.add(new InitPanel());
+        viewPanel.add(new InitPanel(account));
         viewPanel.validate();
         viewPanel.repaint();
     }
@@ -40,16 +46,17 @@ public class AdminDashboardController {
         this.listItem = listItem;
         for (SideFeatureOption item : listItem) {
             item.getPanel().addMouseListener(
-                new LabelEvent(
-                    item.getTitle(), 
-                    item.getPanel(), 
-                    item.getLabel()
-                )
+                    new LabelEvent(
+                            item.getTitle(),
+                            item.getPanel(),
+                            item.getLabel()
+                    )
             );
         }
     }
 
     class LabelEvent implements MouseListener {
+
         private JPanel view;
         private String sideFeatureOptionTitle;
         private JPanel sideFeatureOptionPanel;
@@ -65,41 +72,73 @@ public class AdminDashboardController {
         public void mouseClicked(MouseEvent e) {
             switch (sideFeatureOptionTitle) {
                 case "Init": {
-                    view = new InitPanel();
+                    view = new InitPanel(account);
                     break;
                 }
                 case "Teacher": {
+
                     try {
                         view = new TeacherPanel();
+                        
+                        break;
                     } catch (SQLException ex) {
-                        ex.printStackTrace();
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    break;
                 }
+                case "Manager": {
+                    try {
+                        view = new ManagerPanel();
+                        break;
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
                 case "Pupil": {
-                    view = new PupilPanel();
-                    break;
+                    try {
+                        view = new PupilPanel();
+                        break;
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+
                 case "Class": {
-                    view = new ClassPanel();
-                    break;
+                    try {
+                        view = new ClassroomPanel();
+                        break;
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+
                 case "BoardingRoom": {
-                    view = new BoardingRoomPanel();
-                    break;
+                    try {
+                        view = new BoardingroomPanel();
+                        break;
+                    } catch (SQLException ex) {
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+
                 case "Payment": {
                     view = new PaymentPanel();
-                    break;    
+                    break;
                 }
                 case "Info": {
                     view = new InformationPanel();
                     break;
                 }
                 default: {
-                    view = new InitPanel();
+                    view = new InitPanel(account);
                     break;
                 }
             }
@@ -142,8 +181,8 @@ public class AdminDashboardController {
     private void setChangeBackground(String title) {
         for (SideFeatureOption item : listItem) {
             if (item.getTitle().equalsIgnoreCase("Init")) {
-                item.getPanel().setBackground(new Color(255,255,255));
-                item.getLabel().setBackground(new Color(255,255,255));
+                item.getPanel().setBackground(new Color(255, 255, 255));
+                item.getLabel().setBackground(new Color(255, 255, 255));
                 continue;
             }
             if (item.getTitle().equalsIgnoreCase(title)) {

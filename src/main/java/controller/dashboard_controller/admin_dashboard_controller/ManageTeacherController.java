@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JComboBox;
 
 import model.account.Account;
 import model.account.AccountDatabase;
@@ -28,6 +29,7 @@ public class ManageTeacherController {
     private JTextField phoneTextField;
     private JTextField addressTextField;
     private JTextField classIDTextField;
+    private JComboBox genderComboBox;
     private Teacher teacher = null;
     private JLabel messageLabel;
     private JTextField usernameTextField;
@@ -35,12 +37,13 @@ public class ManageTeacherController {
     private Account account = null;
 
     public ManageTeacherController(JButton btnSave, JButton btnDelete, JTextField jtfTeacherID, JTextField jtfName,
-            JDateChooser jdcNgaySinh, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, JTextField jtfUsername, JTextField jtfPassword, Teacher teacher, JLabel jlbMsg) {
+            JDateChooser jdcNgaySinh, JComboBox jcbGender, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, JTextField jtfUsername, JTextField jtfPassword, Teacher teacher, JLabel jlbMsg) {
         this.saveButton = btnSave;
         this.deleteButton = btnDelete;
         this.teacherIDTextField = jtfTeacherID;
         this.nameTextField = jtfName;
         this.dobDayChooser = jdcNgaySinh;
+        this.genderComboBox = jcbGender;
         this.phoneTextField = jtfPhone;
         this.addressTextField = jtfAddress;
         this.classIDTextField = jtfClassID;
@@ -59,13 +62,20 @@ public class ManageTeacherController {
             addressTextField.setText(teacher.getAddress());
             dobDayChooser.setDate(teacher.getDoB());
             classIDTextField.setText(teacher.getClassID());
-
+            genderComboBox.setSelectedIndex(teacher.getGender());
+            System.out.println("Name: " + teacher.getName());
+            System.out.println("Phone: " + teacher.getPhone());
+            System.out.println("Address: " + teacher.getAddress());
+            System.out.println("Date of Birth: " + teacher.getDoB());
+            System.out.println("Class ID: " + teacher.getClassID());
+            System.out.println("Gender Index: " + teacher.getGender());
             if (editOrAdd.equals("add")) {
                 account = new Account("", "", "", 2);
                 usernameTextField.setText("");
                 passwordTextField.setText("");
             } else {
                 account = AccountDatabase.getAccountByID(teacherID);
+                System.out.println(account.getID() + " " + account.getUsername() + " " + account.getPassword());
                 usernameTextField.setText(account.getUsername());
                 passwordTextField.setText(account.getPassword());
             }
@@ -83,8 +93,8 @@ public class ManageTeacherController {
                 } else {
                     try {
                         account = new Account(teacherIDTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 2);
-                        teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()), phoneTextField.getText(), addressTextField.getText());
-                        teacher.setClassID(classIDTextField.getText());
+                        teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),
+                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), classIDTextField.getText());
                         int checkTeacher = -1;
                         int checkAccount = -1;
                         if (editOrAdd.equals("add")) {
@@ -101,6 +111,7 @@ public class ManageTeacherController {
                         if (checkTeacher > 0 && checkAccount > 0) {
                             messageLabel.setText("Update Success");
                         } else {
+                            if(editOrAdd.equals("add"))AccountDatabase.delete(account);
                             messageLabel.setText("Update Fail");
                         }
                     } catch (ClassNotFoundException | SQLException ex) {
@@ -126,8 +137,9 @@ public class ManageTeacherController {
                     messageLabel.setText("Can't delete null values");
                 } else {
                     try {
-                        teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), dobDayChooser.getDate(), phoneTextField.getText(), addressTextField.getText());
-                        teacher.setClassID(classIDTextField.getText());
+                        teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),
+                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), classIDTextField.getText());
+
                         account = new Account(teacherIDTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 2);
                         int checkTeacher = TeacherDatabase.delete(teacher);
                         int checkAccount = AccountDatabase.delete(account);

@@ -30,7 +30,7 @@ public class LoginController {
     }
 
     public void setEvent() {
-        
+       // Account account=null;
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -38,19 +38,19 @@ public class LoginController {
                     messageLabel.setText("Please fill required informations");
                     return;
                 } 
-
+                Account account =null;
                 try {
                     boolean loginByID = false;
                     if (usernameTextField.getText().charAt(0) >= '0' 
                         && usernameTextField.getText().charAt(0) <= '9') 
                             loginByID = true;
 
-                    boolean loginSuccess = Account.login(
+                     account = Account.login(
                         usernameTextField.getText(), 
                         String.valueOf(passwordTextField.getPassword()), 
                         loginByID
                     );
-                    if (!loginSuccess) {
+                    if (account==null) {
                         messageLabel.setText("Username or password is wrong");
                         return;
                     }
@@ -61,7 +61,8 @@ public class LoginController {
                 }
 
                 loginFrame.dispose();
-                AdminDashboard frame = new AdminDashboard();
+                
+                AdminDashboard frame = new AdminDashboard(account);
                 frame.setVisible(true);
             }
 

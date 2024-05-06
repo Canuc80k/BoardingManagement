@@ -4,6 +4,12 @@ public class Classroom {
 	private String classID;
 	private String room;
 	private int quantity;
+
+    public Classroom(String classID, String room, int quantity) {
+        this.classID = classID;
+        this.room = room;
+        this.quantity = quantity;
+    }
 	
 	public String getClassID() {
 		return classID;

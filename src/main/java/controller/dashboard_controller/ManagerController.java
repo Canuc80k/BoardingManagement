@@ -24,24 +24,22 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import model.people.pupil.PupilDatabase;
+import model.people.manager.Manager;
+import model.people.manager.ManagerDatabase;
 
-import model.people.teacher.Teacher;
-import model.people.teacher.TeacherDatabase;
+import view.dashboard.admin_dashboard.ManageManagerJFrame;
 
-import view.dashboard.admin_dashboard.ManageTeacherJFrame;
-
-public class TeacherController {
+public class ManagerController {
 
     private JPanel jpnView;
     private JButton btnAdd;
     private JButton btnRefresh;
     private JTextField jtfSearch;
     private JTable table;
-    private String[] listColumn = {"Teacher ID", "Name", "Date of birth","Gender", "Phone", "Address", "Class ID"};
+    private String[] listColumn = {"Manager ID", "Name", "Date of birth","Gender", "Phone", "Address", "Boardingroom"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public TeacherController(JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh) {
+    public ManagerController(JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh) {
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
         this.jtfSearch = jtfSearch;
@@ -49,7 +47,7 @@ public class TeacherController {
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
-        List<Teacher> listItem = TeacherDatabase.getAllTeacher("SELECT * FROM teacher");
+        List<Manager> listItem = ManagerDatabase.getAllManagers("SELECT * FROM manager");
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -57,15 +55,15 @@ public class TeacherController {
             }
         };
         model.setColumnIdentifiers(listColumn);
-        for (Teacher teacher : listItem) {
+        for (Manager manager : listItem) {
             model.addRow(new Object[]{
-                teacher.getID(),
-                teacher.getName(),
-                teacher.getDoB(),
-                (teacher.getGender()==0)?"Male":"Female",
-                teacher.getPhone(),
-                teacher.getAddress(),
-                teacher.getClassID(),
+                manager.getID(),
+                manager.getName(),
+                manager.getDoB(),
+                (manager.getGender()==0)?"Male":"Female",
+                manager.getPhone(),
+                manager.getAddress(),
+                manager.getBoardingroom(),
             });
         }
 
@@ -114,14 +112,14 @@ public class TeacherController {
 
                     String phone = model.getValueAt(selectedRowIndex, 4).toString();
                     String address = model.getValueAt(selectedRowIndex, 5).toString();
-                    String classId = model.getValueAt(selectedRowIndex, 6).toString();
+                    String boardingroom = model.getValueAt(selectedRowIndex, 6).toString();
                     
-                    // Create a new Teacher object with the parsed data
-                    Teacher teacher = new Teacher(id, name, dateOfBirth, gender, phone,address,classId);
+                    // Create a new Manager object with the parsed data
+                    Manager manager = new Manager(id, name, dateOfBirth, gender, phone,address,boardingroom);
 
-                    // Open the ManageTeacherJFrame to display detailed teacher information
-                    ManageTeacherJFrame frame = new ManageTeacherJFrame(teacher, "edit");
-                    frame.setTitle("Teacher Information");
+                    // Open the ManageManagerJFrame to display detailed manager information
+                    ManageManagerJFrame frame = new ManageManagerJFrame(manager, "edit");
+                    frame.setTitle("Manager Information");
                     frame.setResizable(false);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
@@ -146,8 +144,8 @@ public class TeacherController {
         btnAdd.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ManageTeacherJFrame frame = new ManageTeacherJFrame((new Teacher("", "", null,0, "", "","")), "add");
-                frame.setTitle("Teacher Information");
+                ManageManagerJFrame frame = new ManageManagerJFrame((new Manager("", "", null,0, "", "","")), "add");
+                frame.setTitle("Manager Information");
                 frame.setResizable(false);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
@@ -172,9 +170,9 @@ public class TeacherController {
                     // Retrieve the updated data from the database
                     setDataToTable();// Create a new RowSorter for the updated model
                 } catch (SQLException ex) {
-                    Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ManagerController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(TeacherController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ManagerController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
