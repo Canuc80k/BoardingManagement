@@ -1,10 +1,11 @@
-package controller.dashboard_controller;
+package controller.dashboard_controller.admin_dashboard_controller;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,6 @@ import model.people.pupil.PupilDatabase;
 import view.dashboard.admin_dashboard.ManagePupilJFrame;
 
 public class PupilController {
-
     private JPanel jpnView;
     private JButton btnAdd;
     private JButton btnRefresh;
@@ -44,11 +44,11 @@ public class PupilController {
 
     public void setDataToTable() {
         try {
-            List<Pupil> listItem = PupilDatabase.getAllPupils("SELECT * FROM pupil");
+            List<Pupil> listItem = PupilDatabase.getAllPupils();
             DefaultTableModel model = new DefaultTableModel();
             model.setColumnIdentifiers(listColumn);
             for (Pupil pupil : listItem) {
-                model.addRow(new Object[]{
+                model.addRow(new Object[] {
                     pupil.getID(),
                     pupil.getName(),
                     pupil.getDoB(),
@@ -90,44 +90,46 @@ public class PupilController {
 
                 }
             });
-            // Other settings for table (font, size, etc.)
-//           table.addMouseListener(new MouseAdapter() {
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//        if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-//            DefaultTableModel model = (DefaultTableModel) table.getModel();
-//            int selectedRowIndex = table.getSelectedRow();
-//            selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
-//
-//            // Retrieve data from the selected row in the model
-//            String id = model.getValueAt(selectedRowIndex, 0).toString();
-//            String name = model.getValueAt(selectedRowIndex, 1).toString();
-//        //    Date dobString = model.getValueAt(selectedRowIndex, 2).toString();
-//            String classId = model.getValueAt(selectedRowIndex, 3).toString();
-//            String parentName = model.getValueAt(selectedRowIndex, 4).toString();
-//            String phone = model.getValueAt(selectedRowIndex, 5).toString();
-//            String address = model.getValueAt(selectedRowIndex, 6).toString();
-//            String boardingRoom = model.getValueAt(selectedRowIndex, 7).toString();
-//            int absentDay = Integer.parseInt(model.getValueAt(selectedRowIndex, 8).toString());
-//                Date dateOfBirth = (Date) model.getValueAt(selectedRowIndex, 2);
-//            // Create a new Pupil object with the parsed data
-//            Pupil pupil = new Pupil(id, name, dateOfBirth, classId, parentName, phone, address, boardingRoom, absentDay);
-//
-//            // Open the ManagePupilJFrame to display detailed pupil information for editing
-//            ManagePupilJFrame frame = new ManagePupilJFrame(pupil, "edit");
-//            frame.setTitle("Pupil Information");
-//            frame.setResizable(false);
-//            frame.setLocationRelativeTo(null);
-//            frame.setVisible(true);
-//        }
-//    }
-//});
 
-        table.getTableHeader().setFont(new Font("Arrial", Font.BOLD, 14));
-        table.getTableHeader().setPreferredSize(new Dimension(100, 50));
-        table.setRowHeight(50);
-        table.validate();
-            // Set up UI for the JPanel
+            table.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    System.out.print(e.getClickCount() + " " + table.getSelectedRow());
+                    if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    int selectedRowIndex = table.getSelectedRow();
+                    selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
+
+                    // Retrieve data from the selected row in the model
+                    String id = model.getValueAt(selectedRowIndex, 0).toString();
+                    String name = model.getValueAt(selectedRowIndex, 1).toString();
+                //    Date dobString = model.getValueAt(selectedRowIndex, 2).toString();
+                    String classId = model.getValueAt(selectedRowIndex, 3).toString();
+                    String parentName = model.getValueAt(selectedRowIndex, 4).toString();
+                    String phone = model.getValueAt(selectedRowIndex, 5).toString();
+                    String address = model.getValueAt(selectedRowIndex, 6).toString();
+                    String boardingRoom = model.getValueAt(selectedRowIndex, 7).toString();
+                    int absentDay = Integer.parseInt(model.getValueAt(selectedRowIndex, 8).toString());
+                        Date dateOfBirth = (Date) model.getValueAt(selectedRowIndex, 2);
+                    // Create a new Pupil object with the parsed data
+                    Pupil pupil = new Pupil(id, name, dateOfBirth, classId, parentName, phone, address, boardingRoom, absentDay);
+
+                    // Open the ManagePupilJFrame to display detailed pupil information for editing
+                    ManagePupilJFrame frame = new ManagePupilJFrame(pupil, "edit");
+                    frame.setTitle("Pupil Information");
+                    frame.setResizable(false);
+                    frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+                }
+            }
+            });
+
+            table.getTableHeader().setFont(new Font("Arrial", Font.BOLD, 14));
+            table.getTableHeader().setPreferredSize(new Dimension(100, 50));
+            table.setRowHeight(50);
+            table.repaint();
+            table.validate();
+
             JScrollPane scrollPane = new JScrollPane();
             scrollPane.getViewport().add(table);
             scrollPane.setPreferredSize(new Dimension(1300, 400));

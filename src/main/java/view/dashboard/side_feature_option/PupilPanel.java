@@ -4,7 +4,7 @@
  */
 package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.PupilController;
+import controller.dashboard_controller.admin_dashboard_controller.PupilController;
 
 /**
  *

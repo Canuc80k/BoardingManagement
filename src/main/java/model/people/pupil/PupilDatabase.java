@@ -16,11 +16,11 @@ public class PupilDatabase {
     public PupilDatabase() {
     }
 
-    public static List<Pupil> getAllPupils(String query) throws SQLException, ClassNotFoundException {
+    public static List<Pupil> getAllPupils() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
+        ResultSet rs = stmt.executeQuery("SELECT * FROM pupil");
 
         List<Pupil> res = new ArrayList<>();
         while (rs.next()) {
