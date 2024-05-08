@@ -1,18 +1,18 @@
 
-package view.dashboard.admin_dashboard;
+package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.admin_dashboard_controller.ManageClassroomController;
-import model.classroom.Classroom;
+import controller.dashboard_controller.side_feature_option_controller.ManageBoardingroomController;
+import model.boardingroom.Boardingroom;
 
-public class ManageClassroomJFrame extends javax.swing.JFrame {
+public class ManageBoardingroomJFrame extends javax.swing.JFrame {
 
-
-    public ManageClassroomJFrame(Classroom classroom,String editOrAdd) {
+ 
+      public ManageBoardingroomJFrame(Boardingroom boardingroom,String editOrAdd) {
         initComponents();
 
-        ManageClassroomController controller = new ManageClassroomController(saveButton, deleteButton,
-                idTextField, roomTextField, quantityTextField, messageLabel, classroom);
-        controller.setView(classroom, editOrAdd);
+        ManageBoardingroomController controller = new ManageBoardingroomController(saveButton, deleteButton,
+                 roomTextField, managerIDTextField,quantityTextField, messageLabel, boardingroom);
+        controller.setView(boardingroom, editOrAdd);
         controller.setEvent(editOrAdd);
     }
 
@@ -28,7 +28,7 @@ public class ManageClassroomJFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        idTextField = new javax.swing.JTextField();
+        managerIDTextField = new javax.swing.JTextField();
         roomTextField = new javax.swing.JTextField();
         quantityTextField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
@@ -36,22 +36,27 @@ public class ManageClassroomJFrame extends javax.swing.JFrame {
         messageLabel = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Class Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft New Tai Lue", 1, 14), new java.awt.Color(0, 153, 255))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Boardingroom Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft New Tai Lue", 1, 14), new java.awt.Color(0, 153, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
-        jLabel1.setText("Class ID:");
+        jLabel1.setText("Room :");
 
         jLabel2.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
-        jLabel2.setText("Room:");
+        jLabel2.setText("Manager ID :");
 
         jLabel3.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
-        jLabel3.setText("Quantity");
+        jLabel3.setText("Quantity:");
 
-        idTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        managerIDTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         roomTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        roomTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomTextFieldActionPerformed(evt);
+            }
+        });
 
         quantityTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -67,7 +72,7 @@ public class ManageClassroomJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(managerIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(roomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(quantityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(156, Short.MAX_VALUE))
@@ -75,19 +80,19 @@ public class ManageClassroomJFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(roomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(roomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(managerIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(quantityTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         saveButton.setBackground(new java.awt.Color(51, 153, 0));
@@ -144,7 +149,7 @@ public class ManageClassroomJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +166,7 @@ public class ManageClassroomJFrame extends javax.swing.JFrame {
                         .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,16 +185,20 @@ public class ManageClassroomJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void roomTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roomTextFieldActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JTextField idTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField managerIDTextField;
     private javax.swing.JLabel messageLabel;
     private javax.swing.JTextField quantityTextField;
     private javax.swing.JTextField roomTextField;

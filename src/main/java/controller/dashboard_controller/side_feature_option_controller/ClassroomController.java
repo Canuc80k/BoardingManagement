@@ -1,4 +1,4 @@
-package controller.dashboard_controller;
+package controller.dashboard_controller.side_feature_option_controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,8 +25,8 @@ import javax.swing.table.TableRowSorter;
 
 import model.classroom.Classroom;
 import model.classroom.ClassroomDatabase;
-import view.dashboard.admin_dashboard.ManageClassroomJFrame;
-import view.dashboard.admin_dashboard.ShowDetailJFrame;
+import view.dashboard.side_feature_option.ManageClassroomJFrame;
+import view.dashboard.side_feature_option.ShowDetailJFrame;
 
 public class ClassroomController {
 

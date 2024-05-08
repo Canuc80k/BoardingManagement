@@ -1,4 +1,4 @@
-package controller.dashboard_controller;
+package controller.dashboard_controller.side_feature_option_controller;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -9,7 +9,7 @@ public class SideFeatureOption {
 
     public SideFeatureOption(String title, JPanel panel, JLabel label) {
         this.title = title;
-        this.panel = panel;
+        this.panel = panel; 
         this.label = label;
     }
 

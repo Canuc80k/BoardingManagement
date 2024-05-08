@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package view.dashboard.admin_dashboard;
+package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.admin_dashboard_controller.ManagePupilController;
+import controller.dashboard_controller.side_feature_option_controller.ManagePupilController;
 import model.people.pupil.Pupil;
 
 /**

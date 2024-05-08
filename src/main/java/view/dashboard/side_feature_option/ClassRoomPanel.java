@@ -4,7 +4,7 @@
  */
 package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.ClassroomController;
+import controller.dashboard_controller.side_feature_option_controller.ClassroomController;
 
 /**
  *

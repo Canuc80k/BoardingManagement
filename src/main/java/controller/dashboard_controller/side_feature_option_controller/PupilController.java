@@ -1,4 +1,4 @@
-package controller.dashboard_controller.admin_dashboard_controller;
+package controller.dashboard_controller.side_feature_option_controller;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -25,7 +25,7 @@ import javax.swing.table.TableRowSorter;
 
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
-import view.dashboard.admin_dashboard.ManagePupilJFrame;
+import view.dashboard.side_feature_option.ManagePupilJFrame;
 
 public class PupilController {
     private JPanel jpnView;

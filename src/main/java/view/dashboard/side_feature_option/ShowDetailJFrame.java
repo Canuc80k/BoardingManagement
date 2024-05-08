@@ -1,12 +1,11 @@
 
-package view.dashboard.admin_dashboard;
+package view.dashboard.side_feature_option;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import controller.dashboard_controller.admin_dashnpard.ShowDetailController;
-import controller.dashboard_controller.admin_dashboard_controller.ShowDetailController;
+import controller.dashboard_controller.side_feature_option_controller.ShowDetailController;
 import model.classroom.Classroom;
 
 /**
@@ -45,7 +44,7 @@ public class ShowDetailJFrame extends javax.swing.JFrame {
         teacherLabel = new javax.swing.JLabel();
         classroomLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         searchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

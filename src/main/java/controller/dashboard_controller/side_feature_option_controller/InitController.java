@@ -1,4 +1,4 @@
-package controller.dashboard_controller;
+package controller.dashboard_controller.side_feature_option_controller;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controller.dashboard_controller.admin_dashboard_controller;
+package controller.dashboard_controller.side_feature_option_controller;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;

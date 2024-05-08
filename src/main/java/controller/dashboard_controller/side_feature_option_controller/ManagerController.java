@@ -1,4 +1,4 @@
-package controller.dashboard_controller;
+package controller.dashboard_controller.side_feature_option_controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,21 +24,21 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import model.boardingroom.Boardingroom;
-import model.boardingroom.BoardingroomDatabase;
-import view.dashboard.admin_dashboard.ManageBoardingroomJFrame;
+import model.people.manager.Manager;
+import model.people.manager.ManagerDatabase;
+import view.dashboard.side_feature_option.ManageManagerJFrame;
 
-public class BoardingroomController {
+public class ManagerController {
 
     private JPanel jpnView;
     private JButton btnAdd;
     private JButton btnRefresh;
     private JTextField jtfSearch;
     private JTable table;
-    private String[] listColumn = {"Room", "Manager ID", "Quantity"};
+    private String[] listColumn = {"Manager ID", "Name", "Date of birth","Gender", "Phone", "Address", "Boardingroom"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public BoardingroomController(JPanel jpnView, JButton btnAdd, JButton btnDetail, JTextField jtfSearch, JButton btnRefresh) {
+    public ManagerController(JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh) {
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
         this.jtfSearch = jtfSearch;
@@ -45,7 +46,7 @@ public class BoardingroomController {
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
-        List<Boardingroom> listItem = BoardingroomDatabase.getAllBoardingrooms("Select * from boardingroom");
+        List<Manager> listItem = ManagerDatabase.getAllManagers("SELECT * FROM manager");
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -53,11 +54,15 @@ public class BoardingroomController {
             }
         };
         model.setColumnIdentifiers(listColumn);
-        for (Boardingroom boardingroom : listItem) {
+        for (Manager manager : listItem) {
             model.addRow(new Object[]{
-                boardingroom.getRoom(),
-                boardingroom.getManagerID(),
-                boardingroom.getQuantity()
+                manager.getID(),
+                manager.getName(),
+                manager.getDoB(),
+                (manager.getGender()==0)?"Male":"Female",
+                manager.getPhone(),
+                manager.getAddress(),
+                manager.getBoardingroom(),
             });
         }
 
@@ -99,16 +104,21 @@ public class BoardingroomController {
                     selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
 
                     // Retrieve data from the selected row in the model
-                    String room = model.getValueAt(selectedRowIndex, 0).toString();
-                    String managerID = model.getValueAt(selectedRowIndex, 1).toString();
-                    int quantity = Integer.parseInt(model.getValueAt(selectedRowIndex, 2).toString());
+                    String id = model.getValueAt(selectedRowIndex, 0).toString();
+                    String name = model.getValueAt(selectedRowIndex, 1).toString();
+                    Date dateOfBirth = (Date) model.getValueAt(selectedRowIndex, 2);
+                    int gender = ("Male".equals(model.getValueAt(selectedRowIndex, 3).toString())) ? 0 : 1;
 
-                    // Create a new Boardingroom object with the parsed data
-                    Boardingroom boardingroom = new Boardingroom(room, managerID, quantity);
+                    String phone = model.getValueAt(selectedRowIndex, 4).toString();
+                    String address = model.getValueAt(selectedRowIndex, 5).toString();
+                    String boardingroom = model.getValueAt(selectedRowIndex, 6).toString();
+                    
+                    // Create a new Manager object with the parsed data
+                    Manager manager = new Manager(id, name, dateOfBirth, gender, phone,address,boardingroom);
 
-                    // Open the ManageBoardingroomJFrame to display detailed boarding room information
-                    ManageBoardingroomJFrame frame = new ManageBoardingroomJFrame(boardingroom, "edit");
-                    frame.setTitle("Boarding Room Information");
+                    // Open the ManageManagerJFrame to display detailed manager information
+                    ManageManagerJFrame frame = new ManageManagerJFrame(manager, "edit");
+                    frame.setTitle("Manager Information");
                     frame.setResizable(false);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
@@ -133,8 +143,8 @@ public class BoardingroomController {
         btnAdd.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ManageBoardingroomJFrame frame = new ManageBoardingroomJFrame((new Boardingroom("", "", 0)), "add");
-                frame.setTitle("Boarding Room Information");
+                ManageManagerJFrame frame = new ManageManagerJFrame((new Manager("", "", null,0, "", "","")), "add");
+                frame.setTitle("Manager Information");
                 frame.setResizable(false);
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
@@ -159,9 +169,9 @@ public class BoardingroomController {
                     // Retrieve the updated data from the database
                     setDataToTable();// Create a new RowSorter for the updated model
                 } catch (SQLException ex) {
-                    Logger.getLogger(BoardingroomController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ManagerController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(BoardingroomController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ManagerController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -172,11 +182,9 @@ public class BoardingroomController {
 
             @Override
             public void mouseExited(MouseEvent e) {
-
                 btnRefresh.setBackground(Color.GRAY);
             }
-        }
-        );
+        });
 
     }
 }

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.dashboard_controller.SideFeatureOption;
+import controller.dashboard_controller.side_feature_option_controller.SideFeatureOption;
 import model.account.Account;
 import view.dashboard.side_feature_option.BoardingroomPanel;
 import view.dashboard.side_feature_option.ClassroomPanel;

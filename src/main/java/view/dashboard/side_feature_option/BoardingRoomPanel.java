@@ -6,7 +6,7 @@ package view.dashboard.side_feature_option;
 
 import java.sql.SQLException;
 
-import controller.dashboard_controller.BoardingroomController;
+import controller.dashboard_controller.side_feature_option_controller.BoardingroomController;
 
 /**
  *

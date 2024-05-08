@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import controller.dashboard_controller.InitController;
+import controller.dashboard_controller.side_feature_option_controller.InitController;
 import model.account.Account;
 
 /**
