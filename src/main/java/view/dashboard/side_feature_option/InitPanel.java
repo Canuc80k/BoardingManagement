@@ -4,11 +4,11 @@
  */
 package view.dashboard.side_feature_option;
 
-import controller.dashboard_controller.InitController;
-import controller.dashboard_controller.TeacherController;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import controller.dashboard_controller.InitController;
 import model.account.Account;
 
 /**

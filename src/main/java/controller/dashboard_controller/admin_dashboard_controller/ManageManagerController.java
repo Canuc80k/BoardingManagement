@@ -3,16 +3,15 @@ package controller.dashboard_controller.admin_dashboard_controller;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JComboBox;
 
 import model.people.manager.Manager;
 import model.people.manager.ManagerDatabase;
@@ -27,12 +26,12 @@ public class ManageManagerController {
     private JTextField phoneTextField;
     private JTextField addressTextField;
     private JTextField boardingroomTextField;
-    private JComboBox genderComboBox;
+    private JComboBox<String> genderComboBox;
     private Manager manager = null;
     private JLabel messageLabel;
 
     public ManageManagerController(JButton btnSave, JButton btnDelete, JTextField jtfManagerID, JTextField jtfName,
-            JDateChooser jdcNgaySinh, JComboBox jcbGender, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfBoardingroom, Manager manager, JLabel jlbMsg) {
+            JDateChooser jdcNgaySinh, JComboBox<String> jcbGender, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfBoardingroom, Manager manager, JLabel jlbMsg) {
         this.saveButton = btnSave;
         this.deleteButton = btnDelete;
         this.managerIDTextField = jtfManagerID;
@@ -48,7 +47,6 @@ public class ManageManagerController {
     public void setView(Manager manager, String editOrAdd) {
         try {
             this.manager = manager;
-            String managerID = manager.getID();
             managerIDTextField.setText(manager.getID());
             nameTextField.setText(manager.getName());
             phoneTextField.setText(manager.getPhone());

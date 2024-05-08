@@ -24,11 +24,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import model.people.pupil.PupilDatabase;
-
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
-
 import view.dashboard.admin_dashboard.ManageTeacherJFrame;
 
 public class TeacherController {

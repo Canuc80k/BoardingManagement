@@ -1,11 +1,8 @@
 package controller.dashboard_controller;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -14,9 +11,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import javax.swing.JButton;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,6 +24,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import model.account.Account;
 import model.boardingroom.BoardingroomDatabase;
 import model.classroom.ClassroomDatabase;
@@ -37,7 +34,6 @@ import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
-import view.dashboard.admin_dashboard.ManageTeacherJFrame;
 
 public class InitController {
 
@@ -50,7 +46,6 @@ public class InitController {
     private JLabel boardingroomLabel;
     private JTable table;
     private Account account;
-    private String[] listColumn = {"ID", "Name", "Class", "Time"};
     private TableRowSorter<TableModel> rowSorter = null;
 
     public InitController(JPanel jpnView, JTextField jtfSearch, JLabel teacherLabel, JLabel pupilLabel, JLabel classroomLabel, JLabel boardingroomLabel, Account account) {

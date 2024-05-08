@@ -31,7 +31,6 @@ public class BoardingroomController {
 
     private JPanel jpnView;
     private JButton btnAdd;
-    private JButton btnDetail;
     private JButton btnRefresh;
     private JTextField jtfSearch;
     private JTable table;
@@ -41,7 +40,6 @@ public class BoardingroomController {
     public BoardingroomController(JPanel jpnView, JButton btnAdd, JButton btnDetail, JTextField jtfSearch, JButton btnRefresh) {
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
-        this.btnDetail = btnDetail;
         this.jtfSearch = jtfSearch;
         this.btnRefresh = btnRefresh;
     }

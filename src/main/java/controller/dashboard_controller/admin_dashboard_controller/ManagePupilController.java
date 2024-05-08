@@ -7,22 +7,21 @@ package controller.dashboard_controller.admin_dashboard_controller;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import com.toedter.calendar.JDateChooser;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import model.people.pupil.Pupil;
-import model.people.pupil.PupilDatabase;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+import com.toedter.calendar.JDateChooser;
+
 import model.account.Account;
 import model.account.AccountDatabase;
 import model.people.pupil.Pupil;
+import model.people.pupil.PupilDatabase;
 
 public class ManagePupilController {
 
@@ -35,7 +34,7 @@ public class ManagePupilController {
     private JTextField parentNameTextField;
     private JTextField usernameTextField;
     private JTextField passwordTextField;
-    private JComboBox genderComboBox;
+    private JComboBox<String> genderComboBox;
     private JTextField phoneTextField;
     private JTextField addressTextField;
     private JTextField classIDTextField;
@@ -45,7 +44,7 @@ public class ManagePupilController {
     private Pupil pupil = null;
     private Account account = null;
 
-    public ManagePupilController(JButton btnSave, JButton btnDelete, JButton btnCancel, JTextField jtfId, JTextField jtfName, JDateChooser jdcDob,JComboBox jcbGender, JTextField jtfClassID,
+    public ManagePupilController(JButton btnSave, JButton btnDelete, JButton btnCancel, JTextField jtfId, JTextField jtfName, JDateChooser jdcDob,JComboBox<String> jcbGender, JTextField jtfClassID,
             JTextField jtfParentName, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfBoardingRoom
             , JTextField jtfUsername, JTextField jtfPassword, Pupil pupil, JLabel jlbMsg) {
         this.saveButton = btnSave;

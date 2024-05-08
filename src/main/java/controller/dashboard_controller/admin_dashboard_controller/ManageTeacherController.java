@@ -8,11 +8,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JComboBox;
 
 import model.account.Account;
 import model.account.AccountDatabase;
@@ -29,7 +29,7 @@ public class ManageTeacherController {
     private JTextField phoneTextField;
     private JTextField addressTextField;
     private JTextField classIDTextField;
-    private JComboBox genderComboBox;
+    private JComboBox<String> genderComboBox;
     private Teacher teacher = null;
     private JLabel messageLabel;
     private JTextField usernameTextField;
@@ -37,7 +37,7 @@ public class ManageTeacherController {
     private Account account = null;
 
     public ManageTeacherController(JButton btnSave, JButton btnDelete, JTextField jtfTeacherID, JTextField jtfName,
-            JDateChooser jdcNgaySinh, JComboBox jcbGender, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, JTextField jtfUsername, JTextField jtfPassword, Teacher teacher, JLabel jlbMsg) {
+            JDateChooser jdcNgaySinh, JComboBox<String> jcbGender, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, JTextField jtfUsername, JTextField jtfPassword, Teacher teacher, JLabel jlbMsg) {
         this.saveButton = btnSave;
         this.deleteButton = btnDelete;
         this.teacherIDTextField = jtfTeacherID;
