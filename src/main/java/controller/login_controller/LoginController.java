@@ -11,8 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import constant.Role;
 import model.account.Account;
 import view.dashboard.admin_dashboard.AdminDashboard;
+import view.dashboard.pupil_dashboard.PupilDashboard;
+import view.dashboard.teacher_dashboard.TeacherDashboard;
 
 public class LoginController {
     private JFrame loginFrame;
@@ -21,7 +24,8 @@ public class LoginController {
     private JPasswordField passwordTextField;
     private JLabel messageLabel;
 
-    public LoginController(JFrame loginFrame, JButton submitButton, JTextField usernameTextField, JPasswordField passwordTextField,JLabel messageLabel) {
+    public LoginController(JFrame loginFrame, JButton submitButton, JTextField usernameTextField,
+            JPasswordField passwordTextField, JLabel messageLabel) {
         this.loginFrame = loginFrame;
         this.submitButton = submitButton;
         this.usernameTextField = usernameTextField;
@@ -29,41 +33,52 @@ public class LoginController {
         this.messageLabel = messageLabel;
     }
 
+    private boolean validateLoginInformation() {
+        if (usernameTextField.getText().length() == 0 || passwordTextField.getPassword() == null) {
+            messageLabel.setText("Please fill required informations");
+            return false;
+        }
+        return true;
+    }
+
+    public void login() {
+        if (!validateLoginInformation()) return;
+                
+        Account account = null;
+        boolean isLoginByID = false;
+        try {
+            if (usernameTextField.getText().charAt(0) >= '0' && usernameTextField.getText().charAt(0) <= '9')
+                isLoginByID = true;
+            account = Account.login(
+                    usernameTextField.getText(),
+                    String.valueOf(passwordTextField.getPassword()),
+                    isLoginByID);
+            if (account == null) {
+                messageLabel.setText("Username or password is wrong");
+                return;
+            }
+        } catch (ClassNotFoundException | SQLException e1) {e1.printStackTrace();}
+        
+        loginFrame.dispose();
+        if (account.getRole() == Role.ADMIN) {
+            AdminDashboard frame = new AdminDashboard(account);
+            frame.setVisible(true);
+        }
+        if (account.getRole() == Role.TEACHER) {
+            TeacherDashboard frame = new TeacherDashboard(account);
+            frame.setVisible(true);
+        }
+        if (account.getRole() == Role.PUPIL) {
+            PupilDashboard frame = new PupilDashboard(account);
+            frame.setVisible(true);
+        }
+    }
+
     public void setEvent() {
-       // Account account=null;
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (usernameTextField.getText().length() == 0 || passwordTextField.getPassword() == null) {
-                    messageLabel.setText("Please fill required informations");
-                    return;
-                } 
-                Account account =null;
-                try {
-                    boolean loginByID = false;
-                    if (usernameTextField.getText().charAt(0) >= '0' 
-                        && usernameTextField.getText().charAt(0) <= '9') 
-                            loginByID = true;
-
-                     account = Account.login(
-                        usernameTextField.getText(), 
-                        String.valueOf(passwordTextField.getPassword()), 
-                        loginByID
-                    );
-                    if (account==null) {
-                        messageLabel.setText("Username or password is wrong");
-                        return;
-                    }
-                } catch (ClassNotFoundException | SQLException e1) {
-                    e1.printStackTrace();
-                    messageLabel.setText("Username or password is wrong");
-                    return;
-                }
-
-                loginFrame.dispose();
-                
-                AdminDashboard frame = new AdminDashboard(account);
-                frame.setVisible(true);
+                login();
             }
 
             @Override

@@ -3,15 +3,13 @@ package view.login;
 import java.awt.event.KeyEvent;
 
 import controller.login_controller.LoginController;
-import java.sql.SQLException;
-import model.account.Account;
-import view.dashboard.admin_dashboard.AdminDashboard;
 
 public class Login extends javax.swing.JFrame {
+    LoginController controller;
 
     public Login() {
         initComponents();
-        LoginController controller = new LoginController(this, submitButton, usernameTextField, passwordTextField, messageLabel);
+        controller = new LoginController(this, submitButton, usernameTextField, passwordTextField, messageLabel);
         controller.setEvent();
     }
 
@@ -22,7 +20,6 @@ public class Login extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jpnRoot = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         usernameTextField = new javax.swing.JTextField();
@@ -199,38 +196,9 @@ public class Login extends javax.swing.JFrame {
 
     private void passwordTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTextFieldKeyPressed
         // TODO add your handling code here:
-      if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                    // Perform action here, for example, submit login
-                       if (usernameTextField.getText().length() == 0 || passwordTextField.getPassword() == null) {
-                    messageLabel.setText("Please fill required informations");
-                    return;
-                } 
-                Account account=null;
-                try {
-                    boolean loginByID = false;
-                    if (usernameTextField.getText().charAt(0) >= '0' 
-                        && usernameTextField.getText().charAt(0) <= '9') 
-                            loginByID = true;
-
-                     account= Account.login(
-                        usernameTextField.getText(), 
-                        String.valueOf(passwordTextField.getPassword()), 
-                        loginByID
-                    );
-                    if (account==null) {
-                        messageLabel.setText("Username or password is wrong");
-                        return;
-                    }
-                } catch (ClassNotFoundException | SQLException e1) {
-                    e1.printStackTrace();
-                    messageLabel.setText("Username or password is wrong");
-                    return;
-                }
-
-                this.dispose();
-                AdminDashboard frame = new AdminDashboard(account);
-                frame.setVisible(true);
-                }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            controller.login();
+        }    
     }//GEN-LAST:event_passwordTextFieldKeyPressed
 
     private void passwordTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordTextFieldFocusGained
