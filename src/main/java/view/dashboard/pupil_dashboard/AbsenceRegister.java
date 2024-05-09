@@ -37,7 +37,7 @@ public class AbsenceRegister extends javax.swing.JPanel {
         controller.setEvent();
     }
     
-    public void init() throws ClassNotFoundException, SQLException {
+    private void init() throws ClassNotFoundException, SQLException {
         setLayout(null);
         String currentMonth = Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
         currentMonthInformationLabel = new JLabel("Absence register in: " + currentMonth + " " + LocalDate.now().getYear());

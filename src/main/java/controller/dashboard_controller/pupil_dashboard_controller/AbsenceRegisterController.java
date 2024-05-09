@@ -25,7 +25,6 @@ public class AbsenceRegisterController {
     private final int TOP_MARGIN = 300;
     private final int LEFT_MARGIN = 200;
 
-    private AbsenceRegister rootPanel;
     private LocalDate now;
     private Account account;
     private JLabel changeMonthYearDataLabel;
@@ -34,7 +33,6 @@ public class AbsenceRegisterController {
     private JTextField monthChooserTextField, yearChooserTextField;
     
     public AbsenceRegisterController(AbsenceRegister rootPanel, Account account, JButton[][] calendarCell, JLabel changeMonthYearDataLabel, JTextField monthChooserTextField, JTextField yearChooserTextField) {
-        this.rootPanel = rootPanel;
         this.account = account;
         this.changeMonthYearDataLabel = changeMonthYearDataLabel;
         this.calendarCell = calendarCell;
@@ -43,7 +41,7 @@ public class AbsenceRegisterController {
     }
 
     public void loadCalendar() throws ClassNotFoundException, SQLException {
-        if (currentMonth == -1 && currentYear == -1) {
+        if (currentMonth == -1) {
             now = LocalDate.now();
             currentMonth = now.getMonthValue();
             currentYear = now.getYear();
@@ -61,7 +59,7 @@ public class AbsenceRegisterController {
                     CELL_HEIGHT
                 );
                 if (day != -1) {
-                    if (AbsenceDatabase.find(account.getID(), LocalDate.of(now.getYear(), now.getMonthValue(), day)))
+                    if (AbsenceDatabase.find(account.getID(), LocalDate.of(currentYear, currentMonth, day)))
                     calendarCell[i][j].setBackground(Color.RED);
                     else calendarCell[i][j].setBackground(Color.GREEN);
                 }
@@ -82,7 +80,6 @@ public class AbsenceRegisterController {
                     newYear = Integer.parseInt(yearChooserTextField.getText());
                     currentMonth = newMonth;
                     currentYear = newYear;
-                    rootPanel.init();
                     loadCalendar();
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(null, "Month and year not valid", "Regist Absence", JOptionPane.ERROR_MESSAGE);
