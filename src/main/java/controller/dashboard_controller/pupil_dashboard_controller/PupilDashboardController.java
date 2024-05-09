@@ -71,14 +71,9 @@ public class PupilDashboardController {
                 case "Absence register": {
                     try {
                         view = new AbsenceRegister(account);
-                    } catch (ClassNotFoundException e1) {
-                        e1.printStackTrace();
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
+                    } catch (Exception e1) {e1.printStackTrace();}
                     break;
                 }
-
                 case "Payment": {
                     view = new PaymentPanel();
                     break;
@@ -93,7 +88,6 @@ public class PupilDashboardController {
                 }
             }
             viewPanel.removeAll();
-            viewPanel.setLayout(new BorderLayout());
             viewPanel.add(view);
             viewPanel.validate();
             viewPanel.repaint();

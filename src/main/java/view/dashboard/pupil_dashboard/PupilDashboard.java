@@ -13,6 +13,7 @@ public class PupilDashboard extends javax.swing.JFrame {
     public PupilDashboard(Account account) throws ClassNotFoundException, SQLException {
         initComponents();
         setTitle("Boarding Management");
+        setResizable(false);
         
         PupilDashboardController controller = new PupilDashboardController(viewPanel, mainPanel, mainLabel, account);
         List<SideFeatureOption> listItem = new ArrayList<>();
