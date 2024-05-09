@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +16,6 @@ import javax.swing.JTextField;
 
 import model.absence.AbsenceDatabase;
 import model.account.Account;
-import view.dashboard.pupil_dashboard.AbsenceRegister;
 
 public class AbsenceRegisterController {
     private final int ROW = 5;
@@ -22,18 +23,21 @@ public class AbsenceRegisterController {
     private final int CELL_WIDTH = 70;
     private final int CELL_HEIGHT = 70;
     private final int BLANK = 10;
-    private final int TOP_MARGIN = 300;
-    private final int LEFT_MARGIN = 200;
+    private final int TOP_MARGIN = 200;
+    private final int LEFT_MARGIN = 50;
+    private final String[] DAY_IN_WEEK = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
     private LocalDate now;
     private Account account;
+    private JLabel currentMonthInformationLabel;
     private JLabel changeMonthYearDataLabel;
     private JButton[][] calendarCell;
     private int currentMonth = -1, currentYear = -1;
     private JTextField monthChooserTextField, yearChooserTextField;
     
-    public AbsenceRegisterController(AbsenceRegister rootPanel, Account account, JButton[][] calendarCell, JLabel changeMonthYearDataLabel, JTextField monthChooserTextField, JTextField yearChooserTextField) {
+    public AbsenceRegisterController(Account account, JButton[][] calendarCell, JLabel changeMonthYearDataLabel, JTextField monthChooserTextField, JTextField yearChooserTextField, JLabel currentMonthInformationLabel) {
         this.account = account;
+        this.currentMonthInformationLabel = currentMonthInformationLabel;
         this.changeMonthYearDataLabel = changeMonthYearDataLabel;
         this.calendarCell = calendarCell;
         this.monthChooserTextField = monthChooserTextField;
@@ -46,7 +50,22 @@ public class AbsenceRegisterController {
             currentMonth = now.getMonthValue();
             currentYear = now.getYear();
         }
-        for (int i = 1; i <= ROW; i ++)
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(currentYear, currentMonth - 1, 1);
+        String currentMonthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+        currentMonthInformationLabel.setText("Absence register in: " + currentMonthName + " " + currentYear);
+        for (int j = 1; j <= COL; j ++) {
+            calendarCell[0][j].setText(DAY_IN_WEEK[j - 1]);
+            calendarCell[0][j].setFont(new Font("Arial", Font.BOLD, 14));
+            calendarCell[0][j].setBounds(
+                LEFT_MARGIN + BLANK * j + CELL_WIDTH * (j - 1), 
+                TOP_MARGIN,
+                CELL_WIDTH,
+                CELL_HEIGHT
+            );
+            calendarCell[0][j].setBackground(Color.CYAN);
+        }
+        for (int i = 1; i <= ROW; i ++) {
             for (int j = 1; j <= COL; j ++) {
                 int day = getDayByIndex(i, j);
                 String name = (day != -1) ? String.valueOf(day) : "";
@@ -54,16 +73,18 @@ public class AbsenceRegisterController {
                 calendarCell[i][j].setFont(new Font("Arial", Font.BOLD, 20));
                 calendarCell[i][j].setBounds(
                     LEFT_MARGIN + BLANK * j + CELL_WIDTH * (j - 1), 
-                    TOP_MARGIN + BLANK * i + CELL_HEIGHT * (i - 1),
+                    TOP_MARGIN + BLANK * i + CELL_HEIGHT * i,
                     CELL_WIDTH,
                     CELL_HEIGHT
                 );
                 if (day != -1) {
                     if (AbsenceDatabase.find(account.getID(), LocalDate.of(currentYear, currentMonth, day)))
-                    calendarCell[i][j].setBackground(Color.RED);
+                        calendarCell[i][j].setBackground(Color.RED);
                     else calendarCell[i][j].setBackground(Color.GREEN);
-                }
+                } else calendarCell[i][j].setBackground(Color.BLACK);
             }
+        }
+        setEventForCalender();
     }
 
     public void setEvent() {
@@ -110,8 +131,8 @@ public class AbsenceRegisterController {
                     if (choice == 0) {
                         ((JButton) event.getSource()).setBackground(isRegistAbsence ? Color.RED : Color.GREEN);
                         try {
-                            if (isRegistAbsence) AbsenceDatabase.registAbsence(account.getID(), LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), day));
-                            else AbsenceDatabase.undoRegistAbsence(account.getID(), LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), day));
+                            if (isRegistAbsence) AbsenceDatabase.registAbsence(account.getID(), LocalDate.of(currentYear, currentMonth, day));
+                            else AbsenceDatabase.undoRegistAbsence(account.getID(), LocalDate.of(currentYear, currentMonth, day));
                         } catch(Exception e) {e.printStackTrace();}
                     }             
                 });
