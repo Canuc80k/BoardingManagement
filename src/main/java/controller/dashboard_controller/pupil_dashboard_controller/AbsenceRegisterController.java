@@ -2,6 +2,7 @@ package controller.dashboard_controller.pupil_dashboard_controller;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
@@ -116,6 +117,9 @@ public class AbsenceRegisterController {
     private void setEventForCalender() {
         for (int i = 1; i <= ROW; i ++)
             for (int j = 1; j <= COL; j ++) {
+                for (ActionListener act : calendarCell[i][j].getActionListeners())
+                    calendarCell[i][j].removeActionListener(act);
+
                 if (calendarCell[i][j].getText() == "") continue;
                 int day = Integer.parseInt(calendarCell[i][j].getText());
                 calendarCell[i][j].addActionListener(event -> {
