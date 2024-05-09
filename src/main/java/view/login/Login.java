@@ -1,6 +1,7 @@
 package view.login;
 
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import controller.login_controller.LoginController;
 
@@ -89,7 +90,12 @@ public class Login extends javax.swing.JFrame {
         });
         passwordTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                passwordTextFieldKeyPressed(evt);
+                try {
+                    passwordTextFieldKeyPressed(evt);
+                } catch (ClassNotFoundException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 passwordTextFieldKeyTyped(evt);
@@ -194,7 +200,7 @@ public class Login extends javax.swing.JFrame {
                 }
     }//GEN-LAST:event_usernameTextFieldKeyPressed
 
-    private void passwordTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTextFieldKeyPressed
+    private void passwordTextFieldKeyPressed(java.awt.event.KeyEvent evt) throws ClassNotFoundException, SQLException {//GEN-FIRST:event_passwordTextFieldKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             controller.login();

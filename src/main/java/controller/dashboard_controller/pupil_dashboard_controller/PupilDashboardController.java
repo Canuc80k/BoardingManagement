@@ -10,8 +10,8 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.dashboard_controller.SideFeatureOption;
 import model.account.Account;
+import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.admin_dashboard.PaymentPanel;
@@ -22,7 +22,7 @@ public class PupilDashboardController {
     private String selectedPanelTitle = "";
     private List<SideFeatureOption> listItem;
     private Account account=null;
-    public PupilDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel,Account account) {
+    public PupilDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) throws ClassNotFoundException, SQLException {
         this.viewPanel = viewPanel;
         this.account=account;
         selectedPanelTitle = "Init";
@@ -49,7 +49,6 @@ public class PupilDashboardController {
     }
 
     class LabelEvent implements MouseListener {
-
         private JPanel view;
         private String sideFeatureOptionTitle;
         private JPanel sideFeatureOptionPanel;
@@ -66,12 +65,12 @@ public class PupilDashboardController {
             System.out.println(sideFeatureOptionTitle);
             switch (sideFeatureOptionTitle) {
                 case "Init": {
-                    view = new InitPanel(account);
+                    // view = new InitPanel(account);
                     break;
                 }
                 case "Absence register": {
                     try {
-                        view = new AbsenceRegister();
+                        view = new AbsenceRegister(account);
                     } catch (ClassNotFoundException e1) {
                         e1.printStackTrace();
                     } catch (SQLException e1) {

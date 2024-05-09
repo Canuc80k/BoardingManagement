@@ -3,9 +3,9 @@ package view.dashboard.teacher_dashboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.dashboard_controller.SideFeatureOption;
 import controller.dashboard_controller.admin_dashboard_controller.AdminDashboardController;
 import model.account.Account;
+import view.dashboard.SideFeatureOption;
 import view.login.Login;
 
 public class TeacherDashboard extends javax.swing.JFrame {

@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import controller.dashboard_controller.SideFeatureOption;
 import model.account.Account;
+import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.BoardingroomPanel;
 import view.dashboard.admin_dashboard.ClassroomPanel;
 import view.dashboard.admin_dashboard.InformationPanel;

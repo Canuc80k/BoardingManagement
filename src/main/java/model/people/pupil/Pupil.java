@@ -5,6 +5,7 @@ import java.util.Date;
 import model.people.People;
 
 public class Pupil extends People {
+    private String id;
     private String classID;
     private String parentName;
     private String boardingroom;
@@ -20,28 +21,12 @@ public class Pupil extends People {
        // this.gender = gender;
     }
 
-    public String getClassID() {
-        return classID;
-    }
-
-    public void setClassID(String classID) {
-        this.classID = classID;
-    }
-
-    public String getParentName() {
-        return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
-    }
-
-    public String getBoardingroom() {
-        return boardingroom;
-    }
-
-    public void setBoardingroom(String boardingroom) {
-        this.boardingroom = boardingroom;
-    }
-
+    public String getID() {return id;}
+    public void setID(String id) {this.id = id;}
+    public String getClassID() {return classID;}
+    public void setClassID(String classID) {this.classID = classID;}
+    public String getParentName() {return parentName;}
+    public void setParentName(String parentName) {this.parentName = parentName;}
+    public String getBoardingroom() {return boardingroom;}
+    public void setBoardingroom(String boardingroom) {this.boardingroom = boardingroom;}
 }

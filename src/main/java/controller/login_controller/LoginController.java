@@ -41,7 +41,7 @@ public class LoginController {
         return true;
     }
 
-    public void login() {
+    public void login() throws ClassNotFoundException, SQLException {
         if (!validateLoginInformation())
             return;
 
@@ -81,7 +81,11 @@ public class LoginController {
         submitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                login();
+                try {
+                    login();
+                } catch (ClassNotFoundException | SQLException e1) {
+                    e1.printStackTrace();
+                }
             }
 
             @Override

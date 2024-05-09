@@ -1,5 +1,6 @@
 package view.dashboard.pupil_dashboard;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import controller.dashboard_controller.pupil_dashboard_controller.AbsenceRegisterController;
+import model.absence.AbsenceDatabase;
 import model.account.Account;
 
 public class AbsenceRegister extends javax.swing.JPanel {
@@ -21,24 +23,31 @@ public class AbsenceRegister extends javax.swing.JPanel {
     private final int TOP_MARGIN = 300;
     private final int LEFT_MARGIN = 200;
 
+    private LocalDate date;
+    private Account account;
     private AbsenceRegisterController controller;
     private JLabel currentMonthInformationLabel;
     private JButton[][] calendarCell = new JButton[ROW + 1][COL + 1];
 
-    public static void main(String args[]) {
-        PupilDashboard p = new PupilDashboard(new Account("1111", "a", "a", 3));
+    public static void main(String args[]) throws ClassNotFoundException, SQLException {
+        PupilDashboard p = new PupilDashboard(
+            new Account("1111", "a", "a", 3)
+        );
         p.setVisible(true);
     } 
     
-    public AbsenceRegister() throws SQLException, ClassNotFoundException {
+    public AbsenceRegister(Account account) throws SQLException, ClassNotFoundException {
+        this.account = account;
         init();
-        controller = new AbsenceRegisterController();
+        controller = new AbsenceRegisterController(account, calendarCell);
+        controller.setEvent();
     }
 
-    private void init() {
+    private void init() throws ClassNotFoundException, SQLException {
+        date = LocalDate.now();
         String currentMonth = Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
         setLayout(null);
-        currentMonthInformationLabel = new JLabel("Absence register in: " + currentMonth);
+        currentMonthInformationLabel = new JLabel("Absence register in: " + currentMonth + " " + date.getYear());
         currentMonthInformationLabel.setFont(new Font("Arial", Font.PLAIN, 30));
         currentMonthInformationLabel.setBounds(100, 100, 500, 100);
         this.add(currentMonthInformationLabel);
@@ -48,15 +57,20 @@ public class AbsenceRegister extends javax.swing.JPanel {
                 int day = getDayByIndex(i, j);
                 String name = (day != -1) ? String.valueOf(day) : "";
                 calendarCell[i][j] = new JButton(name);
+                calendarCell[i][j].setFont(new Font("Arial", Font.BOLD, 20));
                 calendarCell[i][j].setBounds(
                     LEFT_MARGIN + BLANK * j + CELL_WIDTH * (j - 1), 
                     TOP_MARGIN + BLANK * i + CELL_HEIGHT * (i - 1),
                     CELL_WIDTH,
                     CELL_HEIGHT
                 );
+                if (day != -1) {
+                    if (AbsenceDatabase.find(account.getID(), LocalDate.of(date.getYear(), date.getMonthValue(), day)))
+                        calendarCell[i][j].setBackground(Color.RED);
+                    else calendarCell[i][j].setBackground(Color.GREEN);
+                }
                 this.add(calendarCell[i][j]);
             }
-        System.out.println(getDaysInMonth());
     }
 
     private int getDayByIndex(int i, int j) {

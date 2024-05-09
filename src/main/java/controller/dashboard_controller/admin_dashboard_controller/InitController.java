@@ -4,9 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -82,25 +80,25 @@ public class InitController {
     }
 
     public static void saveToFile(JTable table, String fileName) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        int rowCount = model.getRowCount();
-        int colCount = model.getColumnCount();
+        // DefaultTableModel model = (DefaultTableModel) table.getModel();
+        // int rowCount = model.getRowCount();
+        // int colCount = model.getColumnCount();
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (int row = 0; row < rowCount; row++) {
-                StringBuilder rowString = new StringBuilder();
-                for (int col = 0; col < colCount; col++) {
-                    rowString.append(model.getValueAt(row, col).toString());
-                    if (col < colCount - 1) {
-                        rowString.append(",");
-                    }
-                }
-                writer.write(rowString.toString());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        //     for (int row = 0; row < rowCount; row++) {
+        //         StringBuilder rowString = new StringBuilder();
+        //         for (int col = 0; col < colCount; col++) {
+        //             rowString.append(model.getValueAt(row, col).toString());
+        //             if (col < colCount - 1) {
+        //                 rowString.append(",");
+        //             }
+        //         }
+        //         writer.write(rowString.toString());
+        //         writer.newLine();
+        //     }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {

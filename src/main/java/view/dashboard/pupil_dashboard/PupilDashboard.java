@@ -1,15 +1,16 @@
 package view.dashboard.pupil_dashboard;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.dashboard_controller.SideFeatureOption;
 import controller.dashboard_controller.pupil_dashboard_controller.PupilDashboardController;
 import model.account.Account;
+import view.dashboard.SideFeatureOption;
 import view.login.Login;
 
 public class PupilDashboard extends javax.swing.JFrame {
-    public PupilDashboard(Account account) {
+    public PupilDashboard(Account account) throws ClassNotFoundException, SQLException {
         initComponents();
         setTitle("Boarding Management");
         
