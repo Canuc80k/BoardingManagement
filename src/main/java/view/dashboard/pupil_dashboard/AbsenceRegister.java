@@ -29,13 +29,6 @@ public class AbsenceRegister extends javax.swing.JPanel {
     private JLabel currentMonthInformationLabel;
     private JButton[][] calendarCell = new JButton[ROW + 1][COL + 1];
 
-    public static void main(String args[]) throws ClassNotFoundException, SQLException {
-        PupilDashboard p = new PupilDashboard(
-            new Account("1111", "a", "a", 3)
-        );
-        p.setVisible(true);
-    } 
-    
     public AbsenceRegister(Account account) throws SQLException, ClassNotFoundException {
         this.account = account;
         init();
