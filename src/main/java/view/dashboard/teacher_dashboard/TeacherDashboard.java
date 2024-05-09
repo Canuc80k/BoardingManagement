@@ -3,8 +3,8 @@ package view.dashboard.teacher_dashboard;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.dashboard_controller.SideFeatureOption;
 import controller.dashboard_controller.admin_dashboard_controller.AdminDashboardController;
-import controller.dashboard_controller.side_feature_option_controller.SideFeatureOption;
 import model.account.Account;
 import view.login.Login;
 

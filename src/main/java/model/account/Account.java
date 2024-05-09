@@ -24,10 +24,6 @@ public class Account {
         if (!account.getPassword().equals(password)) return null;
         return account;
     }
-
-    public Account(String username, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
     public String getID() {return id;}
     public void setID(String id) {this.id = id;}

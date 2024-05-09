@@ -42,8 +42,9 @@ public class LoginController {
     }
 
     public void login() {
-        if (!validateLoginInformation()) return;
-                
+        if (!validateLoginInformation())
+            return;
+
         Account account = null;
         boolean isLoginByID = false;
         try {
@@ -57,8 +58,10 @@ public class LoginController {
                 messageLabel.setText("Username or password is wrong");
                 return;
             }
-        } catch (ClassNotFoundException | SQLException e1) {e1.printStackTrace();}
-        
+        } catch (ClassNotFoundException | SQLException e1) {
+            e1.printStackTrace();
+        }
+
         loginFrame.dispose();
         if (account.getRole() == Role.ADMIN) {
             AdminDashboard frame = new AdminDashboard(account);

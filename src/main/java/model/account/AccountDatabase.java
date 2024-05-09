@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class AccountDatabase {
-
     public static Account getAccountByUsername(String username) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");

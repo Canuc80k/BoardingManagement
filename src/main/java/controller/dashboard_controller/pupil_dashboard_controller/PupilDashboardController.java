@@ -1,4 +1,4 @@
-package controller.dashboard_controller.admin_dashboard_controller;
+package controller.dashboard_controller.pupil_dashboard_controller;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,32 +6,25 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.dashboard_controller.SideFeatureOption;
 import model.account.Account;
-import view.dashboard.admin_dashboard.BoardingroomPanel;
-import view.dashboard.admin_dashboard.ClassroomPanel;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
-import view.dashboard.admin_dashboard.ManagerPanel;
 import view.dashboard.admin_dashboard.PaymentPanel;
-import view.dashboard.admin_dashboard.PupilPanel;
-import view.dashboard.admin_dashboard.TeacherPanel;
+import view.dashboard.pupil_dashboard.AbsenceRegister;
 
-public class AdminDashboardController {
+public class PupilDashboardController {
     private JPanel viewPanel;
     private String selectedPanelTitle = "";
     private List<SideFeatureOption> listItem;
-    private Account account = null;
-
-    public AdminDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) {
+    private Account account=null;
+    public PupilDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel,Account account) {
         this.viewPanel = viewPanel;
-        this.account = account;
+        this.account=account;
         selectedPanelTitle = "Init";
         selectedPanel.setBackground(new Color(96, 100, 191));
         selectedLabel.setBackground(new Color(96, 100, 191));
@@ -46,14 +39,17 @@ public class AdminDashboardController {
         this.listItem = listItem;
         for (SideFeatureOption item : listItem) {
             item.getPanel().addMouseListener(
-                    new LabelEvent(
-                            item.getTitle(),
-                            item.getPanel(),
-                            item.getLabel()));
+                new LabelEvent(
+                    item.getTitle(),
+                    item.getPanel(),
+                    item.getLabel()
+                )
+            );
         }
     }
 
     class LabelEvent implements MouseListener {
+
         private JPanel view;
         private String sideFeatureOptionTitle;
         private JPanel sideFeatureOptionPanel;
@@ -67,63 +63,21 @@ public class AdminDashboardController {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            System.out.println(sideFeatureOptionTitle);
             switch (sideFeatureOptionTitle) {
                 case "Init": {
                     view = new InitPanel(account);
                     break;
                 }
-                case "Teacher": {
-
+                case "Absence register": {
                     try {
-                        view = new TeacherPanel();
-
-                        break;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                        view = new AbsenceRegister();
+                    } catch (ClassNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
                     }
-                }
-                case "Manager": {
-                    try {
-                        view = new ManagerPanel();
-                        break;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-                case "Pupil": {
-                    try {
-                        view = new PupilPanel();
-                        break;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-                case "Class": {
-                    try {
-                        view = new ClassroomPanel();
-                        break;
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-                case "BoardingRoom": {
-                    try {
-                        view = new BoardingroomPanel();
-                        break;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    break;
                 }
 
                 case "Payment": {
