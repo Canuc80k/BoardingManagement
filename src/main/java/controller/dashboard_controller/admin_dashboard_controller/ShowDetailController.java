@@ -44,14 +44,14 @@ public class ShowDetailController {
     public void setDataToTable() throws SQLException, ClassNotFoundException {
 
         jlbClassroom.setText("Class "+classroom.getClassID());
-    System.out.println("Test Classroom.....");
-    System.out.println("ID:"+classroom.getClassID());
-    System.out.println("Room:"+classroom.getRoom());
-    System.out.println("Quantity:"+classroom.getQuantity());
-        List<Pupil> listItemPupil = PupilDatabase.getAllPupil("SELECT * FROM pupil WHERE class LIKE '%" + classroom.getClassID() + "%'");
+//    System.out.println("Test Classroom.....");
+//    System.out.println("ID:"+classroom.getClassID());
+//    System.out.println("Room:"+classroom.getRoom());
+//    System.out.println("Quantity:"+classroom.getQuantity());
+        List<Pupil> listItemPupil = PupilDatabase.getAllPupil("SELECT * FROM pupil WHERE class = '" + classroom.getClassID() + "'");
 
 
-        List<Teacher> listItemTeacher = TeacherDatabase.getAllTeacher("SELECT * FROM teacher where classid=" + classroom.getClassID());
+        List<Teacher> listItemTeacher = TeacherDatabase.getAllTeacher("SELECT * FROM teacher where classid='" + classroom.getClassID() + "'");
         //DefaultTableModel model = new DefaultTableModel();
         DefaultTableModel model = new DefaultTableModel() {
             @Override
@@ -62,7 +62,7 @@ public class ShowDetailController {
         };
         model.setColumnIdentifiers(listColumn);
         for (Pupil pupil : listItemPupil) {
-            System.out.println("ID:"+classroom.getClassID()+" Pupil ClassID:"+pupil.getClassID());
+            //System.out.println("ID:"+classroom.getClassID()+" Pupil ClassID:"+pupil.getClassID());
             model.addRow(new Object[]{
                 pupil.getID(),
                 pupil.getName(),
@@ -77,7 +77,7 @@ public class ShowDetailController {
             });
         }
         for (Teacher teacher : listItemTeacher) {
-            System.out.println("Test Teacher.....");
+            //System.out.println("Test Teacher.....");
             jlbTeacher.setText(teacher.getName());
         }
         table = new JTable(model);
