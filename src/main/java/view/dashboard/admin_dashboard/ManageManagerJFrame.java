@@ -18,15 +18,10 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
      */
     public ManageManagerJFrame(Manager manager, String editOrAdd) {
     initComponents();
-    System.out.println("ManageManagerJFrame Manager ID: " + manager.getID());
-    System.out.println("Name: " + manager.getName());
-    System.out.println("Phone: " + manager.getPhone());
-    System.out.println("Address: " + manager.getAddress());
-    System.out.println("Date of Birth: " + manager.getDoB());
-    System.out.println("Boarding Room: " + manager.getBoardingroom());
+
         ManageManagerController controller = new ManageManagerController(saveButton, deleteButton,
                 idTextField, nameTextField, dobDayChooser, genderComboBox, phoneTextField, addressTextField,
-                boardingroomTextField, manager, messageLabel);
+                boardingRoomComboBox, manager, messageLabel);
         controller.setView(manager, editOrAdd);
         controller.setEvent(editOrAdd);
     }
@@ -52,15 +47,15 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
         nameTextField = new javax.swing.JTextField();
         phoneTextField = new javax.swing.JTextField();
         addressTextField = new javax.swing.JTextField();
-        boardingroomTextField = new javax.swing.JTextField();
         dobDayChooser = new com.toedter.calendar.JDateChooser();
         genderComboBox = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
+        boardingRoomComboBox = new javax.swing.JComboBox<>();
         cancelButton = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         saveButton.setBackground(new java.awt.Color(51, 153, 0));
         saveButton.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
@@ -101,8 +96,6 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
 
         addressTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        boardingroomTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         dobDayChooser.setDateFormatString("yyyy-MM-dd");
 
         genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
@@ -115,6 +108,13 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         jLabel12.setText("Gender:");
 
+        boardingRoomComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        boardingRoomComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boardingRoomComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,8 +124,7 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(phoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                        .addComponent(addressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                        .addComponent(boardingroomTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                        .addComponent(addressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,8 +142,9 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
                             .addComponent(idTextField)
                             .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                             .addComponent(dobDayChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(324, Short.MAX_VALUE))
+                            .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boardingRoomComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,8 +176,8 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(boardingroomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                    .addComponent(boardingRoomComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         cancelButton.setBackground(new java.awt.Color(153, 153, 153));
@@ -259,6 +259,10 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void boardingRoomComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boardingRoomComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boardingRoomComboBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -266,7 +270,7 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTextField;
-    private javax.swing.JTextField boardingroomTextField;
+    private javax.swing.JComboBox<String> boardingRoomComboBox;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton deleteButton;
     private com.toedter.calendar.JDateChooser dobDayChooser;

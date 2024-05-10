@@ -110,17 +110,18 @@ public class PupilDashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(paymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addGap(16, 16, 16))
         );
         paymentPanelLayout.setVerticalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paymentPanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(24, 24, 24)
                 .addComponent(paymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         informationPanel.setBackground(new java.awt.Color(0, 153, 255));
+        informationPanel.setPreferredSize(new java.awt.Dimension(240, 86));
 
         informationLabel.setBackground(new java.awt.Color(238, 238, 228));
         informationLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -132,17 +133,17 @@ public class PupilDashboard extends javax.swing.JFrame {
         informationPanel.setLayout(informationPanelLayout);
         informationPanelLayout.setHorizontalGroup(
             informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, informationPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(informationPanelLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         informationPanelLayout.setVerticalGroup(
             informationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(informationPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(24, 24, 24)
                 .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         logOutLabel.setBackground(new java.awt.Color(238, 238, 228));
@@ -161,7 +162,7 @@ public class PupilDashboard extends javax.swing.JFrame {
         viewAbsenceHistoryLabel.setBackground(new java.awt.Color(238, 238, 228));
         viewAbsenceHistoryLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         viewAbsenceHistoryLabel.setForeground(new java.awt.Color(238, 238, 228));
-        viewAbsenceHistoryLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wallet.png"))); // NOI18N
+        viewAbsenceHistoryLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/history.png"))); // NOI18N
         viewAbsenceHistoryLabel.setText("View absence history ");
 
         javax.swing.GroupLayout viewAbsenceHistoryPanelLayout = new javax.swing.GroupLayout(viewAbsenceHistoryPanel);
@@ -182,11 +183,12 @@ public class PupilDashboard extends javax.swing.JFrame {
         );
 
         absenceRegisterPanel.setBackground(new java.awt.Color(0, 153, 255));
+        absenceRegisterPanel.setPreferredSize(new java.awt.Dimension(270, 86));
 
         absenceRegisterLabel.setBackground(new java.awt.Color(238, 238, 228));
         absenceRegisterLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         absenceRegisterLabel.setForeground(new java.awt.Color(238, 238, 228));
-        absenceRegisterLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wallet.png"))); // NOI18N
+        absenceRegisterLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit.png"))); // NOI18N
         absenceRegisterLabel.setText("Absence register");
 
         javax.swing.GroupLayout absenceRegisterPanelLayout = new javax.swing.GroupLayout(absenceRegisterPanel);
@@ -201,9 +203,9 @@ public class PupilDashboard extends javax.swing.JFrame {
         absenceRegisterPanelLayout.setVerticalGroup(
             absenceRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(absenceRegisterPanelLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(23, 23, 23)
                 .addComponent(absenceRegisterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
@@ -214,7 +216,7 @@ public class PupilDashboard extends javax.swing.JFrame {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(informationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(informationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                     .addComponent(paymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(viewAbsenceHistoryPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(absenceRegisterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -238,7 +240,7 @@ public class PupilDashboard extends javax.swing.JFrame {
                 .addComponent(informationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout rootPanelLayout = new javax.swing.GroupLayout(rootPanel);

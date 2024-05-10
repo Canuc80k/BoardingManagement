@@ -17,9 +17,14 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+import java.util.List;
 
 import model.account.Account;
 import model.account.AccountDatabase;
+import model.boardingroom.Boardingroom;
+import model.boardingroom.BoardingroomDatabase;
+import model.classroom.Classroom;
+import model.classroom.ClassroomDatabase;
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
 
@@ -35,6 +40,8 @@ public class ManagePupilController {
     private JTextField usernameTextField;
     private JTextField passwordTextField;
     private JComboBox<String> genderComboBox;
+    private JComboBox<String> classIDComboBox;
+    private JComboBox<String> boardingRoomComboBox;
     private JTextField phoneTextField;
     private JTextField addressTextField;
     private JTextField classIDTextField;
@@ -44,24 +51,26 @@ public class ManagePupilController {
     private Pupil pupil = null;
     private Account account = null;
 
-    public ManagePupilController(JButton btnSave, JButton btnDelete, JButton btnCancel, JTextField jtfId, JTextField jtfName, JDateChooser jdcDob,JComboBox<String> jcbGender, JTextField jtfClassID,
-            JTextField jtfParentName, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfBoardingRoom
-            , JTextField jtfUsername, JTextField jtfPassword, Pupil pupil, JLabel jlbMsg) {
+    public ManagePupilController(JButton btnSave, JButton btnDelete, JButton btnCancel, JTextField jtfId, JTextField jtfName, JDateChooser jdcDob, JComboBox<String> jcbGender, JComboBox<String> jcbClassID,
+            JTextField jtfParentName, JTextField jtfPhone, JTextField jtfAddress, JComboBox<String> jcbBoardingRoom,
+            JTextField jtfUsername, JTextField jtfPassword, Pupil pupil, JLabel jlbMsg) {
         this.saveButton = btnSave;
         this.deleteButton = btnDelete;
         this.cancelButton = btnCancel;
         this.messageLabel = jlbMsg;
         this.idTextField = jtfId;
         this.nameTextField = jtfName;
-        this.genderComboBox=jcbGender;
+        this.genderComboBox = jcbGender;
         this.parentNameTextField = jtfParentName;
         this.usernameTextField = jtfUsername;
         this.passwordTextField = jtfPassword;
         this.phoneTextField = jtfPhone;
         this.addressTextField = jtfAddress;
-        this.classIDTextField = jtfClassID;
-       // this.absentDayTextField = jtfAbsentDay;
-        this.boardingRoomTextField = jtfBoardingRoom;
+        //   this.classIDTextField = jtfClassID;
+        this.classIDComboBox = jcbClassID;
+        this.boardingRoomComboBox = jcbBoardingRoom;
+        // this.absentDayTextField = jtfAbsentDay;
+        //this.boardingRoomTextField = jtfBoardingRoom;
         this.dobDayChooser = jdcDob;
     }
 
@@ -76,10 +85,25 @@ public class ManagePupilController {
             addressTextField.setText(pupil.getAddress());
             dobDayChooser.setDate(pupil.getDoB());
             genderComboBox.setSelectedIndex(pupil.getGender());
-            classIDTextField.setText(pupil.getClassID());
-          //  absentDayTextField.setText(String.valueOf(pupil.getAbsentday()));
-            boardingRoomTextField.setText(pupil.getBoardingroom());
-
+            //  classIDTextField.setText(pupil.getClassID());
+            classIDComboBox.removeAllItems();
+            List<Classroom> classes = ClassroomDatabase.getAllClassrooms("Select * from classroom");
+            for (Classroom classroom : classes) {
+                classIDComboBox.addItem(classroom.getClassID());
+            }
+            classIDComboBox.setSelectedItem(pupil.getClassID());
+//  absentDayTextField.setText(String.valueOf(pupil.getAbsentday()));
+            //boardingRoomTextField.setText(pupil.getBoardingroom());
+            boardingRoomComboBox.removeAllItems();
+            List<Boardingroom> rooms = BoardingroomDatabase.getAllBoardingrooms("Select * from boardingroom");
+            for (Boardingroom room : rooms) {
+                String roomNumberWithZeros = room.getRoom();
+                // Remove leading zeros and add to the combo box
+                int roomNumber = Integer.parseInt(roomNumberWithZeros); // Convert to integer
+                boardingRoomComboBox.addItem(String.valueOf(roomNumber));
+            }
+            //System.out.println("combo box: " + pupil.getBoardingroom());
+            boardingRoomComboBox.setSelectedItem(pupil.getBoardingroom());
             if (editOrAdd.equals("add")) {
                 account = new Account("", "", "", 3);
                 usernameTextField.setText("");
@@ -104,14 +128,14 @@ public class ManagePupilController {
                 } else {
                     try {
                         account = new Account(idTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 3);
-                        System.out.println("Text Field" + account.getID() + " " + account.getUsername() + " " + account.getPassword());
-                        pupil = new Pupil(idTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),genderComboBox.getSelectedIndex(),
-                                classIDTextField.getText(), parentNameTextField.getText(), phoneTextField.getText(), addressTextField.getText(),
-                                boardingRoomTextField.getText());
-                        System.out.println("combo box: " + pupil.getGender());
+                        //System.out.println("Text Field" + account.getID() + " " + account.getUsername() + " " + account.getPassword());
+                        pupil = new Pupil(idTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()), genderComboBox.getSelectedIndex(),
+                                classIDComboBox.getSelectedItem().toString(), parentNameTextField.getText(), phoneTextField.getText(), addressTextField.getText(),
+                                boardingRoomComboBox.getSelectedItem().toString());
+                       // System.out.println("combo box: " + pupil.getBoardingroom());
                         int checkPupil = -1;
                         int checkAccount = -1;
-                        System.out.println("Dang xem xet adding or editting?");
+                        //      System.out.println("Dang xem xet adding or editting?");
 
                         if (editOrAdd.equals("add")) {
                             System.out.println("......Adding............");
@@ -139,7 +163,9 @@ public class ManagePupilController {
                         if (checkPupil > 0 && checkAccount > 0) {
                             messageLabel.setText("Update Successful");
                         } else {
-                            if(editOrAdd.equals("add"))AccountDatabase.delete(account);
+                            if (editOrAdd.equals("add")) {
+                                AccountDatabase.delete(account);
+                            }
                             messageLabel.setText("Update Failed");
                         }
                     } catch (ClassNotFoundException | SQLException ex) {
@@ -166,8 +192,9 @@ public class ManagePupilController {
                     messageLabel.setText("Can't delete null values");
                 } else {
                     try {
-                        pupil = new Pupil(idTextField.getText(), nameTextField.getText(), dobDayChooser.getDate(),genderComboBox.getSelectedIndex(),classIDTextField.getText(),
-                                parentNameTextField.getText(), phoneTextField.getText(), addressTextField.getText(), boardingRoomTextField.getText());
+                        pupil = new Pupil(idTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()), genderComboBox.getSelectedIndex(),
+                                classIDComboBox.getSelectedItem().toString(), parentNameTextField.getText(), phoneTextField.getText(), addressTextField.getText(),
+                                boardingRoomComboBox.getSelectedItem().toString());
                         account = new Account(idTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 1);
                         int checkPupil = PupilDatabase.delete(pupil);
                         int checkAccount = AccountDatabase.delete(account);

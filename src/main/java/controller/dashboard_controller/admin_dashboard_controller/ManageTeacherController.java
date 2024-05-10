@@ -13,9 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+import java.util.List;
 
 import model.account.Account;
 import model.account.AccountDatabase;
+import model.classroom.Classroom;
+import model.classroom.ClassroomDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 
@@ -30,6 +33,7 @@ public class ManageTeacherController {
     private JTextField addressTextField;
     private JTextField classIDTextField;
     private JComboBox<String> genderComboBox;
+    private JComboBox<String> classIDComboBox;
     private Teacher teacher = null;
     private JLabel messageLabel;
     private JTextField usernameTextField;
@@ -37,7 +41,7 @@ public class ManageTeacherController {
     private Account account = null;
 
     public ManageTeacherController(JButton btnSave, JButton btnDelete, JTextField jtfTeacherID, JTextField jtfName,
-            JDateChooser jdcNgaySinh, JComboBox<String> jcbGender, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfClassID, JTextField jtfUsername, JTextField jtfPassword, Teacher teacher, JLabel jlbMsg) {
+            JDateChooser jdcNgaySinh, JComboBox<String> jcbGender, JTextField jtfPhone, JTextField jtfAddress, JComboBox<String> jcbClassID, JTextField jtfUsername, JTextField jtfPassword, Teacher teacher, JLabel jlbMsg) {
         this.saveButton = btnSave;
         this.deleteButton = btnDelete;
         this.teacherIDTextField = jtfTeacherID;
@@ -46,7 +50,7 @@ public class ManageTeacherController {
         this.genderComboBox = jcbGender;
         this.phoneTextField = jtfPhone;
         this.addressTextField = jtfAddress;
-        this.classIDTextField = jtfClassID;
+        this.classIDComboBox = jcbClassID;
         this.usernameTextField = jtfUsername;
         this.passwordTextField = jtfPassword;
         this.messageLabel = jlbMsg;
@@ -61,14 +65,13 @@ public class ManageTeacherController {
             phoneTextField.setText(teacher.getPhone());
             addressTextField.setText(teacher.getAddress());
             dobDayChooser.setDate(teacher.getDoB());
-            classIDTextField.setText(teacher.getClassID());
+            classIDComboBox.removeAllItems();
+            List<Classroom> classes = ClassroomDatabase.getAllClassrooms("Select * from classroom");
+            for (Classroom classroom : classes) {
+                classIDComboBox.addItem(classroom.getClassID());
+            }
+            classIDComboBox.setSelectedItem(teacher.getClassID());
             genderComboBox.setSelectedIndex(teacher.getGender());
-            System.out.println("Name: " + teacher.getName());
-            System.out.println("Phone: " + teacher.getPhone());
-            System.out.println("Address: " + teacher.getAddress());
-            System.out.println("Date of Birth: " + teacher.getDoB());
-            System.out.println("Class ID: " + teacher.getClassID());
-            System.out.println("Gender Index: " + teacher.getGender());
             if (editOrAdd.equals("add")) {
                 account = new Account("", "", "", 2);
                 usernameTextField.setText("");
@@ -94,7 +97,7 @@ public class ManageTeacherController {
                     try {
                         account = new Account(teacherIDTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 2);
                         teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),
-                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), classIDTextField.getText());
+                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), classIDComboBox.getSelectedItem().toString());
                         int checkTeacher = -1;
                         int checkAccount = -1;
                         if (editOrAdd.equals("add")) {
@@ -138,7 +141,7 @@ public class ManageTeacherController {
                 } else {
                     try {
                         teacher = new Teacher(teacherIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),
-                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), classIDTextField.getText());
+                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), classIDComboBox.getSelectedItem().toString());
 
                         account = new Account(teacherIDTextField.getText(), usernameTextField.getText(), passwordTextField.getText(), 2);
                         int checkTeacher = TeacherDatabase.delete(teacher);
