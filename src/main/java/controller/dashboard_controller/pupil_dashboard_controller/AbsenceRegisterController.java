@@ -13,6 +13,7 @@ import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.absence.AbsenceDatabase;
@@ -30,6 +31,7 @@ public class AbsenceRegisterController {
     private final Color BOARDING_DAY_COLOR = Color.decode("#00FF00");
     private final Color OUT_OF_RANGE_DAY_COLOR = Color.decode("#000000");
     private final Color DAY_OF_WEEK_COLOR = Color.decode("#0000FF");
+    private final Color OFF_DAY_COLOR = Color.decode("#808080");
     private final String[] DAY_IN_WEEK = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
     private LocalDate now;
@@ -39,9 +41,13 @@ public class AbsenceRegisterController {
     private JButton[][] calendarCell;
     private int currentMonth = -1, currentYear = -1;
     private JTextField monthChooserTextField, yearChooserTextField;
+    private JPanel boardingDayDescriptionPanel, absentDayDescriptionPanel, offDayDescriptionPanel;
     
-    public AbsenceRegisterController(Account account, JButton[][] calendarCell, JLabel changeMonthYearDataLabel, JTextField monthChooserTextField, JTextField yearChooserTextField, JLabel currentMonthInformationLabel) {
+    public AbsenceRegisterController(Account account, JButton[][] calendarCell, JLabel changeMonthYearDataLabel, JTextField monthChooserTextField, JTextField yearChooserTextField, JLabel currentMonthInformationLabel, JPanel boardingDayDescriptionPanel, JPanel absentDayDescriptionPanel, JPanel offDayDescriptionPanel) {
         this.account = account;
+        this.boardingDayDescriptionPanel = boardingDayDescriptionPanel;
+        this.absentDayDescriptionPanel = absentDayDescriptionPanel;
+        this.offDayDescriptionPanel = offDayDescriptionPanel;
         this.currentMonthInformationLabel = currentMonthInformationLabel;
         this.changeMonthYearDataLabel = changeMonthYearDataLabel;
         this.calendarCell = calendarCell;
@@ -50,6 +56,9 @@ public class AbsenceRegisterController {
     }
 
     public void loadCalendar() throws ClassNotFoundException, SQLException {
+        boardingDayDescriptionPanel.setBackground(BOARDING_DAY_COLOR);
+        absentDayDescriptionPanel.setBackground(ABSENCE_DAY_COLOR);
+        offDayDescriptionPanel.setBackground(OFF_DAY_COLOR);
         if (currentMonth == -1) {
             now = LocalDate.now();
             currentMonth = now.getMonthValue();
@@ -83,7 +92,9 @@ public class AbsenceRegisterController {
                     CELL_HEIGHT
                 );
                 if (day != -1) {
-                    if (AbsenceDatabase.find(account.getID(), LocalDate.of(currentYear, currentMonth, day)))
+                    if (LocalDate.of(currentYear, currentMonth, day).getDayOfWeek().getValue() >= 6) {
+                        calendarCell[i][j].setBackground(OFF_DAY_COLOR);  
+                    } else if (AbsenceDatabase.find(account.getID(), LocalDate.of(currentYear, currentMonth, day)))
                         calendarCell[i][j].setBackground(ABSENCE_DAY_COLOR);
                     else calendarCell[i][j].setBackground(BOARDING_DAY_COLOR);
                 } else calendarCell[i][j].setBackground(OUT_OF_RANGE_DAY_COLOR);
@@ -123,9 +134,10 @@ public class AbsenceRegisterController {
             for (int j = 1; j <= COL; j ++) {
                 for (ActionListener act : calendarCell[i][j].getActionListeners())
                     calendarCell[i][j].removeActionListener(act);
-
-                if (calendarCell[i][j].getText() == "") continue;
+                    
+                    if (calendarCell[i][j].getText() == "") continue;
                 int day = Integer.parseInt(calendarCell[i][j].getText());
+                if (LocalDate.of(currentYear, currentMonth, day).getDayOfWeek().getValue() >= 6) continue;   
                 calendarCell[i][j].addActionListener(event -> {
                     boolean isRegistAbsence = true;
 
