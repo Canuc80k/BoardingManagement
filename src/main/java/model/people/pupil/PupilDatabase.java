@@ -18,7 +18,7 @@ public class PupilDatabase {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM pupil ");
+        ResultSet rs = stmt.executeQuery(query);
 
         List<Pupil> res = new ArrayList<>();
         while (rs.next()) {
