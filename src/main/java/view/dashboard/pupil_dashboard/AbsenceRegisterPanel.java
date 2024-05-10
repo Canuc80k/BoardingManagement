@@ -18,7 +18,7 @@ import model.account.Account;
  *
  * @author Lenovo
  */
-public class AbsenceRegister extends javax.swing.JPanel {
+public class AbsenceRegisterPanel extends javax.swing.JPanel {
     /**
      * Creates new form AbsenceRegister
      */
@@ -28,7 +28,7 @@ public class AbsenceRegister extends javax.swing.JPanel {
     private final int COL = 7;
     private JButton[][] calendarCell = new JButton[ROW + 1][COL + 1];
 
-    public AbsenceRegister(Account account) throws ClassNotFoundException, SQLException {
+    public AbsenceRegisterPanel(Account account) throws ClassNotFoundException, SQLException {
         this.account = account;
         initComponents();
         customInit();
@@ -47,6 +47,13 @@ public class AbsenceRegister extends javax.swing.JPanel {
                 calendarCell[i][j] = new JButton();
                 this.add(calendarCell[i][j]);
             }
+        descriptionLabel.setText(
+            "<html>"
+            + "Day in red square color means an absence day<br/>"
+            + "Day in green square color means a boarding day<br/>"
+            + "Day in gray square color means a weekend day or a holiday"
+            + "</html>"
+        );
     }
 
     /**
@@ -63,6 +70,7 @@ public class AbsenceRegister extends javax.swing.JPanel {
         minusSignLabel = new javax.swing.JLabel();
         yearChooserTextField = new javax.swing.JTextField();
         changeMonthYearDataLabel = new javax.swing.JLabel();
+        descriptionLabel = new javax.swing.JLabel();
 
         currentMonthInformationLabel.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
         currentMonthInformationLabel.setText("currentMonthInformationLabel");
@@ -82,6 +90,8 @@ public class AbsenceRegister extends javax.swing.JPanel {
             }
         });
 
+        descriptionLabel.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,7 +110,11 @@ public class AbsenceRegister extends javax.swing.JPanel {
                         .addComponent(yearChooserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(changeMonthYearDataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(702, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,7 +133,9 @@ public class AbsenceRegister extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(changeMonthYearDataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(418, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addComponent(descriptionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         monthChooserTextField.getAccessibleContext().setAccessibleDescription("");
@@ -134,6 +150,7 @@ public class AbsenceRegister extends javax.swing.JPanel {
     private javax.swing.JLabel changeMonthYearDataLabel;
     private javax.swing.JLabel chooseAnotherMonthLabel;
     private javax.swing.JLabel currentMonthInformationLabel;
+    private javax.swing.JLabel descriptionLabel;
     private javax.swing.JLabel minusSignLabel;
     private javax.swing.JTextField monthChooserTextField;
     private javax.swing.JTextField yearChooserTextField;
