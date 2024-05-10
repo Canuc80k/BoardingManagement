@@ -20,12 +20,12 @@ import model.absence.AbsenceDatabase;
 import model.account.Account;
 
 public class AbsenceRegisterController {
-    private final int ROW = 5;
-    private final int COL = 7;    
+    private int ROW = 6;
+    private int COL = 7;    
     private final int CELL_WIDTH = 80;
     private final int CELL_HEIGHT = 80;
     private final int BLANK = 10;
-    private final int TOP_MARGIN = 200;
+    private int TOP_MARGIN = 125;
     private final int LEFT_MARGIN = 50;
     private final Color ABSENCE_DAY_COLOR = Color.decode("#FF0000");
     private final Color BOARDING_DAY_COLOR = Color.decode("#00FF00");
@@ -68,6 +68,24 @@ public class AbsenceRegisterController {
         calendar.set(currentYear, currentMonth - 1, 1);
         String currentMonthName = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
         currentMonthInformationLabel.setText("Absence register in: " + currentMonthName + " " + currentYear);
+        
+        ROW = 6; TOP_MARGIN = 125;
+        int lastRow = -1;
+        for (int i = 1; i <= ROW; i ++) {
+            if (lastRow != -1) break; 
+            for (int j = 1; j <= COL; j ++) {
+                if (getDayByIndex(i, j) == getDaysInMonth()) {
+                    lastRow = i;
+                    break;
+                }
+            }
+        }
+        if (lastRow == 5) {
+            ROW = 5; 
+            TOP_MARGIN = 200;
+            for (int i = 1; i <= COL; i ++) calendarCell[6][i].setBounds(0, 0, 0, 0);
+        } 
+
         for (int j = 1; j <= COL; j ++) {
             calendarCell[0][j].setText(DAY_IN_WEEK[j - 1]);
             calendarCell[0][j].setFont(new Font("Arial", Font.BOLD, 14));
