@@ -12,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+import java.util.List;
+import model.boardingroom.Boardingroom;
+import model.boardingroom.BoardingroomDatabase;
 
 import model.people.manager.Manager;
 import model.people.manager.ManagerDatabase;
@@ -26,12 +29,13 @@ public class ManageManagerController {
     private JTextField phoneTextField;
     private JTextField addressTextField;
     private JTextField boardingroomTextField;
+    private JComboBox<String> boardingRoomComboBox;
     private JComboBox<String> genderComboBox;
     private Manager manager = null;
     private JLabel messageLabel;
 
     public ManageManagerController(JButton btnSave, JButton btnDelete, JTextField jtfManagerID, JTextField jtfName,
-            JDateChooser jdcNgaySinh, JComboBox<String> jcbGender, JTextField jtfPhone, JTextField jtfAddress, JTextField jtfBoardingroom, Manager manager, JLabel jlbMsg) {
+            JDateChooser jdcNgaySinh, JComboBox<String> jcbGender, JTextField jtfPhone, JTextField jtfAddress, JComboBox<String> jcbBoardingroom, Manager manager, JLabel jlbMsg) {
         this.saveButton = btnSave;
         this.deleteButton = btnDelete;
         this.managerIDTextField = jtfManagerID;
@@ -40,7 +44,7 @@ public class ManageManagerController {
         this.genderComboBox = jcbGender;
         this.phoneTextField = jtfPhone;
         this.addressTextField = jtfAddress;
-        this.boardingroomTextField = jtfBoardingroom;
+        this.boardingRoomComboBox = jcbBoardingroom;
         this.messageLabel = jlbMsg;
     }
 
@@ -52,14 +56,18 @@ public class ManageManagerController {
             phoneTextField.setText(manager.getPhone());
             addressTextField.setText(manager.getAddress());
             dobDayChooser.setDate(manager.getDoB());
-            boardingroomTextField.setText(manager.getBoardingroom());
+              boardingRoomComboBox.removeAllItems();
+            List<Boardingroom> rooms = BoardingroomDatabase.getAllBoardingrooms("Select * from boardingroom");
+            for (Boardingroom room : rooms) {
+                String roomNumberWithZeros = room.getRoom();
+                // Remove leading zeros and add to the combo box
+                int roomNumber = Integer.parseInt(roomNumberWithZeros); // Convert to integer
+                boardingRoomComboBox.addItem(String.valueOf(roomNumber));
+            }
+            //System.out.println("combo box: " + pupil.getBoardingroom());
+            boardingRoomComboBox.setSelectedItem(manager.getBoardingroom());
             genderComboBox.setSelectedIndex(manager.getGender());
-            System.out.println("Name: " + manager.getName());
-            System.out.println("Phone: " + manager.getPhone());
-            System.out.println("Address: " + manager.getAddress());
-            System.out.println("Date of Birth: " + manager.getDoB());
-            System.out.println("Boardingroom: " + manager.getBoardingroom());
-            System.out.println("Gender Index: " + manager.getGender());
+
         } catch (Exception ex) {
             Logger.getLogger(ManageManagerController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,7 +81,7 @@ public class ManageManagerController {
                     messageLabel.setText("Please enter fill compulsory informations");
                 } else {
                     manager = new Manager(managerIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),
-                            genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), boardingroomTextField.getText());
+                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), boardingRoomComboBox.getSelectedItem().toString());
                     int checkManager = -1;
                     if (editOrAdd.equals("add")) {
                         checkManager = ManagerDatabase.create(manager);
@@ -106,7 +114,7 @@ public class ManageManagerController {
                 } else {
                     try {
                         manager = new Manager(managerIDTextField.getText(), nameTextField.getText(), new java.sql.Date(dobDayChooser.getDate().getTime()),
-                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), boardingroomTextField.getText());
+                                genderComboBox.getSelectedIndex(), phoneTextField.getText(), addressTextField.getText(), boardingRoomComboBox.getSelectedItem().toString());
                         int checkManager = ManagerDatabase.delete(manager);
 
                         if (checkManager > 0) {

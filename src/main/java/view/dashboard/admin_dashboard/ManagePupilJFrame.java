@@ -19,8 +19,8 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
     public ManagePupilJFrame(Pupil pupil, String editOrAdd) {
         initComponents();
         ManagePupilController controller = new ManagePupilController(saveButton, deleteButton, cancelButton, idTextField, nameTextField,
-                dobDayChooser, genderComboBox, classIDTextField, parentNameTextField, phoneTextField, addressTextField,
-                boardingRoomTextField, usernameTextField, passwordTextField, pupil, messageLabel);
+                dobDayChooser, genderComboBox, classIDComboBox, parentNameTextField, phoneTextField, addressTextField,
+                boardingRoomComboBox, usernameTextField, passwordTextField, pupil, messageLabel);
 
         controller.setView(pupil, editOrAdd);
         controller.setEvent(editOrAdd);
@@ -45,7 +45,6 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
         nameTextField = new javax.swing.JTextField();
         phoneTextField = new javax.swing.JTextField();
         addressTextField = new javax.swing.JTextField();
-        classIDTextField = new javax.swing.JTextField();
         dobDayChooser = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         usernameTextField = new javax.swing.JTextField();
@@ -54,9 +53,10 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
         parentNameTextField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        boardingRoomTextField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         genderComboBox = new javax.swing.JComboBox<>();
+        classIDComboBox = new javax.swing.JComboBox<>();
+        boardingRoomComboBox = new javax.swing.JComboBox<>();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
@@ -92,8 +92,6 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
 
         addressTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        classIDTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         dobDayChooser.setDateFormatString("yyyy-MM-dd");
 
         jLabel7.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
@@ -119,8 +117,6 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         jLabel10.setText("Boarding room:");
 
-        boardingRoomTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         jLabel12.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         jLabel12.setText("Gender:");
 
@@ -128,6 +124,20 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
         genderComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 genderComboBoxActionPerformed(evt);
+            }
+        });
+
+        classIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        classIDComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classIDComboBoxActionPerformed(evt);
+            }
+        });
+
+        boardingRoomComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        boardingRoomComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boardingRoomComboBoxActionPerformed(evt);
             }
         });
 
@@ -173,16 +183,17 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
                                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(parentNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(boardingRoomTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
-                                            .addComponent(addressTextField)
-                                            .addComponent(phoneTextField)))
-                                    .addComponent(classIDTextField))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(parentNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addGap(1, 1, 1)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(addressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                                                .addComponent(phoneTextField))))
+                                    .addComponent(classIDComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(boardingRoomComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 152, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,7 +217,7 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(classIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(classIDComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -220,9 +231,9 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(addressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(boardingRoomTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boardingRoomComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -231,7 +242,7 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         saveButton.setBackground(new java.awt.Color(51, 153, 0));
@@ -332,15 +343,23 @@ public class ManagePupilJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_genderComboBoxActionPerformed
 
+    private void classIDComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classIDComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_classIDComboBoxActionPerformed
+
+    private void boardingRoomComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boardingRoomComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boardingRoomComboBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTextField;
-    private javax.swing.JTextField boardingRoomTextField;
+    private javax.swing.JComboBox<String> boardingRoomComboBox;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField classIDTextField;
+    private javax.swing.JComboBox<String> classIDComboBox;
     private javax.swing.JButton deleteButton;
     private com.toedter.calendar.JDateChooser dobDayChooser;
     private javax.swing.JComboBox<String> genderComboBox;

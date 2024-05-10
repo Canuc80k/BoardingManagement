@@ -21,7 +21,7 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
 
         ManageTeacherController controller = new ManageTeacherController(saveButton, deleteButton,
                 idTextField, nameTextField, dobDayChooser, genderComboBox, phoneTextField, addressTextField,
-                classIDTextField, usernameTextField, passwordTextField, teacher, messageLabel);
+                classIDComboBox, usernameTextField, passwordTextField, teacher, messageLabel);
         controller.setView(teacher, editOrAdd);
         controller.setEvent(editOrAdd);
     }
@@ -45,7 +45,6 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
         nameTextField = new javax.swing.JTextField();
         phoneTextField = new javax.swing.JTextField();
         addressTextField = new javax.swing.JTextField();
-        classIDTextField = new javax.swing.JTextField();
         dobDayChooser = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         usernameTextField = new javax.swing.JTextField();
@@ -53,12 +52,13 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
         passwordTextField = new javax.swing.JTextField();
         genderComboBox = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
+        classIDComboBox = new javax.swing.JComboBox<>();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Teacher Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft New Tai Lue", 1, 14), new java.awt.Color(0, 153, 255))); // NOI18N
 
@@ -88,8 +88,6 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
 
         addressTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        classIDTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-
         dobDayChooser.setDateFormatString("yyyy-MM-dd");
 
         jLabel7.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
@@ -111,6 +109,13 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         jLabel12.setText("Gender:");
+
+        classIDComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        classIDComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classIDComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,8 +139,8 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
                                 .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(phoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                                .addComponent(addressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                                .addComponent(classIDTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))))
+                                .addComponent(addressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
+                            .addComponent(classIDComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +188,7 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(classIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(classIDComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -285,11 +290,15 @@ public class ManageTeacherJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_genderComboBoxActionPerformed
 
+    private void classIDComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classIDComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_classIDComboBoxActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressTextField;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField classIDTextField;
+    private javax.swing.JComboBox<String> classIDComboBox;
     private javax.swing.JButton deleteButton;
     private com.toedter.calendar.JDateChooser dobDayChooser;
     private javax.swing.JComboBox<String> genderComboBox;

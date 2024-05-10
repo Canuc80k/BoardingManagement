@@ -104,7 +104,6 @@
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                           <Component id="phoneTextField" alignment="0" pref="232" max="32767" attributes="0"/>
                           <Component id="addressTextField" alignment="0" pref="232" max="32767" attributes="0"/>
-                          <Component id="boardingroomTextField" alignment="0" pref="232" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -121,16 +120,17 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <EmptySpace min="29" pref="29" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="idTextField" alignment="0" max="32767" attributes="0"/>
                               <Component id="nameTextField" alignment="0" pref="232" max="32767" attributes="0"/>
                               <Component id="dobDayChooser" alignment="0" max="32767" attributes="0"/>
                               <Component id="genderComboBox" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
+                              <Component id="boardingRoomComboBox" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="324" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -170,9 +170,9 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="boardingroomTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="boardingRoomComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="73" max="32767" attributes="0"/>
+                  <EmptySpace pref="74" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -254,13 +254,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="boardingroomTextField">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="14" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dobDayChooser">
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
@@ -289,6 +282,22 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Gender:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="boardingRoomComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="Male"/>
+                <StringItem index="1" value="Female"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boardingRoomComboBoxActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
