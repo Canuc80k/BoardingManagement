@@ -58,7 +58,7 @@
                       <Component id="changeMonthYearDataLabel" min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="418" max="32767" attributes="0"/>
+              <EmptySpace pref="394" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
