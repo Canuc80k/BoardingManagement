@@ -15,7 +15,7 @@ import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.admin_dashboard.PaymentPanel;
-import view.dashboard.pupil_dashboard.AbsenceRegister;
+import view.dashboard.pupil_dashboard.AbsenceRegisterPanel;
 
 public class PupilDashboardController {
     private JPanel viewPanel;
@@ -70,7 +70,7 @@ public class PupilDashboardController {
                 }
                 case "Absence register": {
                     try {
-                        view = new AbsenceRegister(account);
+                        view = new AbsenceRegisterPanel(account);
                     } catch (Exception e1) {e1.printStackTrace();}
                     break;
                 }

@@ -4,6 +4,11 @@
   <artifactId>BoardingManagement</artifactId>
   <version>v1.0.0</version>
     <dependencies>
+    	<dependency>
+			<groupId>com.formdev</groupId>
+			<artifactId>flatlaf-intellij-themes</artifactId>
+			<version>1.6</version>
+		</dependency>
         <dependency>
             <groupId>org.netbeans.external</groupId>
             <artifactId>AbsoluteLayout</artifactId>

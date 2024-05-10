@@ -21,11 +21,15 @@ import model.account.Account;
 public class AbsenceRegisterController {
     private final int ROW = 5;
     private final int COL = 7;    
-    private final int CELL_WIDTH = 70;
-    private final int CELL_HEIGHT = 70;
+    private final int CELL_WIDTH = 80;
+    private final int CELL_HEIGHT = 80;
     private final int BLANK = 10;
     private final int TOP_MARGIN = 200;
     private final int LEFT_MARGIN = 50;
+    private final Color ABSENCE_DAY_COLOR = Color.decode("#FF0000");
+    private final Color BOARDING_DAY_COLOR = Color.decode("#00FF00");
+    private final Color OUT_OF_RANGE_DAY_COLOR = Color.decode("#000000");
+    private final Color DAY_OF_WEEK_COLOR = Color.decode("#0000FF");
     private final String[] DAY_IN_WEEK = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
 
     private LocalDate now;
@@ -64,7 +68,7 @@ public class AbsenceRegisterController {
                 CELL_WIDTH,
                 CELL_HEIGHT
             );
-            calendarCell[0][j].setBackground(Color.CYAN);
+            calendarCell[0][j].setBackground(DAY_OF_WEEK_COLOR);
         }
         for (int i = 1; i <= ROW; i ++) {
             for (int j = 1; j <= COL; j ++) {
@@ -80,9 +84,9 @@ public class AbsenceRegisterController {
                 );
                 if (day != -1) {
                     if (AbsenceDatabase.find(account.getID(), LocalDate.of(currentYear, currentMonth, day)))
-                        calendarCell[i][j].setBackground(Color.RED);
-                    else calendarCell[i][j].setBackground(Color.GREEN);
-                } else calendarCell[i][j].setBackground(Color.BLACK);
+                        calendarCell[i][j].setBackground(ABSENCE_DAY_COLOR);
+                    else calendarCell[i][j].setBackground(BOARDING_DAY_COLOR);
+                } else calendarCell[i][j].setBackground(OUT_OF_RANGE_DAY_COLOR);
             }
         }
         setEventForCalender();
@@ -126,14 +130,14 @@ public class AbsenceRegisterController {
                     boolean isRegistAbsence = true;
 
                     String message = "Do you want to regist absence in day " + String.valueOf(day) + " ?";
-                    if (((JButton) event.getSource()).getBackground() == Color.RED) {
+                    if (((JButton) event.getSource()).getBackground() == ABSENCE_DAY_COLOR) {
                         message = "Do you want to undo regist absence in day " + String.valueOf(day) + " ?";
                         isRegistAbsence = false;
                     }
                     Object[] choices = {"Yes", "No"};
                     int choice = JOptionPane.showOptionDialog(null, message, "Regist Absence", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, "Yes");
                     if (choice == 0) {
-                        ((JButton) event.getSource()).setBackground(isRegistAbsence ? Color.RED : Color.GREEN);
+                        ((JButton) event.getSource()).setBackground(isRegistAbsence ? ABSENCE_DAY_COLOR : BOARDING_DAY_COLOR);
                         try {
                             if (isRegistAbsence) AbsenceDatabase.registAbsence(account.getID(), LocalDate.of(currentYear, currentMonth, day));
                             else AbsenceDatabase.undoRegistAbsence(account.getID(), LocalDate.of(currentYear, currentMonth, day));
