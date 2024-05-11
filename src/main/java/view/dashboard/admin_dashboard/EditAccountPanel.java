@@ -4,6 +4,17 @@
  */
 package view.dashboard.admin_dashboard;
 
+import controller.dashboard_controller.admin_dashboard_controller.EditAccountController;
+import java.sql.SQLException;
+import java.util.List;
+import model.account.Account;
+import model.people.admin.Admin;
+import model.people.admin.AdminDatabase;
+import model.people.pupil.Pupil;
+import model.people.pupil.PupilDatabase;
+import model.people.teacher.Teacher;
+import model.people.teacher.TeacherDatabase;
+
 /**
  *
  * @author huant
@@ -13,8 +24,38 @@ public class EditAccountPanel extends javax.swing.JPanel {
     /**
      * Creates new form EditAccountInfoJPanel
      */
-    public EditAccountPanel() {
+    boolean passwordVisible = false;
+    boolean confirmVisible = false;
+
+    public EditAccountPanel(Account account) throws ClassNotFoundException, SQLException {
         initComponents();
+        //EditAccountController controller=new EditAccountController(usernameTextField,passwordTextField,confirmTextField,temp);
+        switch (account.getRole()) {
+            case 3: {
+                List<Pupil> listPupilItem = PupilDatabase.getAllPupil("Select * from pupil where id = '" + account.getID() + "'");
+                Pupil temp = listPupilItem.getFirst();
+                EditAccountController controller = new EditAccountController(usernameTextField, passwordTextField, confirmTextField, confirmLabel, temp, account);
+                controller.setView();
+                controller.setEvent();
+                break;
+            }
+            case 2: {
+                List<Teacher> listTeacherItem = TeacherDatabase.getAllTeacher("Select * from teacher where id = '" + account.getID() + "'");
+                Teacher temp = listTeacherItem.getFirst();
+                EditAccountController controller = new EditAccountController(usernameTextField, passwordTextField, confirmTextField, confirmLabel, temp, account);
+                controller.setView();
+                controller.setEvent();
+                break;
+            }
+            case 1: {
+                List<Admin> listAdminItem = AdminDatabase.getAllAdmin("Select * from admin where id = '" + account.getID() + "'");
+                Admin temp = listAdminItem.getFirst();
+                EditAccountController controller = new EditAccountController(usernameTextField, passwordTextField, confirmTextField, confirmLabel, temp, account);
+                controller.setView();
+                controller.setEvent();
+                break;
+            }
+        }
     }
 
     /**
@@ -27,13 +68,15 @@ public class EditAccountPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfName = new javax.swing.JTextField();
+        usernameTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tfDoB = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        confirmLabel = new javax.swing.JLabel();
+        confirmTextField = new javax.swing.JPasswordField();
+        passwordTextField = new javax.swing.JPasswordField();
+        confirmShowLabel = new javax.swing.JLabel();
+        passwordShowLabel = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -41,10 +84,10 @@ public class EditAccountPanel extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setText("Username");
 
-        tfName.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
-        tfName.addActionListener(new java.awt.event.ActionListener() {
+        usernameTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        usernameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNameActionPerformed(evt);
+                usernameTextFieldActionPerformed(evt);
             }
         });
 
@@ -52,30 +95,16 @@ public class EditAccountPanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
         jLabel2.setText("Confirm Password");
 
-        tfDoB.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
-        tfDoB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfDoBActionPerformed(evt);
-            }
-        });
-
         jLabel7.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("Password");
 
-        jTextField7.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
-            }
-        });
-
         jPanel2.setBackground(new java.awt.Color(255, 0, 51));
         jPanel2.setForeground(new java.awt.Color(255, 0, 51));
 
-        jLabel9.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Update Information");
+        confirmLabel.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
+        confirmLabel.setForeground(new java.awt.Color(255, 255, 255));
+        confirmLabel.setText("Update Information");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -83,16 +112,43 @@ public class EditAccountPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addComponent(confirmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                .addComponent(confirmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        confirmTextField.setText("jPasswordField1");
+
+        passwordTextField.setText("jPasswordField1");
+        passwordTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordTextFieldActionPerformed(evt);
+            }
+        });
+
+        confirmShowLabel.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        confirmShowLabel.setForeground(new java.awt.Color(153, 153, 153));
+        confirmShowLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hidden.png"))); // NOI18N
+        confirmShowLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                confirmShowLabelMouseClicked(evt);
+            }
+        });
+
+        passwordShowLabel.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        passwordShowLabel.setForeground(new java.awt.Color(153, 153, 153));
+        passwordShowLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hidden.png"))); // NOI18N
+        passwordShowLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                passwordShowLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,23 +159,28 @@ public class EditAccountPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(passwordShowLabel)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfDoB, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(confirmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(30, 30, 30))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(confirmShowLabel)
+                        .addGap(0, 38, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,56 +188,78 @@ public class EditAccountPanel extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfDoB, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmShowLabel)
+                    .addComponent(passwordShowLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGap(327, 327, 327))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_usernameTextFieldActionPerformed
 
-    private void tfDoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDoBActionPerformed
+    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfDoBActionPerformed
+    }//GEN-LAST:event_passwordTextFieldActionPerformed
 
-    private void tfNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNameActionPerformed
+    private void passwordShowLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_passwordShowLabelMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfNameActionPerformed
+        if (!passwordVisible) {
+            passwordTextField.setEchoChar((char) 0);
+            passwordVisible = true;
+        } else {
+            passwordTextField.setEchoChar('\u2022');
+            passwordVisible = false;
+        }
+    }//GEN-LAST:event_passwordShowLabelMouseClicked
+
+    private void confirmShowLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_confirmShowLabelMouseClicked
+        // TODO add your handling code here:
+        if (!confirmVisible) {
+            confirmTextField.setEchoChar((char) 0);
+            confirmVisible = true;
+        } else {
+            confirmTextField.setEchoChar('\u2022');
+            confirmVisible = false;
+        }
+    }//GEN-LAST:event_confirmShowLabelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel confirmLabel;
+    private javax.swing.JLabel confirmShowLabel;
+    private javax.swing.JPasswordField confirmTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField tfDoB;
-    private javax.swing.JTextField tfName;
+    private javax.swing.JLabel passwordShowLabel;
+    private javax.swing.JPasswordField passwordTextField;
+    private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
 }

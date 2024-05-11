@@ -4,6 +4,18 @@
  */
 package view.dashboard.admin_dashboard;
 
+import controller.dashboard_controller.admin_dashboard_controller.EditAccountController;
+import controller.dashboard_controller.admin_dashboard_controller.EditUserController;
+import java.sql.SQLException;
+import java.util.List;
+import model.account.Account;
+import model.people.admin.Admin;
+import model.people.admin.AdminDatabase;
+import model.people.pupil.Pupil;
+import model.people.pupil.PupilDatabase;
+import model.people.teacher.Teacher;
+import model.people.teacher.TeacherDatabase;
+
 /**
  *
  * @author huant
@@ -13,8 +25,34 @@ public class EditUserPanel extends javax.swing.JPanel {
     /**
      * Creates new form EditUserInfoJPanel
      */
-    public EditUserPanel() {
+    public EditUserPanel(Account account) throws SQLException, ClassNotFoundException {
         initComponents();
+        switch (account.getRole()) {
+            case 3: {
+                List<Pupil> listPupilItem = PupilDatabase.getAllPupil("Select * from pupil where id = '" + account.getID() + "'");
+                Pupil temp = listPupilItem.getFirst();
+                EditUserController controller = new EditUserController(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
+                controller.setView();
+                controller.setEvent();
+                break;
+            }
+            case 2: {
+                List<Teacher> listTeacherItem = TeacherDatabase.getAllTeacher("Select * from teacher where id = '" + account.getID() + "'");
+                Teacher temp = listTeacherItem.getFirst();
+                EditUserController controller = new EditUserController(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
+                controller.setView();
+                controller.setEvent();
+                break;
+            }
+            case 1: {
+                List<Admin> listAdminItem = AdminDatabase.getAllAdmin("Select * from admin where id = '" + account.getID() + "'");
+                Admin temp = listAdminItem.getFirst();
+                EditUserController controller = new EditUserController(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
+                controller.setView();
+                controller.setEvent();
+                break;
+            }
+        }
     }
 
     /**
@@ -31,13 +69,12 @@ public class EditUserPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        dobTextField = new javax.swing.JTextField();
         Phone = new javax.swing.JLabel();
         phoneTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         addressTextField = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        confirmLabel = new javax.swing.JLabel();
+        dobDateChooser = new com.toedter.calendar.JDateChooser();
+        confirmButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -45,7 +82,9 @@ public class EditUserPanel extends javax.swing.JPanel {
         ID.setForeground(new java.awt.Color(153, 153, 153));
         ID.setText("ID");
 
-        idTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        idTextField.setEditable(false);
+        idTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        idTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         idTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idTextFieldActionPerformed(evt);
@@ -56,7 +95,8 @@ public class EditUserPanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
         jLabel2.setText("Name");
 
-        nameTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        nameTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        nameTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameTextFieldActionPerformed(evt);
@@ -67,18 +107,12 @@ public class EditUserPanel extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Date of Birth");
 
-        dobTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
-        dobTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dobTextFieldActionPerformed(evt);
-            }
-        });
-
         Phone.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
         Phone.setForeground(new java.awt.Color(153, 153, 153));
         Phone.setText("Phone number");
 
-        phoneTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        phoneTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        phoneTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         phoneTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 phoneTextFieldActionPerformed(evt);
@@ -89,36 +123,23 @@ public class EditUserPanel extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
         jLabel5.setText("Addresss");
 
-        addressTextField.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 12)); // NOI18N
+        addressTextField.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        addressTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         addressTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addressTextFieldActionPerformed(evt);
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(255, 0, 51));
-        jPanel2.setForeground(new java.awt.Color(255, 0, 51));
-
-        confirmLabel.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
-        confirmLabel.setForeground(new java.awt.Color(255, 255, 255));
-        confirmLabel.setText("Update Information");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(confirmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(confirmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        confirmButton.setBackground(new java.awt.Color(255, 0, 51));
+        confirmButton.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        confirmButton.setForeground(new java.awt.Color(255, 255, 255));
+        confirmButton.setText("Confirm Update");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,15 +148,15 @@ public class EditUserPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(idTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                             .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dobTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addressTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dobDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(79, 79, 79)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(phoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -159,10 +180,10 @@ public class EditUserPanel extends javax.swing.JPanel {
                         .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dobTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dobDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Phone)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,9 +194,9 @@ public class EditUserPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(addressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(confirmButton)
+                .addGap(79, 79, 79))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -198,10 +219,6 @@ public class EditUserPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameTextFieldActionPerformed
 
-    private void dobTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dobTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dobTextFieldActionPerformed
-
     private void phoneTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_phoneTextFieldActionPerformed
@@ -210,19 +227,22 @@ public class EditUserPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_addressTextFieldActionPerformed
 
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ID;
     private javax.swing.JLabel Phone;
     private javax.swing.JTextField addressTextField;
-    private javax.swing.JLabel confirmLabel;
-    private javax.swing.JTextField dobTextField;
+    private javax.swing.JButton confirmButton;
+    private com.toedter.calendar.JDateChooser dobDateChooser;
     private javax.swing.JTextField idTextField;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField phoneTextField;
     // End of variables declaration//GEN-END:variables
