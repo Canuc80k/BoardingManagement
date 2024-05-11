@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 
 import model.absence.AbsenceDatabase;
 import model.account.Account;
+import model.holiday.HolidayDatabase;
 
 public class AbsenceRegisterController {
     private int ROW = 6;
@@ -110,7 +112,7 @@ public class AbsenceRegisterController {
                     CELL_HEIGHT
                 );
                 if (day != -1) {
-                    if (LocalDate.of(currentYear, currentMonth, day).getDayOfWeek().getValue() >= 6) {
+                    if (LocalDate.of(currentYear, currentMonth, day).getDayOfWeek().getValue() >= 6 || HolidayDatabase.find(LocalDate.of(currentYear, currentMonth, day))) {
                         calendarCell[i][j].setBackground(OFF_DAY_COLOR);  
                     } else if (AbsenceDatabase.find(account.getID(), LocalDate.of(currentYear, currentMonth, day)))
                         calendarCell[i][j].setBackground(ABSENCE_DAY_COLOR);
@@ -153,10 +155,20 @@ public class AbsenceRegisterController {
                 for (ActionListener act : calendarCell[i][j].getActionListeners())
                     calendarCell[i][j].removeActionListener(act);
                     
-                    if (calendarCell[i][j].getText() == "") continue;
-                int day = Integer.parseInt(calendarCell[i][j].getText());
-                if (LocalDate.of(currentYear, currentMonth, day).getDayOfWeek().getValue() >= 6) continue;   
+                if (calendarCell[i][j].getText() == "") continue;
+                if (calendarCell[i][j].getBackground() == OFF_DAY_COLOR) continue;
+                int day = Integer.parseInt(calendarCell[i][j].getText());  
+                if (LocalDate.of(currentYear, currentMonth, day).isBefore(LocalDate.now())) {
+                    calendarCell[i][j].addActionListener(event -> {
+                        JOptionPane.showMessageDialog(null, "You can't register absence from past days", "Register Absence", JOptionPane.ERROR_MESSAGE);
+                    });
+                    continue;
+                }
                 calendarCell[i][j].addActionListener(event -> {
+                    if (!LocalDate.of(currentYear, currentMonth, day).isAfter(LocalDate.now()) && LocalDateTime.now().getHour() >= 1) {
+                        JOptionPane.showMessageDialog(null, "Too late, you can't register absence current day after 7am", "Register Absence", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                     boolean isRegistAbsence = true;
 
                     String message = "Do you want to regist absence in day " + String.valueOf(day) + " ?";
