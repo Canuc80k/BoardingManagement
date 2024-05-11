@@ -131,7 +131,7 @@ public class AdminDashboardController {
                     break;
                 }
                 case "Info": {
-                    view = new InformationPanel();
+                    view = new InformationPanel(account);
                     break;
                 }
                 default: {

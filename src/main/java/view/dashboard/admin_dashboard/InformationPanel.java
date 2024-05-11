@@ -5,8 +5,12 @@
 package view.dashboard.admin_dashboard;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JPanel;
+import model.account.Account;
 /**
  *
  * @author huant
@@ -16,8 +20,10 @@ public class InformationPanel extends javax.swing.JPanel {
     /**
      * Creates new form InfoJPanel
      */
-    public InformationPanel() {
+    Account account;
+    public InformationPanel(Account account) {
         initComponents();
+        this.account=account;
     }
 
     /**
@@ -133,30 +139,43 @@ public class InformationPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void accountLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountLabelMouseClicked
-        // TODO add your handling code here:
-        JPanel root = new EditAccountPanel();
-
-        // Remove all components from the viewPanel
-        viewPanel.removeAll();
-        viewPanel.setLayout(new BorderLayout());
-        viewPanel.add(root);
-        viewPanel.validate();
-        viewPanel.repaint();
+        
+        try {
+            // TODO add your handling code here:
+            JPanel root = new EditAccountPanel(account);
+            
+            // Remove all components from the viewPanel
+            viewPanel.removeAll();
+            viewPanel.setLayout(new BorderLayout());
+            viewPanel.add(root);
+            viewPanel.validate();
+            viewPanel.repaint();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InformationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(InformationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_accountLabelMouseClicked
 
     private void userLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userLabelMouseClicked
-        // TODO add your handling code here:
-        JPanel root = new EditUserPanel();
-
-        // Remove all components from the viewPanel
-        viewPanel.removeAll();
-        viewPanel.setLayout(new BorderLayout());
-        // Add the EditUserPanel instance to the viewPanel
-        viewPanel.add(root);
-
-        // Repaint the viewPanel
-        viewPanel.revalidate();
-        viewPanel.repaint();
+        try {
+            // TODO add your handling code here:
+            JPanel root = new EditUserPanel(account);
+            
+            // Remove all components from the viewPanel
+            viewPanel.removeAll();
+            viewPanel.setLayout(new BorderLayout());
+            // Add the EditUserPanel instance to the viewPanel
+            viewPanel.add(root);
+            
+            // Repaint the viewPanel
+            viewPanel.revalidate();
+            viewPanel.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(InformationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InformationPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_userLabelMouseClicked
 
 

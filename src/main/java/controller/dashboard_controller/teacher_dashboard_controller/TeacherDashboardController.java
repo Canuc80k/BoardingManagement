@@ -115,7 +115,7 @@ public class TeacherDashboardController {
                 case "Info": {
                     // System.out.println("111111111111111111111111111111111111111111111111checking.......constructor classroompanel");
                      
-                    view = new InformationPanel();
+                    view = new InformationPanel(account);
                     break;
                 }
                 default: {
