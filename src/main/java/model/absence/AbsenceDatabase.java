@@ -7,10 +7,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.calendar.CalendarDatabase;
 
 public class AbsenceDatabase {
+    public static List<String> getAbsenceHistory(String id) throws ClassNotFoundException, SQLException {
+        List<String> res = new ArrayList<String>();
+        
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
+        String query = "Select * from absence where PupilID = ?";
+        PreparedStatement pstmt = con.prepareStatement(query);
+        pstmt.setString(1, id);
+        ResultSet resultSet = pstmt.executeQuery();
+
+        while (resultSet.next()) {
+            res.add(resultSet.getString(2));
+        }
+        
+        pstmt.close();
+        con.close();
+        resultSet.close();
+        return res;
+    }
+
     public static boolean find(String id, LocalDate date) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");

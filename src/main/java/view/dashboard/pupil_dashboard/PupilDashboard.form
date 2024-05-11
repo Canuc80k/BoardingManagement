@@ -95,7 +95,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="informationPanel" alignment="1" pref="270" max="32767" attributes="0"/>
                           <Component id="paymentPanel" alignment="0" max="32767" attributes="0"/>
-                          <Component id="viewAbsenceHistoryPanel" alignment="1" max="32767" attributes="0"/>
+                          <Component id="absenceHistoryPanel" alignment="1" max="32767" attributes="0"/>
                           <Component id="absenceRegisterPanel" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -114,7 +114,7 @@
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Component id="absenceRegisterPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="viewAbsenceHistoryPanel" min="-2" max="-2" attributes="0"/>
+                      <Component id="absenceHistoryPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="paymentPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -300,7 +300,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="logOutLabelMouseClicked"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JPanel" name="viewAbsenceHistoryPanel">
+            <Container class="javax.swing.JPanel" name="absenceHistoryPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="99" red="0" type="rgb"/>
@@ -312,7 +312,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="viewAbsenceHistoryLabel" min="-2" pref="203" max="-2" attributes="0"/>
+                          <Component id="absenceHistoryLabel" min="-2" pref="203" max="-2" attributes="0"/>
                           <EmptySpace pref="30" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -321,14 +321,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="viewAbsenceHistoryLabel" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="absenceHistoryLabel" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace pref="23" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="viewAbsenceHistoryLabel">
+                <Component class="javax.swing.JLabel" name="absenceHistoryLabel">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="e4" green="ee" red="ee" type="rgb"/>
@@ -342,7 +342,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/history.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="View absence history "/>
+                    <Property name="text" type="java.lang.String" value="Absence history "/>
                   </Properties>
                 </Component>
               </SubComponents>

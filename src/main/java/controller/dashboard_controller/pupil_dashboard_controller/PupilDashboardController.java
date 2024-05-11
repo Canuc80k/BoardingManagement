@@ -15,6 +15,7 @@ import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.admin_dashboard.PaymentPanel;
+import view.dashboard.pupil_dashboard.AbsenceHistory;
 import view.dashboard.pupil_dashboard.AbsenceRegisterPanel;
 
 public class PupilDashboardController {
@@ -71,6 +72,12 @@ public class PupilDashboardController {
                 case "Absence register": {
                     try {
                         view = new AbsenceRegisterPanel(account);
+                    } catch (Exception e1) {e1.printStackTrace();}
+                    break;
+                }
+                case "Absence history": {
+                    try {
+                        view = new AbsenceHistory(account);
                     } catch (Exception e1) {e1.printStackTrace();}
                     break;
                 }

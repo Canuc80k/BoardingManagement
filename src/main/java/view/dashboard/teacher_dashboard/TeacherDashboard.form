@@ -394,7 +394,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/images/history.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="View absence history "/>
+                    <Property name="text" type="java.lang.String" value="Absence history "/>
                   </Properties>
                 </Component>
               </SubComponents>

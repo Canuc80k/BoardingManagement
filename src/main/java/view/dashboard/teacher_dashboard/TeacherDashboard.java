@@ -1,11 +1,10 @@
 package view.dashboard.teacher_dashboard;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.dashboard_controller.admin_dashboard_controller.AdminDashboardController;
 import controller.dashboard_controller.teacher_dashboard_controller.TeacherDashboardController;
-import java.sql.SQLException;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.login.Login;
@@ -194,7 +193,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
         viewAbsenceHistoryLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         viewAbsenceHistoryLabel7.setForeground(new java.awt.Color(238, 238, 228));
         viewAbsenceHistoryLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/history.png"))); // NOI18N
-        viewAbsenceHistoryLabel7.setText("View absence history ");
+        viewAbsenceHistoryLabel7.setText("Absence history ");
 
         javax.swing.GroupLayout viewAbsenceHistoryPanel7Layout = new javax.swing.GroupLayout(viewAbsenceHistoryPanel7);
         viewAbsenceHistoryPanel7.setLayout(viewAbsenceHistoryPanel7Layout);
