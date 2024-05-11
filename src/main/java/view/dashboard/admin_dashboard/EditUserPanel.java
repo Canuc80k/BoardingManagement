@@ -4,10 +4,11 @@
  */
 package view.dashboard.admin_dashboard;
 
-import controller.dashboard_controller.admin_dashboard_controller.EditAccountController;
-import controller.dashboard_controller.admin_dashboard_controller.EditUserController;
 import java.sql.SQLException;
 import java.util.List;
+
+import constant.Role;
+import controller.dashboard_controller.admin_dashboard_controller.EditUserController;
 import model.account.Account;
 import model.people.admin.Admin;
 import model.people.admin.AdminDatabase;
@@ -28,26 +29,26 @@ public class EditUserPanel extends javax.swing.JPanel {
     public EditUserPanel(Account account) throws SQLException, ClassNotFoundException {
         initComponents();
         switch (account.getRole()) {
-            case 3: {
+            case Role.PUPIL: {
                 List<Pupil> listPupilItem = PupilDatabase.getAllPupil("Select * from pupil where id = '" + account.getID() + "'");
-                Pupil temp = listPupilItem.getFirst();
-                EditUserController controller = new EditUserController(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
+                Pupil temp = listPupilItem.get(0);
+                EditUserController<Pupil> controller = new EditUserController<Pupil>(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
                 controller.setView();
                 controller.setEvent();
                 break;
             }
-            case 2: {
+            case Role.TEACHER: {
                 List<Teacher> listTeacherItem = TeacherDatabase.getAllTeacher("Select * from teacher where id = '" + account.getID() + "'");
-                Teacher temp = listTeacherItem.getFirst();
-                EditUserController controller = new EditUserController(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
+                Teacher temp = listTeacherItem.get(0);
+                EditUserController<Teacher> controller = new EditUserController<Teacher>(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
                 controller.setView();
                 controller.setEvent();
                 break;
             }
-            case 1: {
+            case Role.ADMIN: {
                 List<Admin> listAdminItem = AdminDatabase.getAllAdmin("Select * from admin where id = '" + account.getID() + "'");
-                Admin temp = listAdminItem.getFirst();
-                EditUserController controller = new EditUserController(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
+                Admin temp = listAdminItem.get(0);
+                EditUserController<Admin> controller = new EditUserController<Admin>(idTextField, nameTextField,dobDateChooser, phoneTextField,addressTextField, confirmButton, temp, account);
                 controller.setView();
                 controller.setEvent();
                 break;

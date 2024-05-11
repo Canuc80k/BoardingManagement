@@ -4,9 +4,10 @@
  */
 package view.dashboard.admin_dashboard;
 
-import controller.dashboard_controller.admin_dashboard_controller.EditAccountController;
 import java.sql.SQLException;
 import java.util.List;
+
+import controller.dashboard_controller.admin_dashboard_controller.EditAccountController;
 import model.account.Account;
 import model.people.admin.Admin;
 import model.people.admin.AdminDatabase;
@@ -33,7 +34,7 @@ public class EditAccountPanel extends javax.swing.JPanel {
         switch (account.getRole()) {
             case 3: {
                 List<Pupil> listPupilItem = PupilDatabase.getAllPupil("Select * from pupil where id = '" + account.getID() + "'");
-                Pupil temp = listPupilItem.getFirst();
+                Pupil temp = listPupilItem.get(0);
                 EditAccountController controller = new EditAccountController(usernameTextField, passwordTextField, confirmTextField, confirmLabel, temp, account);
                 controller.setView();
                 controller.setEvent();
@@ -41,7 +42,7 @@ public class EditAccountPanel extends javax.swing.JPanel {
             }
             case 2: {
                 List<Teacher> listTeacherItem = TeacherDatabase.getAllTeacher("Select * from teacher where id = '" + account.getID() + "'");
-                Teacher temp = listTeacherItem.getFirst();
+                Teacher temp = listTeacherItem.get(0);
                 EditAccountController controller = new EditAccountController(usernameTextField, passwordTextField, confirmTextField, confirmLabel, temp, account);
                 controller.setView();
                 controller.setEvent();
@@ -49,7 +50,7 @@ public class EditAccountPanel extends javax.swing.JPanel {
             }
             case 1: {
                 List<Admin> listAdminItem = AdminDatabase.getAllAdmin("Select * from admin where id = '" + account.getID() + "'");
-                Admin temp = listAdminItem.getFirst();
+                Admin temp = listAdminItem.get(0);
                 EditAccountController controller = new EditAccountController(usernameTextField, passwordTextField, confirmTextField, confirmLabel, temp, account);
                 controller.setView();
                 controller.setEvent();

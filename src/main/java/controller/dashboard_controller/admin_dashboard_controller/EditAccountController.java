@@ -4,25 +4,25 @@
  */
 package controller.dashboard_controller.admin_dashboard_controller;
 
-import static controller.dashboard_controller.admin_dashboard_controller.EditUserController.update;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 import model.account.Account;
 import model.people.People;
 
 public class EditAccountController<T extends People> {
-
     private JTextField usernameTextField;
     private JPasswordField passwordTextField;
     private JPasswordField confirmTextField;
     private JLabel confirmLabel;
-    private T person;
     private Account account;
 
     public EditAccountController(JTextField usernameTextField, JPasswordField passwordTextField, JPasswordField confirmTextField, JLabel confirmLabel, T person, Account account) {
@@ -30,7 +30,6 @@ public class EditAccountController<T extends People> {
         this.passwordTextField = passwordTextField;
         this.confirmTextField = confirmTextField;
         this.confirmLabel = confirmLabel;
-        this.person = person;
         this.account = account;
     }
 
@@ -71,8 +70,8 @@ public class EditAccountController<T extends People> {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Clicking");
                 account.setUsername(usernameTextField.getText());
-                account.setPassword(passwordTextField.getText());
-                String checkPassword=confirmTextField.getText();
+                account.setPassword(String.valueOf(passwordTextField.getPassword()));
+                String checkPassword = String.valueOf(confirmTextField.getPassword());
                 //person.setDoB(new java.sql.Date(dobDateChooser.getDate().getTime()));
                 
                 int check = -1;

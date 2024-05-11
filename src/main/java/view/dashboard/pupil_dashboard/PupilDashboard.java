@@ -48,7 +48,7 @@ public class PupilDashboard extends javax.swing.JFrame {
         absenceRegisterPanel = new javax.swing.JPanel();
         absenceRegisterLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 765));
 
         javax.swing.GroupLayout viewPanelLayout = new javax.swing.GroupLayout(viewPanel);
@@ -163,7 +163,7 @@ public class PupilDashboard extends javax.swing.JFrame {
         viewAbsenceHistoryLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         viewAbsenceHistoryLabel.setForeground(new java.awt.Color(238, 238, 228));
         viewAbsenceHistoryLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/history.png"))); // NOI18N
-        viewAbsenceHistoryLabel.setText("View absence history ");
+        viewAbsenceHistoryLabel.setText("Absence history ");
 
         javax.swing.GroupLayout viewAbsenceHistoryPanelLayout = new javax.swing.GroupLayout(viewAbsenceHistoryPanel);
         viewAbsenceHistoryPanel.setLayout(viewAbsenceHistoryPanelLayout);

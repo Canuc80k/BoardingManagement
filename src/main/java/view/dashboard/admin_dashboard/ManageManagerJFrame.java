@@ -55,7 +55,7 @@ public class ManageManagerJFrame extends javax.swing.JFrame {
         messageLabel = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         saveButton.setBackground(new java.awt.Color(51, 153, 0));
         saveButton.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
