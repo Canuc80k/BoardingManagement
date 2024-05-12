@@ -53,4 +53,25 @@ public class PaymentDatabase {
         res.close();
         return payment;
     }
+
+    public static int getState(String pupilID, LocalDate date) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
+        String query = "Select * from payment where PupilID = ? and Date = ?";
+        PreparedStatement pstmt = con.prepareStatement(query);
+        pstmt.setString(1, pupilID);
+        pstmt.setDate(2, Date.valueOf(date));
+        ResultSet res = pstmt.executeQuery();
+
+
+        if (!res.next()) {
+            if (LocalDate.now().isBefore(date)) return PaymentState.DAY_HASNT_COME_YET;
+            return PaymentState.HASNT_PAY;
+        }
+        int state = res.getInt(3);
+        pstmt.close();
+        con.close();
+        res.close();
+        return state;
+    }
 }
