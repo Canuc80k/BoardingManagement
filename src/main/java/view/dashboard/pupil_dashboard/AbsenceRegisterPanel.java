@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import constant.AvailableMonth;
 import controller.dashboard_controller.pupil_dashboard_controller.AbsenceRegisterController;
 import model.account.Account;
 
@@ -32,16 +33,13 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
         this.account = account;
         initComponents();
         customInit();
-        controller = new AbsenceRegisterController(account, calendarCell, changeMonthYearDataLabel, monthChooserTextField, yearChooserTextField, currentMonthInformationLabel, boardingDayDescriptionPanel, absentDayDescriptionPanel, offDayDescriptionPanel);
+        controller = new AbsenceRegisterController(account, calendarCell, monthChooser,  currentMonthInformationLabel, boardingDayDescriptionPanel, absentDayDescriptionPanel, offDayDescriptionPanel);
         controller.loadCalendar();
         controller.setEvent();
     }
 
     void customInit() {
-        try {
-            BufferedImage img = ImageIO.read(getClass().getResource("/images/reload_icon.png"));
-            changeMonthYearDataLabel.setIcon(new ImageIcon(img));
-        } catch (Exception e) {e.printStackTrace();}
+        for (int i = 0; i < AvailableMonth.month.size(); i ++) monthChooser.addItem(AvailableMonth.month.get(i));
         for (int i = 0; i <= ROW; i ++)
             for (int j = 1; j <= COL; j ++) {
                 calendarCell[i][j] = new JButton();
@@ -59,10 +57,6 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
 
         currentMonthInformationLabel = new javax.swing.JLabel();
         chooseAnotherMonthLabel = new javax.swing.JLabel();
-        monthChooserTextField = new javax.swing.JTextField();
-        minusSignLabel = new javax.swing.JLabel();
-        yearChooserTextField = new javax.swing.JTextField();
-        changeMonthYearDataLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         boardingDayDescriptionPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -70,24 +64,13 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
         absentDayDescriptionPanel = new javax.swing.JPanel();
         offDayDescriptionPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        monthChooser = new javax.swing.JComboBox<>();
 
         currentMonthInformationLabel.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
         currentMonthInformationLabel.setText("currentMonthInformationLabel");
 
         chooseAnotherMonthLabel.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
         chooseAnotherMonthLabel.setText("Or you can choose another month/year");
-
-        monthChooserTextField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
-        minusSignLabel.setFont(new java.awt.Font("Arial", 0, 20)); // NOI18N
-        minusSignLabel.setText("/");
-
-        yearChooserTextField.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        yearChooserTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yearChooserTextFieldActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Description", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 14))); // NOI18N
 
@@ -185,25 +168,21 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
                         .addGap(32, 32, 32))))
         );
 
+        monthChooser.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(currentMonthInformationLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(chooseAnotherMonthLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(monthChooserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(minusSignLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(yearChooserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(changeMonthYearDataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(646, Short.MAX_VALUE))
+                        .addComponent(monthChooser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(784, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,44 +193,27 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(currentMonthInformationLabel)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chooseAnotherMonthLabel)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(monthChooserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(minusSignLabel)
-                                .addComponent(yearChooserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(changeMonthYearDataLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chooseAnotherMonthLabel)
+                    .addComponent(monthChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
         );
-
-        monthChooserTextField.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
-
-    private void yearChooserTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearChooserTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_yearChooserTextFieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel absentDayDescriptionPanel;
     private javax.swing.JPanel boardingDayDescriptionPanel;
-    private javax.swing.JLabel changeMonthYearDataLabel;
     private javax.swing.JLabel chooseAnotherMonthLabel;
     private javax.swing.JLabel currentMonthInformationLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel minusSignLabel;
-    private javax.swing.JTextField monthChooserTextField;
+    private javax.swing.JComboBox<String> monthChooser;
     private javax.swing.JPanel offDayDescriptionPanel;
-    private javax.swing.JTextField yearChooserTextField;
     // End of variables declaration//GEN-END:variables
 }

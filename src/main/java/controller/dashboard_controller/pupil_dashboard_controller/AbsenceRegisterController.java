@@ -12,11 +12,12 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
+import constant.AvailableMonth;
 import model.absence.AbsenceDatabase;
 import model.account.Account;
 import model.holiday.HolidayDatabase;
@@ -39,22 +40,19 @@ public class AbsenceRegisterController {
     private LocalDate now;
     private Account account;
     private JLabel currentMonthInformationLabel;
-    private JLabel changeMonthYearDataLabel;
+    private JComboBox<String> monthChooser;
     private JButton[][] calendarCell;
     private int currentMonth = -1, currentYear = -1;
-    private JTextField monthChooserTextField, yearChooserTextField;
     private JPanel boardingDayDescriptionPanel, absentDayDescriptionPanel, offDayDescriptionPanel;
     
-    public AbsenceRegisterController(Account account, JButton[][] calendarCell, JLabel changeMonthYearDataLabel, JTextField monthChooserTextField, JTextField yearChooserTextField, JLabel currentMonthInformationLabel, JPanel boardingDayDescriptionPanel, JPanel absentDayDescriptionPanel, JPanel offDayDescriptionPanel) {
+    public AbsenceRegisterController(Account account, JButton[][] calendarCell, JComboBox<String> monthChooser, JLabel currentMonthInformationLabel, JPanel boardingDayDescriptionPanel, JPanel absentDayDescriptionPanel, JPanel offDayDescriptionPanel) {
         this.account = account;
         this.boardingDayDescriptionPanel = boardingDayDescriptionPanel;
         this.absentDayDescriptionPanel = absentDayDescriptionPanel;
         this.offDayDescriptionPanel = offDayDescriptionPanel;
         this.currentMonthInformationLabel = currentMonthInformationLabel;
-        this.changeMonthYearDataLabel = changeMonthYearDataLabel;
         this.calendarCell = calendarCell;
-        this.monthChooserTextField = monthChooserTextField;
-        this.yearChooserTextField = yearChooserTextField; 
+        this.monthChooser = monthChooser;
     }
 
     public void loadCalendar() throws ClassNotFoundException, SQLException {
@@ -129,23 +127,17 @@ public class AbsenceRegisterController {
     }
 
     private void setEventChangeMonthYear() {
-        changeMonthYearDataLabel.addMouseListener(new MouseListener() {
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    int newMonth, newYear;
-                    newMonth = Integer.parseInt(monthChooserTextField.getText());
-                    newYear = Integer.parseInt(yearChooserTextField.getText());
-                    currentMonth = newMonth;
-                    currentYear = newYear;
-                    loadCalendar();
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(null, "Month and year not valid", "Regist Absence", JOptionPane.ERROR_MESSAGE);
-                }
+        monthChooser.addActionListener(e -> {
+            try {
+                int newMonth, newYear;
+                newMonth = AvailableMonth.date.get(monthChooser.getSelectedIndex()).getMonthValue();
+                newYear = AvailableMonth.date.get(monthChooser.getSelectedIndex()).getYear();
+                currentMonth = newMonth;
+                currentYear = newYear;
+                loadCalendar();
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, "Month and year not valid", "Regist Absence", JOptionPane.ERROR_MESSAGE);
             }
-            public void mouseEntered(MouseEvent e) {}
-            public void mouseExited(MouseEvent e) {}
-            public void mousePressed(MouseEvent e) {}
-            public void mouseReleased(MouseEvent e) {}
         });
     }
     
