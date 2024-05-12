@@ -40,27 +40,27 @@ public class PaymentController {
         model.payment.Payment payment = PaymentDatabase.get(account.getID(), AvailableMonth.date.get(idx));
         if (payment.getState() == PaymentState.DAY_HASNT_COME_YET) {
             stateLabel.setText("The boarding fee payment date for the month you selected has not yet arrived");
-            needToPayLabel.setText("Total pay: " + "0$");
-            hasPaidLabel.setText("You need to pay: " + "Unknown");
-            payBackLabel.setText("Payback: " + "0$");
+            hasPaidLabel.setText("You has paid: " + "0$");
+            needToPayLabel.setText("You need to pay: " + "Unknown");
+            payBackLabel.setText("You will repayed: " + "Unknown");
         }
         if (payment.getState() == PaymentState.HASNT_PAY) {
             stateLabel.setText("You have not paid for the month you selected");
-            needToPayLabel.setText("Total pay: " + "0$");
-            hasPaidLabel.setText("You need to pay: " + payment.getReceived() + "$");
-            payBackLabel.setText("Payback: " + "0$");
+            hasPaidLabel.setText("You has paid: " + "0$");
+            needToPayLabel.setText("You need to pay: " + payment.getTotalPay() + "$");
+            payBackLabel.setText("You will repayed: " + payment.getPayback() + "$");
         }
         if (payment.getState() == PaymentState.HAS_PAY_HASNT_PAYBACK) {
             stateLabel.setText("You have paid for the month you selected but school has not returned the excess money");
-            needToPayLabel.setText("Total pay: " + payment.getTotalPay() + "$");
-            hasPaidLabel.setText("Received: " + payment.getReceived() + "$");
-            payBackLabel.setText("Payback: " + "0$");
+            hasPaidLabel.setText("You has paid: " + payment.getTotalPay() + "$");
+            needToPayLabel.setText("Actual boarding fee: " + payment.getReceived() + "$");
+            payBackLabel.setText("You will repayed: " + payment.getPayback() + "$");
         }        
         if (payment.getState() == PaymentState.HAS_PAYBACK) {
             stateLabel.setText("You have paid the fee for the month you selected and school has returned the excess amount");
-            needToPayLabel.setText("Total pay " + payment.getTotalPay() + "$");
-            hasPaidLabel.setText("Received: " + payment.getReceived() + "$");
-            payBackLabel.setText("Payback: " + payment.getPayback() + "$");
+            hasPaidLabel.setText("You has paid: " + payment.getTotalPay() + "$");
+            needToPayLabel.setText("Actual boarding fee: " + payment.getReceived() + "$");
+            payBackLabel.setText("Has Repayed: " + payment.getPayback() + "$");
         }
     }
 }
