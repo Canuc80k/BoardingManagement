@@ -10,14 +10,14 @@ import javax.swing.table.DefaultTableModel;
 
 import model.absence.AbsenceDatabase;
 import model.account.Account;
-import view.dashboard.pupil_dashboard.AbsenceHistory;
+import view.dashboard.pupil_dashboard.AbsenceHistoryPanel;
 
 public class AbsenceHistoryController {
     private Account account;
     private JTable absenceHistoryTable;
-    private AbsenceHistory absenceHistory;
+    private AbsenceHistoryPanel absenceHistory;
 
-    public AbsenceHistoryController(AbsenceHistory absenceHistory, Account account, JTable absenceHistoryTable) throws ClassNotFoundException, SQLException {
+    public AbsenceHistoryController(AbsenceHistoryPanel absenceHistory, Account account, JTable absenceHistoryTable) throws ClassNotFoundException, SQLException {
         this.absenceHistory = absenceHistory;
         this.account = account;
         this.absenceHistoryTable = absenceHistoryTable;

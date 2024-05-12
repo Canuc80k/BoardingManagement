@@ -14,9 +14,9 @@ import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
-import view.dashboard.admin_dashboard.PaymentPanel;
-import view.dashboard.pupil_dashboard.AbsenceHistory;
+import view.dashboard.pupil_dashboard.AbsenceHistoryPanel;
 import view.dashboard.pupil_dashboard.AbsenceRegisterPanel;
+import view.dashboard.pupil_dashboard.PaymentPanel;
 
 public class PupilDashboardController {
     private JPanel viewPanel;
@@ -77,12 +77,16 @@ public class PupilDashboardController {
                 }
                 case "Absence history": {
                     try {
-                        view = new AbsenceHistory(account);
+                        view = new AbsenceHistoryPanel(account);
                     } catch (Exception e1) {e1.printStackTrace();}
                     break;
                 }
                 case "Payment": {
-                    view = new PaymentPanel();
+                    try {
+                        view = new PaymentPanel(account);
+                    } catch (ClassNotFoundException | SQLException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
                 }
                 case "Info": {

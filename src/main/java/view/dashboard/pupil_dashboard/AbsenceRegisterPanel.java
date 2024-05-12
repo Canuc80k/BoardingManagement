@@ -4,11 +4,9 @@
  */
 package view.dashboard.pupil_dashboard;
 
-import java.awt.image.BufferedImage;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import constant.AvailableMonth;
@@ -40,6 +38,10 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
 
     void customInit() {
         for (int i = 0; i < AvailableMonth.month.size(); i ++) monthChooser.addItem(AvailableMonth.month.get(i));
+        for (int i = 0; i < AvailableMonth.month.size(); i ++) 
+            if (LocalDate.now().getMonthValue() == AvailableMonth.date.get(i).getMonthValue())
+                monthChooser.setSelectedIndex(i);
+                
         for (int i = 0; i <= ROW; i ++)
             for (int j = 1; j <= COL; j ++) {
                 calendarCell[i][j] = new JButton();
@@ -176,13 +178,13 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(currentMonthInformationLabel)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(chooseAnotherMonthLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(monthChooser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(784, Short.MAX_VALUE))
+                        .addComponent(monthChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(672, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -13,14 +13,14 @@ import model.account.Account;
  *
  * @author Lenovo
  */
-public class AbsenceHistory extends javax.swing.JPanel {
+public class AbsenceHistoryPanel extends javax.swing.JPanel {
     private AbsenceHistoryController controller;
     /**
      * Creates new form AbsenceHistory
      * @throws SQLException 
      * @throws ClassNotFoundException 
      */
-    public AbsenceHistory(Account account) throws ClassNotFoundException, SQLException {
+    public AbsenceHistoryPanel(Account account) throws ClassNotFoundException, SQLException {
         initComponents();
         customInit();
         controller = new AbsenceHistoryController(this, account, absenceHistoryTable);
