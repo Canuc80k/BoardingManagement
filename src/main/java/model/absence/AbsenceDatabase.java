@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.calendar.CalendarDatabase;
+import model.payment.PaymentDatabase;
 
 public class AbsenceDatabase {
     public static List<String> getAbsenceHistory(String id) throws ClassNotFoundException, SQLException {
@@ -52,6 +53,7 @@ public class AbsenceDatabase {
 
     public static void registAbsence(String id, LocalDate date) throws ClassNotFoundException, SQLException {
         try {CalendarDatabase.addDate(date);} catch(Exception e) {}
+        PaymentDatabase.updateAbsenceDay(id, LocalDate.of(date.getYear(), date.getMonthValue(), 1), 1);
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
         String query = "Insert into absence values(?, ?)";
@@ -65,6 +67,7 @@ public class AbsenceDatabase {
     }
 
     public static void undoRegistAbsence(String id, LocalDate date) throws ClassNotFoundException, SQLException {
+        PaymentDatabase.updateAbsenceDay(id, LocalDate.of(date.getYear(), date.getMonthValue(), 1), -1);
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
         String query = "Delete from absence where PupilID = ? and CalendarID = ?";

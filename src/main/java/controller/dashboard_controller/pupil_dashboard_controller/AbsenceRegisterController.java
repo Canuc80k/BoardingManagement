@@ -3,8 +3,6 @@ package controller.dashboard_controller.pupil_dashboard_controller;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

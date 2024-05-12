@@ -48,17 +48,15 @@ public class PaymentController {
                 CELL_WIDTH,
                 CELL_HEIGHT
                 );
+                if (true) {
+                    // AvailableMonth.date.get(i);
+                    // System.out.println(AvailableMonth.date.get(i - 1));
+                }
                 statusButton[i].setBackground(PaymentState.getColor(PaymentDatabase.getState(account.getID(), AvailableMonth.date.get(i - 1))));
                 statusButton[i].addActionListener(e -> {
                     for (int j = 1; j <= 9; j ++) {
                         if (statusButton[j].equals(e.getSource())) {
                             monthChooser.setSelectedIndex(j - 1);
-                            try {
-                                setPaymentDataFromMonthIndex(j - 1);
-                            } catch (ClassNotFoundException | SQLException e1) {
-                                e1.printStackTrace();
-                            }
-                            break;
                     }
                 }
             }); 
@@ -67,6 +65,13 @@ public class PaymentController {
 
     private void setEvent() throws ClassNotFoundException, SQLException {
         setPaymentDataFromMonthIndex(monthChooser.getSelectedIndex());
+        monthChooser.addActionListener(e -> {
+            try {
+                setPaymentDataFromMonthIndex(monthChooser.getSelectedIndex());
+            } catch (ClassNotFoundException | SQLException e1) {
+                e1.printStackTrace();
+            }
+        });
     }
 
     private void setPaymentDataFromMonthIndex(int idx) throws ClassNotFoundException, SQLException  {
