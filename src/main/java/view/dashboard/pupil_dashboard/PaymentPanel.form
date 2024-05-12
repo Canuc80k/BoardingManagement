@@ -33,7 +33,7 @@
                       <Component id="monthChooser" min="-2" pref="201" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="245" max="32767" attributes="0"/>
+              <EmptySpace pref="599" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

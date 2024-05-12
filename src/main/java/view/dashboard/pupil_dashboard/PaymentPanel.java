@@ -3,6 +3,8 @@ package view.dashboard.pupil_dashboard;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.swing.JButton;
+
 import constant.AvailableMonth;
 import controller.dashboard_controller.pupil_dashboard_controller.PaymentController;
 import model.account.Account;
@@ -10,7 +12,7 @@ import model.account.Account;
 public class PaymentPanel extends javax.swing.JPanel {
     private PaymentController controller;
     private Account account;
-
+    private JButton[] statusButton = new JButton[10];
     /**
      * Creates new form PaymentPanel
      * @throws SQLException 
@@ -20,10 +22,14 @@ public class PaymentPanel extends javax.swing.JPanel {
         this.account = account;
         initComponents();
         customInit();
-        controller = new PaymentController(account, stateLabel, needToPayLabel, hasPaidLabel, payBackLabel, monthChooser);
+        controller = new PaymentController(account, stateLabel, needToPayLabel, hasPaidLabel, payBackLabel, monthChooser, statusButton);
     }
 
     private void customInit() {
+        for (int i = 1; i <= 9; i ++) {
+            statusButton[i] = new JButton();
+            this.add(statusButton[i]);
+        }
         for (int i = 0; i < AvailableMonth.month.size(); i ++) monthChooser.addItem(AvailableMonth.month.get(i));
         for (int i = 0; i < AvailableMonth.month.size(); i ++) 
             if (LocalDate.now().getMonthValue() == AvailableMonth.date.get(i).getMonthValue())
@@ -83,7 +89,7 @@ public class PaymentPanel extends javax.swing.JPanel {
                         .addComponent(monthChooserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(monthChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addContainerGap(599, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
