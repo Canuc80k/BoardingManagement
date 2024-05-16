@@ -109,7 +109,7 @@ public class TeacherDashboardController {
                 }
 
                 case "Payment": {
-                    view = new PaymentPanel();
+                    view = new PaymentPanel(account);
                     break;
                 }
                 case "Info": {
