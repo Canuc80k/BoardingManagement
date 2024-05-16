@@ -1,5 +1,7 @@
 package controller.dashboard_controller.admin_dashboard_controller;
 
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -32,6 +34,15 @@ public class ManagePaymentController {
             refundComboBox.addItem(AvailableMonth.month.get(i));
         }
         payButton.addActionListener(e -> {
+            try {
+                if (PaymentDatabase.getState(account.getID(), AvailableMonth.date.get(payComboBox.getSelectedIndex())) >= 2) {
+                    JOptionPane.showMessageDialog(null, "You can't pay this month", "Mange Payment", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            } catch (ClassNotFoundException | SQLException e1) {
+                e1.printStackTrace();
+            }
+
             Object[] choices = {"Yes", "No"};
             int choice = JOptionPane.showOptionDialog(null, "Are you sure", "Manage Payment", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, "Yes");
             if (choice == 1) return;
@@ -46,6 +57,15 @@ public class ManagePaymentController {
         });
 
         refundButton.addActionListener(e -> {
+            try {
+                if (PaymentDatabase.getState(account.getID(), AvailableMonth.date.get(refundComboBox.getSelectedIndex())) != 2) {
+                    JOptionPane.showMessageDialog(null, "You can't refund this month", "Mange Payment", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            } catch (ClassNotFoundException | SQLException e1) {
+                e1.printStackTrace();
+            }
+
             Object[] choices = {"Yes", "No"};
             int choice = JOptionPane.showOptionDialog(null, "Are you sure", "Manage Payment", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, choices, "Yes");
             if (choice == 1) return;
