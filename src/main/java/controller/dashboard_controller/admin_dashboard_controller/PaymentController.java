@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -23,16 +22,15 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import model.account.Account;
 import model.account.AccountDatabase;
-
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 import view.dashboard.admin_dashboard.ManagePaymentJFrame;
 import view.dashboard.admin_dashboard.ManagePupilJFrame;
-import view.dashboard.pupil_dashboard.PaymentPanel;
 
 public class PaymentController {
 
@@ -122,7 +120,7 @@ public class PaymentController {
 
             table.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mousePressed(MouseEvent e) {
+                public synchronized void mousePressed(MouseEvent e) {
                     if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
                         try {
                             DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -146,14 +144,13 @@ public class PaymentController {
                             Pupil pupil = new Pupil(id, name, dateOfBirth, gender, classId, parentName, phone, address, boardingRoom);
                             Account account = AccountDatabase.getAccountByID(id);
                             // Open the ManagePupilJFrame to display detailed pupil information for editing
-                            PaymentPanel panel = new PaymentPanel(account);
                             ManagePaymentJFrame frame = new ManagePaymentJFrame(account);
                             frame.setTitle("Payment Information");
 
                             frame.setResizable(false);
                             frame.setLocationRelativeTo(null);
                             frame.setVisible(true);
-                            frame.add(panel);
+                            // frame.add(panel);
 
                         } catch (SQLException | ClassNotFoundException ex) {
                             Logger.getLogger(PaymentController.class.getName()).log(Level.SEVERE, null, ex);

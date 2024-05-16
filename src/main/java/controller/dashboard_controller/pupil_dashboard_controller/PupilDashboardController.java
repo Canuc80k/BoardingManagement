@@ -83,7 +83,7 @@ public class PupilDashboardController {
                 }
                 case "Payment": {
                     try {
-                        view = new PaymentPanel(account);
+                        view = new PaymentPanel(account, false);
                     } catch (ClassNotFoundException | SQLException e1) {
                         e1.printStackTrace();
                     }

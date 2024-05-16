@@ -44,6 +44,21 @@ public class PaymentDatabase {
         con.close();
     }
     
+    public static void updateState(String pupilID, LocalDate date, int state) throws ClassNotFoundException, SQLException {
+        try {PaymentDatabase.add(pupilID, date);} catch(Exception e) {}
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
+        String query = "Update payment set status = ? where pupilid = ? and date = ?";
+        PreparedStatement pstmt = con.prepareStatement(query);
+        pstmt.setInt(1, state);
+        pstmt.setString(2, pupilID);
+        pstmt.setDate(3, Date.valueOf(date));
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        con.close();
+    }
+
     public static Payment get(String pupilID, LocalDate date) throws ClassNotFoundException, SQLException {
         date = LocalDate.of(date.getYear(), date.getMonthValue(), 1);
         Class.forName("com.mysql.cj.jdbc.Driver");
@@ -71,7 +86,6 @@ public class PaymentDatabase {
         payment.setPayback(payback);
         payment.setTotalPay(totalPay);
         payment.setAbsenceDay(0);
-        payment.setBoardingDay(dayCount);
         if (!res.next()) {
             if (LocalDate.now().isBefore(date)) payment.setState(PaymentState.DAY_HASNT_COME_YET);
             else payment.setState(PaymentState.HASNT_PAY);
@@ -90,6 +104,7 @@ public class PaymentDatabase {
         dayCount -= res.getInt(4);
         received = dayCount * BoardingPay.boardingFee + BoardingPay.cleaningFee;
         payback = totalPay - received;
+        payment.setBoardingDay(dayCount);
         payment.setReceived(received);
         payment.setPayback(payback);
         pstmt.close();
