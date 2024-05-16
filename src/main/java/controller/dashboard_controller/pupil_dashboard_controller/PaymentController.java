@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import constant.AvailableMonth;
 import constant.PaymentState;
 import model.account.Account;
+import model.boardingpay.BoardingPay;
 import model.payment.Payment;
 import model.payment.PaymentDatabase;
 
@@ -17,15 +18,14 @@ public class PaymentController {
     private final int CELL_WIDTH = 100;
     private final int CELL_HEIGHT = 100;
     private final int BLANK = 20;
-    private int TOP_MARGIN = 400;
+    private int TOP_MARGIN = 600;
     private final int LEFT_MARGIN = 50;
     private Account account;
-    private JLabel stateLabel, needToPayLabel, hasPaidLabel, payBackLabel;
+    private JLabel stateLabel, needToPayLabel, hasPaidLabel, payBackLabel, equationLabel, moreInformationLabel, largeMoreInformationLabel;
     JComboBox<String> monthChooser;
     JButton[] statusButton;
 
-
-    public PaymentController(Account account, JLabel stateLabel, JLabel needToPayLabel, JLabel hasPaidLabel, JLabel payBackLabel, JComboBox<String> monthChooser, JButton[] statusButton) throws ClassNotFoundException, SQLException {
+    public PaymentController(Account account, JLabel stateLabel, JLabel needToPayLabel, JLabel hasPaidLabel, JLabel payBackLabel, JComboBox<String> monthChooser, JButton[] statusButton, JLabel equationLabel, JLabel moreInformationLabel, JLabel largeMoreInformationLabel) throws ClassNotFoundException, SQLException {
         this.account = account;
         this.stateLabel = stateLabel;        
         this.needToPayLabel = needToPayLabel;
@@ -33,9 +33,9 @@ public class PaymentController {
         this.payBackLabel = payBackLabel;
         this.monthChooser = monthChooser;
         this.statusButton = statusButton;
-        setEvent();
-        setPaymentDataFromMonthIndex(monthChooser.getSelectedIndex());
-        setupStatusButton();
+        this.equationLabel = equationLabel;
+        this.moreInformationLabel = moreInformationLabel;
+        this.largeMoreInformationLabel = largeMoreInformationLabel;
     }
 
     private void setupStatusButton() throws ClassNotFoundException, SQLException {
@@ -63,7 +63,7 @@ public class PaymentController {
         }
     }
 
-    private void setEvent() throws ClassNotFoundException, SQLException {
+    public void setEvent() throws ClassNotFoundException, SQLException {
         setPaymentDataFromMonthIndex(monthChooser.getSelectedIndex());
         monthChooser.addActionListener(e -> {
             try {
@@ -72,33 +72,47 @@ public class PaymentController {
                 e1.printStackTrace();
             }
         });
+        setPaymentDataFromMonthIndex(monthChooser.getSelectedIndex());
+        setupStatusButton();
     }
 
     private void setPaymentDataFromMonthIndex(int idx) throws ClassNotFoundException, SQLException  {
         Payment payment = PaymentDatabase.get(account.getID(), AvailableMonth.date.get(idx));
         if (payment.getState() == PaymentState.DAY_HASNT_COME_YET) {
             stateLabel.setText("The boarding fee payment date for the month you selected has not yet arrived");
-            hasPaidLabel.setText("You has paid: " + "0$");
-            needToPayLabel.setText("You need to pay: " + "Unknown");
-            payBackLabel.setText("You will repayed: " + "Unknown");
+            hasPaidLabel.setText("");
+            needToPayLabel.setText("");
+            payBackLabel.setText("");
+            equationLabel.setText("");
+            moreInformationLabel.setText("");
+            largeMoreInformationLabel.setText("");
         }
         if (payment.getState() == PaymentState.HASNT_PAY) {
             stateLabel.setText("You have not paid for the month you selected");
             hasPaidLabel.setText("You has paid: " + "0$");
             needToPayLabel.setText("You need to pay: " + payment.getTotalPay() + "$");
-            payBackLabel.setText("You will repayed: " + payment.getPayback() + "$");
+            payBackLabel.setText("");
+            equationLabel.setText("");
+            moreInformationLabel.setText("");
+            largeMoreInformationLabel.setText("");
         }
         if (payment.getState() == PaymentState.HAS_PAY_HASNT_PAYBACK) {
             stateLabel.setText("You have paid for the month you selected but school has not returned the excess money");
             hasPaidLabel.setText("You has paid: " + payment.getTotalPay() + "$");
-            needToPayLabel.setText("Actual boarding fee: " + payment.getReceived() + "$");
-            payBackLabel.setText("You will repayed: " + payment.getPayback() + "$");
+            needToPayLabel.setText("Note: The boarding fee for holidays or absence registered days will be refunded later");
+            payBackLabel.setText("");
+            equationLabel.setText("");
+            moreInformationLabel.setText("");
+            largeMoreInformationLabel.setText("");
         }        
         if (payment.getState() == PaymentState.HAS_PAYBACK) {
             stateLabel.setText("You have paid the fee for the month you selected and school has returned the excess amount");
             hasPaidLabel.setText("You has paid: " + payment.getTotalPay() + "$");
             needToPayLabel.setText("Actual boarding fee: " + payment.getReceived() + "$");
             payBackLabel.setText("Has Repayed: " + payment.getPayback() + "$");
+            equationLabel.setText("The formula for calculating boarding fees is: number of boarding days * boarding fee per day + cleaning fee");
+            moreInformationLabel.setText("In this month: " + payment.getBoardingDay() + " days * " + BoardingPay.boardingFee + "$ + " + BoardingPay.cleaningFee + "$ = " + payment.getReceived() + "$");
+            largeMoreInformationLabel.setText("More Information:");
         }
     }
 }

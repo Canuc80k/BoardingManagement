@@ -71,6 +71,7 @@ public class PaymentDatabase {
         payment.setPayback(payback);
         payment.setTotalPay(totalPay);
         payment.setAbsenceDay(0);
+        payment.setBoardingDay(dayCount);
         if (!res.next()) {
             if (LocalDate.now().isBefore(date)) payment.setState(PaymentState.DAY_HASNT_COME_YET);
             else payment.setState(PaymentState.HASNT_PAY);

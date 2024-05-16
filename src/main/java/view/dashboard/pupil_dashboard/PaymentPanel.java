@@ -11,7 +11,6 @@ import model.account.Account;
 
 public class PaymentPanel extends javax.swing.JPanel {
     private PaymentController controller;
-    private Account account;
     private JButton[] statusButton = new JButton[10];
     /**
      * Creates new form PaymentPanel
@@ -19,10 +18,10 @@ public class PaymentPanel extends javax.swing.JPanel {
      * @throws ClassNotFoundException 
      */
     public PaymentPanel(Account account) throws ClassNotFoundException, SQLException {
-        this.account = account;
         initComponents();
         customInit();
-        controller = new PaymentController(account, stateLabel, needToPayLabel, hasPaidLabel, payBackLabel, monthChooser, statusButton);
+        controller = new PaymentController(account, stateLabel, needToPayLabel, hasPaidLabel, payBackLabel, monthChooser, statusButton, equationLabel, moreInformationLabel, largeMoreInformationLabel);
+        controller.setEvent();
     }
 
     private void customInit() {
@@ -51,6 +50,9 @@ public class PaymentPanel extends javax.swing.JPanel {
         hasPaidLabel = new javax.swing.JLabel();
         payBackLabel = new javax.swing.JLabel();
         informationLabel = new javax.swing.JLabel();
+        equationLabel = new javax.swing.JLabel();
+        moreInformationLabel = new javax.swing.JLabel();
+        largeMoreInformationLabel = new javax.swing.JLabel();
 
         paymentInformationLabel.setFont(new java.awt.Font("Arial", 1, 30)); // NOI18N
         paymentInformationLabel.setText("Payment Information");
@@ -62,7 +64,7 @@ public class PaymentPanel extends javax.swing.JPanel {
 
         stateLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
-        needToPayLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        needToPayLabel.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
         hasPaidLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
@@ -71,6 +73,12 @@ public class PaymentPanel extends javax.swing.JPanel {
         informationLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         informationLabel.setText("Information:");
 
+        equationLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        moreInformationLabel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        largeMoreInformationLabel.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,13 +86,16 @@ public class PaymentPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(largeMoreInformationLabel)
                     .addComponent(informationLabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(payBackLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                         .addComponent(hasPaidLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(needToPayLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(stateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(paymentInformationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(paymentInformationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(equationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                        .addComponent(moreInformationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(monthChooserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -110,16 +121,25 @@ public class PaymentPanel extends javax.swing.JPanel {
                 .addComponent(hasPaidLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(payBackLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(largeMoreInformationLabel)
+                .addGap(18, 18, 18)
+                .addComponent(equationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(moreInformationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(161, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel equationLabel;
     private javax.swing.JLabel hasPaidLabel;
     private javax.swing.JLabel informationLabel;
+    private javax.swing.JLabel largeMoreInformationLabel;
     private javax.swing.JComboBox<String> monthChooser;
     private javax.swing.JLabel monthChooserLabel;
+    private javax.swing.JLabel moreInformationLabel;
     private javax.swing.JLabel needToPayLabel;
     private javax.swing.JLabel payBackLabel;
     private javax.swing.JLabel paymentInformationLabel;
