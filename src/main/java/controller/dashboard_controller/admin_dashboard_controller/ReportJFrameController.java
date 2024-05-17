@@ -74,11 +74,11 @@ public class ReportJFrameController {
                     + "FROM "
                     + "pupil "
                     + "LEFT JOIN "
-                    + "payment ON pupil.ID = payment.PupilID "
+                    + "payment ON pupil.ID = payment.PupilID AND payment.Date = ?"
                     + "WHERE "
-                    + "pupil.Class = ? "
-                    + "AND payment.Date = ?";
-
+                    + "pupil.Class = ? ";
+                    
+            
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
                 public boolean isCellEditable(int row, int column) {
@@ -87,8 +87,8 @@ public class ReportJFrameController {
             };
             model.setColumnIdentifiers(listColumn);
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, classID);
-            statement.setString(2, date);
+            statement.setString(2, classID);
+            statement.setString(1, date);
             statement.executeQuery();
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -207,14 +207,12 @@ public class ReportJFrameController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    ExportController controller=new ExportController(table,classroom);
+                    ExportController controller = new ExportController(table, classroom);
                 } catch (IOException ex) {
                     Logger.getLogger(ReportJFrameController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
-               
-                
         });
     }
 }
