@@ -20,24 +20,24 @@ public class PaymentPanel extends javax.swing.JPanel {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public PaymentPanel(Account account, boolean isCallFromController) throws ClassNotFoundException, SQLException {
+    public PaymentPanel(Account account, int role) throws ClassNotFoundException, SQLException {
         for (int i = 1; i <= 9; i ++)
             statusButton[i] = new JButton();
         initComponents();
         customInit();
-        controller = new PaymentController(isCallFromController, account, stateLabel, needToPayLabel, hasPaidLabel,
+        controller = new PaymentController(role, account, stateLabel, needToPayLabel, hasPaidLabel,
                 payBackLabel, monthChooser, statusButton, equationLabel, moreInformationLabel,
                 largeMoreInformationLabel);
         controller.setEvent();
     }
 
-    public PaymentPanel(Account account, boolean isCallFromController, JButton payButton, JComboBox<String> payComboBox,
+    public PaymentPanel(Account account, int role, JButton payButton, JComboBox<String> payComboBox,
             JButton refundButton, JComboBox<String> refundComboxBox) throws ClassNotFoundException, SQLException {
         for (int i = 1; i <= 9; i ++)
             statusButton[i] = new JButton();
         initComponents();
         customInit();
-        controller = new PaymentController(isCallFromController, account, stateLabel, needToPayLabel, hasPaidLabel,
+        controller = new PaymentController(role, account, stateLabel, needToPayLabel, hasPaidLabel,
                 payBackLabel, monthChooser, statusButton, equationLabel, moreInformationLabel,
                 largeMoreInformationLabel);
         controller.setEvent();
