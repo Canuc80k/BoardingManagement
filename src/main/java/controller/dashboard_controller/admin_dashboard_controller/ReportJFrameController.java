@@ -6,6 +6,10 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
@@ -23,70 +27,89 @@ import model.people.pupil.PupilDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 import view.dashboard.admin_dashboard.ManagePupilJFrame;
-import view.dashboard.admin_dashboard.ReportJFrame;
 
-public class ShowDetailController {
+public class ReportJFrameController {
 
     private final JPanel jpnView;
     private final JTextField jtfSearch;
-    private final JLabel jlbTeacher;
-    private final JLabel jlbClassroom;
+    private JButton exportButton;
     private final Classroom classroom;
     private JTable table;
-    private JButton exportReportButton;
-    private final String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
+    private JComboBox dateComboBox;
+    private final JButton refeshButton;
+    private final String[] listColumn = {"Name", "Class", "Boarding Room", "Date", "Absence Days", "Status"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public ShowDetailController(JPanel jpnView, JTextField jtfSearch, JLabel jlbTeacher, JLabel jlbClass, JButton exportReportButton ,Classroom classroom) {
+    public ReportJFrameController(JPanel jpnView, JTextField jtfSearch, JButton exportButton, JComboBox dateComboBox, JButton refeshButton, Classroom classroom) {
         this.jpnView = jpnView;
         this.jtfSearch = jtfSearch;
-        this.jlbTeacher = jlbTeacher;
-        this.jlbClassroom = jlbClass;
+        this.refeshButton = refeshButton;
+        this.dateComboBox = dateComboBox;
+        this.exportButton = exportButton;
         this.classroom = classroom;
-        this.exportReportButton=exportReportButton;
+
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
+        String url = "jdbc:mysql://localhost:3306/boardingmanagement"; // URL kết nối đến cơ sở dữ liệu
+        String username = "root"; // Tên đăng nhập
+        String password = ""; // Mật khẩu
+        String classID = classroom.getClassID();
+        String date = dateComboBox.getSelectedItem().toString();
+        String dateTemp = date;
+        date += "-01";
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            String sql = "SELECT "
+                    + "pupil.Name, "
+                    + "pupil.Class, "
+                    + "pupil.BoardingRoom, "
+                    + "payment.Date, "
+                    + "payment.AbsenceDay, "
+                    + "CASE "
+                    + "    WHEN payment.Status = 0 THEN 'Chưa nộp' "
+                    + "    WHEN payment.Status = 2 THEN 'Đã nộp' "
+                    + "    WHEN payment.Status = 3 THEN 'Đã nhận tiền thừa trả lại' "
+                    + "    ELSE 'Không xác định' "
+                    + "END AS Status "
+                    + "FROM "
+                    + "pupil "
+                    + "LEFT JOIN "
+                    + "payment ON pupil.ID = payment.PupilID "
+                    + "WHERE "
+                    + "pupil.Class = ? "
+                    + "AND payment.Date = ?";
 
-        jlbClassroom.setText("Class "+classroom.getClassID());
-//    System.out.println("Test Classroom.....");
-//    System.out.println("ID:"+classroom.getClassID());
-//    System.out.println("Room:"+classroom.getRoom());
-//    System.out.println("Quantity:"+classroom.getQuantity());
-        List<Pupil> listItemPupil = PupilDatabase.getAllPupil("SELECT * FROM pupil WHERE class = '" + classroom.getClassID() + "'");
-
-
-        List<Teacher> listItemTeacher = TeacherDatabase.getAllTeacher("SELECT * FROM teacher where classid='" + classroom.getClassID() + "'");
-        //DefaultTableModel model = new DefaultTableModel();
-        DefaultTableModel model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            model.setColumnIdentifiers(listColumn);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, classID);
+            statement.setString(2, date);
+            statement.executeQuery();
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    String name = resultSet.getString("Name");
+                    String classValue = resultSet.getString("Class");
+                    String boardingRoom = resultSet.getString("BoardingRoom");
+                    String paymentDate = resultSet.getString("Date");
+                    int absenceDay = resultSet.getInt("AbsenceDay");
+                    String status = resultSet.getString("Status");
+                    model.addRow(new Object[]{
+                        name,
+                        classValue,
+                        boardingRoom,
+                        dateTemp,
+                        absenceDay,
+                        status,});
+                }
             }
+            table = new JTable(model);
+        }
 
-        };
-        model.setColumnIdentifiers(listColumn);
-        for (Pupil pupil : listItemPupil) {
-            //System.out.println("ID:"+classroom.getClassID()+" Pupil ClassID:"+pupil.getClassID());
-            model.addRow(new Object[]{
-                pupil.getID(),
-                pupil.getName(),
-                pupil.getDoB(),
-                // pupil.getGender(),
-                (pupil.getGender() == 0) ? "Male" : "Female",
-                pupil.getClassID(),
-                pupil.getParentName(),
-                pupil.getPhone(),
-                pupil.getAddress(),
-                pupil.getBoardingroom(), // pupil.getAbsentday()
-            });
-        }
-        for (Teacher teacher : listItemTeacher) {
-            //System.out.println("Test Teacher.....");
-            jlbTeacher.setText(teacher.getName());
-        }
-        table = new JTable(model);
-        //table.setEnabled(false);
         rowSorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(rowSorter);
         jtfSearch.getDocument().addDocumentListener(new DocumentListener() {
@@ -158,7 +181,7 @@ public class ShowDetailController {
         // Set up UI for the JPanel
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.getViewport().add(table);
-        scrollPane.setPreferredSize(new Dimension(1100, 400));
+        scrollPane.setPreferredSize(new Dimension(1000, 400));
         jpnView.removeAll();
         jpnView.setLayout(new BorderLayout());
         jpnView.add(scrollPane);
@@ -166,22 +189,28 @@ public class ShowDetailController {
         jpnView.repaint();
     }
 
-    public void setEvent() {
-        exportReportButton.addMouseListener(new MouseAdapter(){
+    public void setEvent() throws IOException {
+        refeshButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    System.out.println("Testing export ......");
-                    // Open the frame to manage pupils for adding new pupil
-                    ReportJFrame frame = new ReportJFrame(classroom);
-                    frame.setTitle("Report Information");
-                    frame.setResizable(false);
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-                } catch (SQLException | ClassNotFoundException | IOException ex) {
-                    Logger.getLogger(ShowDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                    // Refresh button clicked, update the table data
+                    setDataToTable();
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(PupilController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+
+            // Other mouse listener methods for button events (enter, exit, etc.)
+        });
+        exportButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+               
+            }
+
+                ExportController controller=new ExportController(table);
+                
         });
     }
 }

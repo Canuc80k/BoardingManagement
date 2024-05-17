@@ -24,9 +24,9 @@ public class ClassroomPanel extends javax.swing.JPanel {
         initComponents();
         try {
             ShowDetailController controller;
-            controller = new ShowDetailController(viewPanel, searchTextField, teacherLabel, classroomLabel, classroom);
+            controller = new ShowDetailController(viewPanel, searchTextField, teacherLabel, classroomLabel,exportReportButton, classroom);
             controller.setDataToTable();
-            // controller.setEvent();
+             controller.setEvent();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ShowDetailJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -47,6 +47,7 @@ public class ClassroomPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         teacherLabel = new javax.swing.JLabel();
         classroomLabel = new javax.swing.JLabel();
+        exportReportButton = new javax.swing.JButton();
 
         searchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +79,17 @@ public class ClassroomPanel extends javax.swing.JPanel {
         classroomLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         classroomLabel.setText("Responsible:");
 
+        exportReportButton.setBackground(new java.awt.Color(255, 0, 51));
+        exportReportButton.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
+        exportReportButton.setForeground(new java.awt.Color(255, 255, 255));
+        exportReportButton.setText("Export Report");
+        exportReportButton.setBorder(null);
+        exportReportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportReportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnRootLayout = new javax.swing.GroupLayout(jpnRoot);
         jpnRoot.setLayout(jpnRootLayout);
         jpnRootLayout.setHorizontalGroup(
@@ -96,8 +108,10 @@ public class ClassroomPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(teacherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(247, Short.MAX_VALUE))
+                                .addComponent(teacherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(exportReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +122,8 @@ public class ClassroomPanel extends javax.swing.JPanel {
                 .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(teacherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(teacherLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exportReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(viewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
@@ -130,9 +145,15 @@ public class ClassroomPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTextFieldActionPerformed
 
+    private void exportReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportReportButtonActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_exportReportButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel classroomLabel;
+    private javax.swing.JButton exportReportButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jpnRoot;
     private javax.swing.JTextField searchTextField;
