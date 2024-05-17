@@ -7,6 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import constant.AvailableMonth;
+import constant.Role;
 import model.account.Account;
 import model.payment.PaymentDatabase;
 import view.dashboard.admin_dashboard.ManagePaymentJFrame;
@@ -18,8 +19,10 @@ public class ManagePaymentController {
     private javax.swing.JComboBox<String> refundComboBox;
     private Account account;
     private ManagePaymentJFrame frame;
-   
-    public ManagePaymentController(ManagePaymentJFrame frame, Account account, JButton payButton, JComboBox<String> payComboBox, JButton refundButton, JComboBox<String> refundComboxBox) {
+    private int role;
+
+    public ManagePaymentController(int role, ManagePaymentJFrame frame, Account account, JButton payButton, JComboBox<String> payComboBox, JButton refundButton, JComboBox<String> refundComboxBox) {
+        this.role = role;
         this.frame = frame;
         this.account = account;
         this.payButton = payButton;
@@ -29,6 +32,14 @@ public class ManagePaymentController {
     }
 
     public void setEvent() {
+        if (role == Role.TEACHER) {
+            payButton.setVisible(false);
+            refundButton.setVisible(false);
+            payComboBox.setVisible(false);
+            refundComboBox.setVisible(false);
+            return;
+        }
+        
         for (int i = 0; i < AvailableMonth.month.size(); i ++) {
             payComboBox.addItem(AvailableMonth.month.get(i));
             refundComboBox.addItem(AvailableMonth.month.get(i));

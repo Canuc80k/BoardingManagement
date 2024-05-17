@@ -6,8 +6,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import constant.Role;
 import model.account.Account;
 import model.classroom.Classroom;
 import model.classroom.ClassroomDatabase;
@@ -109,7 +112,7 @@ public class TeacherDashboardController {
                 }
 
                 case "Payment": {
-                    view = new PaymentPanel(account);
+                    view = new PaymentPanel(Role.TEACHER, account);
                     break;
                 }
                 case "Info": {

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import constant.Role;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.BoardingroomPanel;
@@ -127,7 +128,7 @@ public class AdminDashboardController {
                 }
 
                 case "Payment": {
-                    view = new PaymentPanel(account);
+                    view = new PaymentPanel(Role.ADMIN, account);
                     break;
                 }
                 case "Info": {

@@ -4,9 +4,6 @@
  */
 package view.dashboard.admin_dashboard;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-
 import controller.dashboard_controller.admin_dashboard_controller.PaymentController;
 import model.account.Account;
 
@@ -19,9 +16,9 @@ public class PaymentPanel extends javax.swing.JPanel {
     /**
      * Creates new form PaymentJPanel
      */
-    public PaymentPanel(Account account) {
+    public PaymentPanel(int role, Account account) {
         initComponents();
-        PaymentController controller = new PaymentController(viewPanel, addButton, searchTextField,refreshButton,account);
+        PaymentController controller = new PaymentController(role, viewPanel, addButton, searchTextField,refreshButton,account);
         controller.setDataToTable();
         controller.setEvent();
     }
