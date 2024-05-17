@@ -1,6 +1,5 @@
 package controller.dashboard_controller.admin_dashboard_controller;
 
-
 import com.itextpdf.kernel.color.Color;
 import com.itextpdf.kernel.color.DeviceRgb;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -19,12 +18,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import model.classroom.Classroom;
 
 public class ExportController {
 
-    public ExportController(JTable table) throws FileNotFoundException, IOException {
+    public ExportController(JTable table, Classroom classroom) throws FileNotFoundException, IOException {
         LocalDate ld = LocalDate.now();
-        String pdfName = ld + ".pdf";
+        String sanitizedClassID = classroom.getClassID().replace("/", "-");
+        String pdfName = sanitizedClassID +"_"+ ld + ".pdf";
+        //String pdfName = @"" + classroom.getClassID().toString() + ld + ".pdf";
         if (Files.exists(Paths.get(pdfName))) {
             // If it exists, delete it
             Files.delete(Paths.get(pdfName));
@@ -73,8 +75,7 @@ public class ExportController {
         peopleInfoTable.addCell(new Cell().add("Admin").setBorder(null));
 
         // Create a sample JTable (Replace this with your actual JTable)
-       // JTable jTable = createSampleJTable();
-
+        // JTable jTable = createSampleJTable();
         // Create the item info table from JTable data
         Table itemInfoTable = createItemInfoTableFromJTable(table);
 
