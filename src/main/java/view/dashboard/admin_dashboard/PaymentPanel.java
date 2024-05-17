@@ -4,6 +4,9 @@
  */
 package view.dashboard.admin_dashboard;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import controller.dashboard_controller.admin_dashboard_controller.PaymentController;
 import model.account.Account;
 
@@ -30,7 +33,6 @@ public class PaymentPanel extends javax.swing.JPanel {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jPanel1 = new javax.swing.JPanel();
         jpnRoot = new javax.swing.JPanel();
         searchTextField = new javax.swing.JTextField();
