@@ -206,10 +206,14 @@ public class ReportJFrameController {
         exportButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-               
+                try {
+                    ExportController controller=new ExportController(table,classroom);
+                } catch (IOException ex) {
+                    Logger.getLogger(ReportJFrameController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
-                ExportController controller=new ExportController(table);
+               
                 
         });
     }
