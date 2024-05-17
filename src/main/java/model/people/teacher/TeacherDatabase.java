@@ -14,6 +14,22 @@ public class TeacherDatabase {
     public TeacherDatabase() {
     }
 
+    public static Teacher getTeacher(String id) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("Select * from teacher where id = '" + id + "'");
+
+        Teacher res = null;
+        while (rs.next()) {
+            res = new Teacher(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7));
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return res;
+    }
+
     public static List<Teacher> getAllTeacher(String query) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");

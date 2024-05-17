@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import constant.Role;
 import model.absence.AbsenceDatabase;
 import model.account.Account;
 import view.dashboard.pupil_dashboard.AbsenceHistoryPanel;
@@ -25,23 +26,46 @@ public class AbsenceHistoryController {
     }
 
     private void setDataForAbsenceHistoryTable() throws ClassNotFoundException, SQLException {
-        List<String> absenceHistoryList = AbsenceDatabase.getAbsenceHistory(account.getID());
-        Collections.reverse(absenceHistoryList);
-        DefaultTableModel model = new DefaultTableModel(new Object [][] {}, new String [] {"Day", "State",}) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
+        if (account.getRole() == Role.PUPIL) {
+            List<String> absenceHistoryList;
+            absenceHistoryList = AbsenceDatabase.getAbsenceHistory(account.getID());
+            Collections.reverse(absenceHistoryList);
+            DefaultTableModel model = new DefaultTableModel(new Object [][] {}, new String [] {"Day", "State",}) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            for (int i = 0; i < absenceHistoryList.size(); i ++) {
+                System.out.println(absenceHistoryList.get(i));
+                model.addRow(new Object[] {
+                    absenceHistoryList.get(i), getState(absenceHistoryList.get(i))
+                });
             }
-        };
-        for (int i = 0; i < absenceHistoryList.size(); i ++) {
-            System.out.println(absenceHistoryList.get(i));
-            model.addRow(new Object[] {
-                absenceHistoryList.get(i), getState(absenceHistoryList.get(i))
-            });
+            absenceHistoryTable.setModel(model);
+            this.absenceHistory.validate();
+            this.absenceHistory.repaint();
         }
-        absenceHistoryTable.setModel(model);
-        this.absenceHistory.validate();
-        this.absenceHistory.repaint();
+        else {
+            List<List<String>> absenceHistoryList;
+            absenceHistoryList = AbsenceDatabase.getClassAbsenceHistory(account.getID());
+            Collections.reverse(absenceHistoryList);
+            DefaultTableModel model = new DefaultTableModel(new Object [][] {}, new String [] {"Day", "PupilID", "State"}) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            for (int i = 0; i < absenceHistoryList.size(); i ++) {
+                System.out.println(absenceHistoryList.get(i));
+                model.addRow(new Object[] {
+                    absenceHistoryList.get(i).get(0), absenceHistoryList.get(i).get(1), getState(absenceHistoryList.get(i).get(0)) 
+                });
+            }
+            absenceHistoryTable.setModel(model);
+            this.absenceHistory.validate();
+            this.absenceHistory.repaint();
+        }
     }
 
     private String getState(String dateString) {
