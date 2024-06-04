@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import constant.Role;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.InformationPanel;
@@ -83,7 +84,7 @@ public class PupilDashboardController {
                 }
                 case "Payment": {
                     try {
-                        view = new PaymentPanel(account, false);
+                        view = new PaymentPanel(account, Role.PUPIL);
                     } catch (ClassNotFoundException | SQLException e1) {
                         e1.printStackTrace();
                     }

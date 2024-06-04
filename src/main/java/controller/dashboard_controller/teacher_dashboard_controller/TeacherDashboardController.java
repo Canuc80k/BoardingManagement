@@ -6,8 +6,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import constant.Role;
 import model.account.Account;
 import model.classroom.Classroom;
 import model.classroom.ClassroomDatabase;
@@ -17,6 +20,7 @@ import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.admin_dashboard.PaymentPanel;
+import view.dashboard.pupil_dashboard.AbsenceHistoryPanel;
 import view.dashboard.teacher_dashboard.ClassroomPanel;
 
 public class TeacherDashboardController {
@@ -67,7 +71,7 @@ public class TeacherDashboardController {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            //System.out.println(sideFeatureOptionTitle);
+            System.out.println(sideFeatureOptionTitle);
             switch (sideFeatureOptionTitle) {
                 case "Init": {
                     // view = new InitPanel(account);
@@ -107,9 +111,16 @@ public class TeacherDashboardController {
                     }
                     break;
                 }
-
+                case "Absence History": {
+                    try {
+                        view = new AbsenceHistoryPanel(account);
+                    } catch (ClassNotFoundException | SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                }
                 case "Payment": {
-                    view = new PaymentPanel(account);
+                    view = new PaymentPanel(Role.TEACHER, account);
                     break;
                 }
                 case "Info": {

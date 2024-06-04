@@ -12,6 +12,10 @@ import java.util.List;
 
 import model.calendar.CalendarDatabase;
 import model.payment.PaymentDatabase;
+import model.people.pupil.Pupil;
+import model.people.pupil.PupilDatabase;
+import model.people.teacher.Teacher;
+import model.people.teacher.TeacherDatabase;
 
 public class AbsenceDatabase {
     public static List<String> getAbsenceHistory(String id) throws ClassNotFoundException, SQLException {
@@ -31,6 +35,36 @@ public class AbsenceDatabase {
         pstmt.close();
         con.close();
         resultSet.close();
+        return res;
+    }
+
+    public static List<List<String>> getClassAbsenceHistory(String id) throws ClassNotFoundException, SQLException {
+        List<List<String>> res = new ArrayList<List<String>>();
+        Teacher teacher = TeacherDatabase.getTeacher(id);
+        String classID = teacher.getClassID();
+
+        List<Pupil> pupils = PupilDatabase.getAllPupil("Select * from pupil where class = '" + classID + "'");
+
+        for (int i = 0; i < pupils.size(); i ++) {
+            String pupilID = pupils.get(i).getID();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
+            String query = "Select * from absence where PupilID = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, pupilID);
+            ResultSet resultSet = pstmt.executeQuery();
+            
+            while (resultSet.next()) {
+                List<String> ls = new ArrayList<>();
+                ls.add(resultSet.getString(2));
+                ls.add(pupilID);
+                res.add(ls);
+            }
+            
+            pstmt.close();
+            con.close();
+            resultSet.close();
+        }
         return res;
     }
 

@@ -20,16 +20,16 @@ public class ManagePaymentJFrame extends javax.swing.JFrame {
      * @throws SQLException 
      * @throws ClassNotFoundException 
      */
-    public ManagePaymentJFrame(Account account) throws ClassNotFoundException, SQLException {
+    public ManagePaymentJFrame(int role, Account account) throws ClassNotFoundException, SQLException {
         initComponents();
 
-        view.dashboard.pupil_dashboard.PaymentPanel paymentPanel = new view.dashboard.pupil_dashboard.PaymentPanel(account, true, payButton, payComboBox, refundButton, refundComboBox);
+        view.dashboard.pupil_dashboard.PaymentPanel paymentPanel = new view.dashboard.pupil_dashboard.PaymentPanel(account, role, payButton, payComboBox, refundButton, refundComboBox);
         viewPanel.removeAll();
         viewPanel.setLayout(new BorderLayout());
         viewPanel.add(paymentPanel);
         viewPanel.validate();
         viewPanel.repaint();
-        controller = new ManagePaymentController(this, account, payButton, payComboBox, refundButton, refundComboBox);
+        controller = new ManagePaymentController(role, this, account, payButton, payComboBox, refundButton, refundComboBox);
         controller.setEvent();
     }
 
@@ -57,7 +57,7 @@ public class ManagePaymentJFrame extends javax.swing.JFrame {
         );
         viewPanelLayout.setVerticalGroup(
             viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 755, Short.MAX_VALUE)
+            .addGap(0, 788, Short.MAX_VALUE)
         );
 
         payButton.setBackground(new java.awt.Color(0, 153, 0));
@@ -105,7 +105,7 @@ public class ManagePaymentJFrame extends javax.swing.JFrame {
                     .addComponent(refundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(payComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

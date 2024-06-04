@@ -44,7 +44,8 @@ public class PaymentController {
     private String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public PaymentController(JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh, Account account) {
+    public PaymentController(int role, JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh, Account account) {
+        this.role = role;
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
         this.jtfSearch = jtfSearch;
@@ -144,7 +145,7 @@ public class PaymentController {
                             Pupil pupil = new Pupil(id, name, dateOfBirth, gender, classId, parentName, phone, address, boardingRoom);
                             Account account = AccountDatabase.getAccountByID(id);
                             // Open the ManagePupilJFrame to display detailed pupil information for editing
-                            ManagePaymentJFrame frame = new ManagePaymentJFrame(account);
+                            ManagePaymentJFrame frame = new ManagePaymentJFrame(role, account);
                             frame.setTitle("Payment Information");
 
                             frame.setResizable(false);

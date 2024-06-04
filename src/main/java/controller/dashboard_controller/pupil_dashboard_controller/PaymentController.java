@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import constant.AvailableMonth;
 import constant.PaymentState;
+import constant.Role;
 import model.account.Account;
 import model.boardingpay.BoardingPay;
 import model.payment.Payment;
@@ -25,11 +26,11 @@ public class PaymentController {
             largeMoreInformationLabel;
     private JComboBox<String> monthChooser;
     private JButton[] statusButton;
-    private boolean isCallFromController;
+    private int role;
     private JButton payButton, refundButton;
     private JComboBox<String> payComboBox, refundComboxBox;
 
-    public PaymentController(boolean isCallFromController, Account account, JLabel stateLabel, JLabel needToPayLabel,
+    public PaymentController(int role, Account account, JLabel stateLabel, JLabel needToPayLabel,
             JLabel hasPaidLabel, JLabel payBackLabel, JComboBox<String> monthChooser, JButton[] statusButton,
             JLabel equationLabel, JLabel moreInformationLabel, JLabel largeMoreInformationLabel)
             throws ClassNotFoundException, SQLException {
@@ -43,9 +44,13 @@ public class PaymentController {
         this.equationLabel = equationLabel;
         this.moreInformationLabel = moreInformationLabel;
         this.largeMoreInformationLabel = largeMoreInformationLabel;
-        this.isCallFromController = isCallFromController;
-        if (isCallFromController) {
+        this.role = role;
+        if (role == Role.ADMIN) {
             TOP_MARGIN = 400;
+            LEFT_MARGIN = 50;
+        }
+        if (role == Role.TEACHER) {
+            TOP_MARGIN = 550;
             LEFT_MARGIN = 50;
         }
     }
@@ -121,7 +126,7 @@ public class PaymentController {
             hasPaidLabel.setText("You has paid: " + payment.getTotalPay() + "$");
             needToPayLabel.setText("Actual boarding fee: " + payment.getReceived() + "$");
             payBackLabel.setText("Has Repayed: " + payment.getPayback() + "$");
-            if (!isCallFromController) {
+            if (role != Role.ADMIN) {
                 equationLabel.setText(
                         "The formula for calculating boarding fees is: number of boarding days * boarding fee per day + cleaning fee");
                 moreInformationLabel
