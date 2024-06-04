@@ -20,6 +20,7 @@ import view.dashboard.admin_dashboard.ClassroomPanel;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.admin_dashboard.ManagerPanel;
+import view.dashboard.admin_dashboard.MealPanel;
 import view.dashboard.admin_dashboard.PaymentPanel;
 import view.dashboard.admin_dashboard.PupilPanel;
 import view.dashboard.admin_dashboard.TeacherPanel;
@@ -120,9 +121,7 @@ public class AdminDashboardController {
                     try {
                         view = new BoardingroomPanel();
                         break;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
+                    } catch (SQLException | ClassNotFoundException ex) {
                         Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
@@ -134,6 +133,17 @@ public class AdminDashboardController {
                 case "Info": {
                     view = new InformationPanel(account);
                     break;
+                }
+                case "Meal":{
+                try {
+                    //System.out.println("Menu\n");
+                    view = new MealPanel();
+                    System.out.println("Menu\n");
+                    break;
+                    
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 }
                 default: {
                     view = new InitPanel(account);
