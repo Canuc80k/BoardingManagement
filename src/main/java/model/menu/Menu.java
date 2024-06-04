@@ -1,9 +1,21 @@
 package model.menu;
-
-import java.util.Calendar;
 public class Menu {
+    private String menuID;
     private String foodName;
-    private Calendar calendarID;
+
+    public Menu(String menuID, String foodName) {
+        this.foodName=foodName;
+        this.menuID=menuID;
+    }
+ 
+
+    public String getMenuID() {
+        return menuID;
+    }
+
+    public void setMenuID(String menuID) {
+        this.menuID = menuID;
+    }
     
     public String getFoodName() {
     	return foodName;
@@ -11,11 +23,5 @@ public class Menu {
     public void setFoodName(String foodName) {
     	this.foodName = foodName;
     }
-    
-    public Calendar getCalendarID() {
-    	return calendarID;
-    }
-    public void setCalendarID(Calendar calendarID) {
-    	this.calendarID = calendarID;
-    }
+   
 }
