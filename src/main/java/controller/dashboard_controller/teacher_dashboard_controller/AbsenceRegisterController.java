@@ -16,11 +16,18 @@ public class AbsenceRegisterController {
     private ClassroomPanel classroomPanel;
     private JTable table;
 
-    public AbsenceRegisterController(ClassroomPanel classroomPanel, JButton absenceRegisterButton) {
+    public AbsenceRegisterController(ClassroomPanel classroomPanel, JButton absenceRegisterButton) throws ClassNotFoundException, SQLException {
         this.absenceRegisterButton = absenceRegisterButton;
         this.classroomPanel = classroomPanel;
         table = this.classroomPanel.getController().getTable();
-        table.removeMouseListener(table.getMouseListeners()[0]);
+        int colCount = table.getColumnCount();
+        for (int i = 1; i <= colCount - 3; i ++)
+            table.removeColumn(table.getColumnModel().getColumn(3));
+        table.getColumnModel().getColumn(2).setHeaderValue("Absence Today");
+        for (int i = 0; i < table.getRowCount(); i ++) {
+            boolean alrealdyAbsence = AbsenceDatabase.find(table.getModel().getValueAt(i, 0).toString(), LocalDate.now());
+            table.getModel().setValueAt(alrealdyAbsence ? "Yes" : "No", i, 2);
+        }
     }
 
     public void setEvent() {
@@ -36,6 +43,7 @@ public class AbsenceRegisterController {
                 }
                 try {
                     AbsenceDatabase.registAbsence(id, LocalDate.now());
+                    table.getModel().setValueAt("Yes", table.getSelectedRows()[0], 2);
                     JOptionPane.showMessageDialog(null, "Absence Register Success", "Absence Register", JOptionPane.INFORMATION_MESSAGE);
                 } catch (ClassNotFoundException | SQLException e1) {
                     JOptionPane.showMessageDialog(null, "This student already register absence for today", "Absence Register", JOptionPane.INFORMATION_MESSAGE);

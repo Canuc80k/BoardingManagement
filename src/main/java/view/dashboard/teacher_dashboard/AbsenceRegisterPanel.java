@@ -4,6 +4,8 @@
  */
 package view.dashboard.teacher_dashboard;
 
+import java.sql.SQLException;
+
 import controller.dashboard_controller.teacher_dashboard_controller.AbsenceRegisterController;
 import model.classroom.Classroom;
 
@@ -15,8 +17,10 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
     private ClassroomPanel classroomPanel;
     /**
      * Creates new form AbsenceRegister
+     * @throws SQLException 
+     * @throws ClassNotFoundException 
      */
-    public AbsenceRegisterPanel(Classroom classroom) {
+    public AbsenceRegisterPanel(Classroom classroom) throws ClassNotFoundException, SQLException {
         initComponents();
         classroomPanel = new ClassroomPanel(classroom);
         classroomPanel.setSize(1500, 800);
