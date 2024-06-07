@@ -19,7 +19,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="registerAbsenceButton" min="-2" pref="290" max="-2" attributes="0"/>
-              <EmptySpace pref="813" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" pref="311" max="-2" attributes="0"/>
+              <EmptySpace pref="441" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -27,7 +29,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="652" max="32767" attributes="0"/>
-              <Component id="registerAbsenceButton" min="-2" pref="52" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="registerAbsenceButton" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -40,9 +45,17 @@
           <Color blue="ff" green="ff" red="33" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="1"/>
+          <Font name="Arial" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Register Absence Today"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Arial" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
       </Properties>
     </Component>
   </SubComponents>

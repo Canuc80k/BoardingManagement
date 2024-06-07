@@ -32,6 +32,10 @@ public class AbsenceRegisterController {
 
     public void setEvent() {
         absenceRegisterButton.addActionListener(e -> {
+            if (table.getSelectedRows().length == 0) {
+                JOptionPane.showMessageDialog(null, "You need to choose 1 student", "Absence Register", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
             String id = table.getModel().getValueAt(table.getSelectedRows()[0], 0).toString();
 
             Object[] choices = {"Yes", "No"};
