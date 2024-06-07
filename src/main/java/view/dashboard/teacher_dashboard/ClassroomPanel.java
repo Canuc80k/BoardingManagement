@@ -17,14 +17,14 @@ import view.dashboard.admin_dashboard.ShowDetailJFrame;
  * @author huant
  */
 public class ClassroomPanel extends javax.swing.JPanel {
-
+    private ShowDetailController controller;
+    public ShowDetailController getController() {return controller;}
     /**
      * Creates new form ClassroomPanel
      */
     public ClassroomPanel(Classroom classroom) {
         initComponents();
         try {
-            ShowDetailController controller;
             controller = new ShowDetailController(viewPanel, searchTextField, classroomLabel, classroom);
             controller.setDataToTable();
              controller.setEvent();
@@ -85,7 +85,7 @@ public class ClassroomPanel extends javax.swing.JPanel {
                         .addGroup(jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(viewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         jpnRootLayout.setVerticalGroup(
             jpnRootLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

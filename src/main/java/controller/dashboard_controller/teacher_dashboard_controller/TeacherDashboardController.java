@@ -21,6 +21,7 @@ import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.admin_dashboard.PaymentPanel;
 import view.dashboard.pupil_dashboard.AbsenceHistoryPanel;
+import view.dashboard.teacher_dashboard.AbsenceRegisterPanel;
 import view.dashboard.teacher_dashboard.ClassroomPanel;
 
 public class TeacherDashboardController {
@@ -110,6 +111,28 @@ public class TeacherDashboardController {
                         // You can show an error message to the user if needed
                     }
                     break;
+                }
+                case "Absence Register": {
+                    try {
+                        List<Teacher> listItemTeacher = TeacherDatabase.getAllTeacher("SELECT * FROM teacher WHERE id='" + account.getID() + "'");
+
+                        String temp = null;
+                        for (Teacher teacher : listItemTeacher) {
+                            temp = teacher.getClassID();
+                        }
+
+                        if (temp != null) {
+                            List<Classroom> classes = ClassroomDatabase.getAllClassrooms("SELECT * FROM classroom WHERE classid='" + temp + "'");
+                            if (!classes.isEmpty()) {
+                                Classroom classroom = classes.get(0); // Get the first classroom
+                                view = new AbsenceRegisterPanel(classroom);
+                            } else {}
+                        } else {
+                            // Handle case where the teacher's class ID is null
+                            // You can show a message to the user indicating that the teacher's class is not assigned
+                        }
+                        break;
+                    } catch (Exception e1) {e1.printStackTrace();}
                 }
                 case "Absence History": {
                     try {

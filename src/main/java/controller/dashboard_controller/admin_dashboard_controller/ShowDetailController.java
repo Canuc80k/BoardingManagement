@@ -38,6 +38,7 @@ public class ShowDetailController {
     private final String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
     private TableRowSorter<TableModel> rowSorter = null;
 
+    public JTable getTable() {return table;}
     public ShowDetailController(JPanel jpnView, JTextField jtfSearch, JLabel jlbClass, Classroom classroom) {
         this.jpnView = jpnView;
         this.jtfSearch = jtfSearch;

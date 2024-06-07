@@ -20,7 +20,7 @@ public class ShowDetailJFrame extends javax.swing.JFrame {
         initComponents();
         try {
             ShowDetailController controller;
-            controller = new ShowDetailController(viewPanel, searchTextField, teacherLabel, classroomLabel,exportReportButton, classroom);
+            controller = new ShowDetailController(viewPanel, searchTextField, classroomLabel, classroom);
             controller.setDataToTable();
              controller.setEvent();
         } catch (SQLException | ClassNotFoundException ex) {

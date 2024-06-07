@@ -21,6 +21,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
      //   listItem.add(new SideFeatureOption("Manager", managerPanel, managerLabel));
        // listItem.add(new SideFeatureOption("Pupil", pupilPanel, pupilLabel));
         listItem.add(new SideFeatureOption("Class", classPanel, classLabel));
+        listItem.add(new SideFeatureOption("Absence Register", absenceRegisterPanel, absenceRegisterLabel));
       //  listItem.add(new SideFeatureOption("BoardingRoom", boardingRoomPanel, boardingRoomLabel));
         listItem.add(new SideFeatureOption("Absence History", viewAbsenceHistoryPanel, viewAbsenceHistoryLabel));
         listItem.add(new SideFeatureOption("Payment", paymentPanel, paymentLabel));
@@ -51,6 +52,8 @@ public class TeacherDashboard extends javax.swing.JFrame {
         logOutLabel = new javax.swing.JLabel();
         viewAbsenceHistoryPanel = new javax.swing.JPanel();
         viewAbsenceHistoryLabel = new javax.swing.JLabel();
+        absenceRegisterPanel = new javax.swing.JPanel();
+        absenceRegisterLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 765));
@@ -63,7 +66,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
         );
         viewPanelLayout.setVerticalGroup(
             viewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 801, Short.MAX_VALUE)
         );
 
         menuPanel.setBackground(new java.awt.Color(74, 188, 253));
@@ -112,17 +115,17 @@ public class TeacherDashboard extends javax.swing.JFrame {
         classPanel.setLayout(classPanelLayout);
         classPanelLayout.setHorizontalGroup(
             classPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, classPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(classPanelLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
                 .addComponent(classLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         classPanelLayout.setVerticalGroup(
             classPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(classPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(classLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         paymentPanel.setBackground(new java.awt.Color(0, 153, 255));
@@ -141,12 +144,12 @@ public class TeacherDashboard extends javax.swing.JFrame {
             .addGroup(paymentPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(paymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paymentPanelLayout.setVerticalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paymentPanelLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(paymentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
@@ -174,7 +177,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
             .addGroup(informationPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(informationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         logOutLabel.setBackground(new java.awt.Color(238, 238, 228));
@@ -189,6 +192,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
         });
 
         viewAbsenceHistoryPanel.setBackground(new java.awt.Color(0, 153, 255));
+        viewAbsenceHistoryPanel.setPreferredSize(new java.awt.Dimension(300, 80));
 
         viewAbsenceHistoryLabel.setBackground(new java.awt.Color(238, 238, 228));
         viewAbsenceHistoryLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -203,15 +207,42 @@ public class TeacherDashboard extends javax.swing.JFrame {
             .addGroup(viewAbsenceHistoryPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(viewAbsenceHistoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         viewAbsenceHistoryPanelLayout.setVerticalGroup(
             viewAbsenceHistoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewAbsenceHistoryPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(viewAbsenceHistoryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        absenceRegisterPanel.setBackground(new java.awt.Color(0, 153, 255));
+
+        absenceRegisterLabel.setBackground(new java.awt.Color(238, 238, 228));
+        absenceRegisterLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        absenceRegisterLabel.setForeground(new java.awt.Color(238, 238, 228));
+        absenceRegisterLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit.png"))); // NOI18N
+        absenceRegisterLabel.setText("Absence Register");
+
+        javax.swing.GroupLayout absenceRegisterPanelLayout = new javax.swing.GroupLayout(absenceRegisterPanel);
+        absenceRegisterPanel.setLayout(absenceRegisterPanelLayout);
+        absenceRegisterPanelLayout.setHorizontalGroup(
+            absenceRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(absenceRegisterPanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(absenceRegisterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+        absenceRegisterPanelLayout.setVerticalGroup(
+            absenceRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(absenceRegisterPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(absenceRegisterLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        absenceRegisterLabel.getAccessibleContext().setAccessibleName("Absence Register");
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
@@ -221,12 +252,14 @@ public class TeacherDashboard extends javax.swing.JFrame {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(informationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addComponent(paymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(classPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                    .addGroup(menuPanelLayout.createSequentialGroup()
+                    .addComponent(informationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(paymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(classPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addComponent(absenceRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewAbsenceHistoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -235,16 +268,18 @@ public class TeacherDashboard extends javax.swing.JFrame {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(classPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(classPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(absenceRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(viewAbsenceHistoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(informationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(paymentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(informationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addGap(71, 71, 71))
         );
 
         javax.swing.GroupLayout rootPanelLayout = new javax.swing.GroupLayout(rootPanel);
@@ -289,6 +324,8 @@ public class TeacherDashboard extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel absenceRegisterLabel;
+    private javax.swing.JPanel absenceRegisterPanel;
     private javax.swing.JLabel classLabel;
     private javax.swing.JPanel classPanel;
     private javax.swing.JLabel informationLabel;
