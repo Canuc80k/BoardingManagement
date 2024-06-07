@@ -42,7 +42,7 @@ public class ManagerPanel extends javax.swing.JPanel {
         addButton.setBackground(new java.awt.Color(0, 153, 0));
         addButton.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
         addButton.setForeground(new java.awt.Color(255, 255, 255));
-        addButton.setText("Add new Teacher");
+        addButton.setText("Add new Manager");
         addButton.setBorder(null);
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -273,7 +273,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         managerLabel.setBackground(new java.awt.Color(238, 238, 228));
         managerLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         managerLabel.setForeground(new java.awt.Color(238, 238, 228));
-        managerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/teacher (1).png"))); // NOI18N
+        managerLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/manager.png"))); // NOI18N
         managerLabel.setText("Manage Boarding Manager");
 
         javax.swing.GroupLayout managerPanelLayout = new javax.swing.GroupLayout(managerPanel);
@@ -422,21 +422,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel mealPanel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JLabel paymentLabel;
-    private javax.swing.JLabel paymentLabel1;
-    private javax.swing.JLabel paymentLabel2;
-    private javax.swing.JLabel paymentLabel3;
-    private javax.swing.JLabel paymentLabel4;
-    private javax.swing.JLabel paymentLabel5;
-    private javax.swing.JLabel paymentLabel6;
-    private javax.swing.JLabel paymentLabel7;
     private javax.swing.JPanel paymentPanel;
-    private javax.swing.JPanel paymentPanel1;
-    private javax.swing.JPanel paymentPanel2;
-    private javax.swing.JPanel paymentPanel3;
-    private javax.swing.JPanel paymentPanel4;
-    private javax.swing.JPanel paymentPanel5;
-    private javax.swing.JPanel paymentPanel6;
-    private javax.swing.JPanel paymentPanel7;
     private javax.swing.JLabel pupilLabel;
     private javax.swing.JPanel pupilPanel;
     private javax.swing.JPanel rootPanel;

@@ -30,7 +30,6 @@ import model.people.pupil.PupilDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 import view.dashboard.admin_dashboard.ManagePaymentJFrame;
-import view.dashboard.admin_dashboard.ManagePupilJFrame;
 
 public class PaymentController {
 
@@ -44,12 +43,10 @@ public class PaymentController {
     private String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public PaymentController(int role, JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh, Account account) {
+    public PaymentController(int role, JPanel jpnView, JTextField jtfSearch, Account account) {
         this.role = role;
         this.jpnView = jpnView;
-        this.btnAdd = btnAdd;
         this.jtfSearch = jtfSearch;
-        this.btnRefresh = btnRefresh;
         this.account = account;
     }
 
@@ -179,32 +176,5 @@ public class PaymentController {
     }
 
     public void setEvent() {
-        btnAdd.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Open the frame to manage pupils for adding new pupil
-                ManagePupilJFrame frame = new ManagePupilJFrame(new Pupil("", "", null, 0, "", "", "", "", ""), "add");
-                frame.setTitle("Pupil Information");
-                frame.setResizable(false);
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-            }
-
-            // Other mouse listener methods for button events (enter, exit, etc.)
-        });
-
-        btnRefresh.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    // Refresh button clicked, update the table data
-                    setDataToTable();
-                } catch (Exception ex) {
-                    Logger.getLogger(PupilController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-            // Other mouse listener methods for button events (enter, exit, etc.)
-        });
     }
 }

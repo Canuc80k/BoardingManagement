@@ -53,13 +53,16 @@ public class LoginController {
             account = Account.login(
                     usernameTextField.getText(),
                     String.valueOf(passwordTextField.getPassword()),
-                    isLoginByID);
+                    isLoginByID
+            );
             if (account == null) {
                 messageLabel.setText("Username or password is wrong");
                 return;
             }
         } catch (ClassNotFoundException | SQLException e1) {
             e1.printStackTrace();
+            messageLabel.setText("Username or password is wrong");
+            return;
         }
 
         loginFrame.dispose();

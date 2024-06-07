@@ -5,45 +5,44 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import model.classroom.Classroom;
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 import view.dashboard.admin_dashboard.ManagePupilJFrame;
-import view.dashboard.admin_dashboard.ReportJFrame;
 
 public class ShowDetailController {
 
     private final JPanel jpnView;
     private final JTextField jtfSearch;
-    private final JLabel jlbTeacher;
     private final JLabel jlbClassroom;
     private final Classroom classroom;
     private JTable table;
-    private JButton exportReportButton;
     private final String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public ShowDetailController(JPanel jpnView, JTextField jtfSearch, JLabel jlbTeacher, JLabel jlbClass, JButton exportReportButton ,Classroom classroom) {
+    public ShowDetailController(JPanel jpnView, JTextField jtfSearch, JLabel jlbClass, Classroom classroom) {
         this.jpnView = jpnView;
         this.jtfSearch = jtfSearch;
-        this.jlbTeacher = jlbTeacher;
         this.jlbClassroom = jlbClass;
         this.classroom = classroom;
-        this.exportReportButton=exportReportButton;
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
@@ -83,7 +82,7 @@ public class ShowDetailController {
         }
         for (Teacher teacher : listItemTeacher) {
             //System.out.println("Test Teacher.....");
-            jlbTeacher.setText(teacher.getName());
+            // jlbTeacher.setText(teacher.getName());
         }
         table = new JTable(model);
         //table.setEnabled(false);
@@ -167,21 +166,5 @@ public class ShowDetailController {
     }
 
     public void setEvent() {
-        exportReportButton.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    System.out.println("Testing export ......");
-                    // Open the frame to manage pupils for adding new pupil
-                    ReportJFrame frame = new ReportJFrame(classroom);
-                    frame.setTitle("Report Information");
-                    frame.setResizable(false);
-                    frame.setLocationRelativeTo(null);
-                    frame.setVisible(true);
-                } catch (SQLException | ClassNotFoundException | IOException ex) {
-                    Logger.getLogger(ShowDetailController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
     }
 }
