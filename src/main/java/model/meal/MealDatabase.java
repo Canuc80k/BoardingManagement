@@ -4,9 +4,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +27,18 @@ public class MealDatabase {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Failed to connect to the database.", e);
             return null;
+        }
+    }
+
+    private void closeResources(AutoCloseable... resources) {
+        for (AutoCloseable resource : resources) {
+            if (resource != null) {
+                try {
+                    resource.close();
+                } catch (Exception e) {
+                    LOGGER.log(Level.SEVERE, "Error closing resource.", e);
+                }
+            }
         }
     }
 
@@ -51,23 +65,24 @@ public class MealDatabase {
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error generating new MenuID.", e);
         }
-        return null; // Return null if unable to generate ID
+        return null;
     }
 
-    public void addOrUpdateMeal(String menuID, String imagePath) {
+    public void addOrUpdateMeal(String menuID, String imagePath, String day) {
         if (menuIDExists(menuID)) {
-            updateMeal(menuID, imagePath);
+            updateMeal(menuID, imagePath, day);
         } else {
-            insertMeal(menuID, imagePath);
+            insertMeal(menuID, imagePath, day);
         }
     }
 
-    public void insertMeal(String menuID, String imagePath) {
-        String sql = "INSERT INTO meal (MenuID, MealPhoto) VALUES (?, ?)";
+    public void insertMeal(String menuID, String imagePath, String day) {
+        String sql = "INSERT INTO meal (MenuID, MealPhoto, Day) VALUES (?, ?, ?)";
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, menuID);
             try (FileInputStream fis = new FileInputStream(imagePath)) {
                 pstmt.setBlob(2, fis);
+                pstmt.setString(3, day);
                 pstmt.executeUpdate();
             }
         } catch (Exception e) {
@@ -75,12 +90,13 @@ public class MealDatabase {
         }
     }
 
-    public void updateMeal(String menuID, String imagePath) {
-        String sql = "UPDATE meal SET MealPhoto = ? WHERE MenuID = ?";
+    public void updateMeal(String menuID, String imagePath, String day) {
+        String sql = "UPDATE meal SET MealPhoto = ?, Day = ? WHERE MenuID = ?";
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(2, menuID);
+            pstmt.setString(3, menuID);
             try (FileInputStream fis = new FileInputStream(imagePath)) {
                 pstmt.setBlob(1, fis);
+                pstmt.setString(2, day);
                 pstmt.executeUpdate();
             }
         } catch (Exception e) {
@@ -88,36 +104,52 @@ public class MealDatabase {
         }
     }
 
-    public ImageIcon resizeCover(String imagePath, byte[] pic, int width, int height) {
+    public BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
+        Image resultingImage = originalImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_DEFAULT);
+        BufferedImage outputImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+        return outputImage;
+    }
+
+    public BufferedImage resizeCover(String imgPath, byte[] imageData, int width, int height) {
+        BufferedImage resizedImage = null;
         try {
-            Image image;
-            if (imagePath != null) {
-                image = ImageIO.read(new File(imagePath));
-            } else {
-                image = ImageIO.read(new ByteArrayInputStream(pic));
+            BufferedImage image = null;
+            if (imgPath != null) {
+                File imgFile = new File(imgPath);
+                if (!imgFile.exists() || !imgFile.isFile()) {
+                    throw new IOException("File does not exist or is not a file: " + imgPath);
+                }
+                image = ImageIO.read(imgFile);
+            } else if (imageData != null) {
+                ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
+                image = ImageIO.read(bais);
             }
-            Image newImg = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            return new ImageIcon(newImg);
-        } catch (Exception e) {
+
+            if (image == null) {
+                throw new IOException("Failed to load image.");
+            }
+
+            resizedImage = resizeImage(image, width, height);
+        } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error resizing image.", e);
-            return null;
         }
+        return resizedImage;
     }
 
     public void browseImage(JLabel label, int width, int height, String[] imgPath) {
         JFileChooser file = new JFileChooser();
         file.setCurrentDirectory(new File(System.getProperty("user.home")));
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "gif");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "gif", "png");
         file.addChoosableFileFilter(filter);
-        int result = file.showSaveDialog(file);
+        int result = file.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             imgPath[0] = path; // Assign the selected file path to the first element of the array
-            System.out.println("imgpath: " + imgPath[0] + "\n");
-            ImageIcon resizedImage = resizeCover(path, null, width, height);
+            BufferedImage resizedImage = resizeCover(path, null, width, height);
             if (resizedImage != null) {
-                label.setIcon(resizedImage);
+                label.setIcon(new ImageIcon(resizedImage));
             } else {
                 LOGGER.log(Level.WARNING, "Failed to resize image: " + path);
             }
@@ -134,12 +166,28 @@ public class MealDatabase {
                 if (rs.next()) {
                     byte[] imageData = rs.getBytes("MealPhoto");
                     if (imageData != null) {
-                        return resizeCover(null, imageData, width, height);
+                        BufferedImage resizedImage = resizeCover(null, imageData, width, height);
+                        return new ImageIcon(resizedImage);
                     }
                 }
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error fetching meal photo.", e);
+        }
+        return null;
+    }
+
+    public String getDay(String menuID) {
+        String sql = "SELECT Day FROM meal WHERE MenuID = ?";
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, menuID);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("Day");
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error fetching day for menu ID.", e);
         }
         return null;
     }

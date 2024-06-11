@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import javax.swing.JLabel;
 
 import controller.login_controller.LoginController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Login extends javax.swing.JFrame {
     LoginController controller;
@@ -166,6 +169,8 @@ public class Login extends javax.swing.JFrame {
             } catch (ClassNotFoundException | SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_passwordTextFieldKeyPressed

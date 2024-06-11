@@ -12,6 +12,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import constant.Role;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.account.Account;
 import view.dashboard.admin_dashboard.AdminDashboard;
 import view.dashboard.pupil_dashboard.PupilDashboard;
@@ -41,7 +44,7 @@ public class LoginController {
         return true;
     }
 
-    public void login() throws ClassNotFoundException, SQLException {
+    public void login() throws ClassNotFoundException, SQLException, IOException {
         if (!validateLoginInformation())
             return;
 
@@ -88,6 +91,8 @@ public class LoginController {
                     login();
                 } catch (ClassNotFoundException | SQLException e1) {
                     e1.printStackTrace();
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 

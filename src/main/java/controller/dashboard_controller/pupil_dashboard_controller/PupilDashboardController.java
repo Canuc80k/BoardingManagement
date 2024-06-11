@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import constant.Role;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.InformationPanel;
@@ -18,13 +21,14 @@ import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.pupil_dashboard.AbsenceHistoryPanel;
 import view.dashboard.pupil_dashboard.AbsenceRegisterPanel;
 import view.dashboard.pupil_dashboard.PaymentPanel;
+import view.dashboard.teacher_dashboard.MenuInitPanel;
 
 public class PupilDashboardController {
     private JPanel viewPanel;
     private String selectedPanelTitle = "";
     private List<SideFeatureOption> listItem;
     private Account account=null;
-    public PupilDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) throws ClassNotFoundException, SQLException {
+    public PupilDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) throws ClassNotFoundException, SQLException, IOException {
         this.viewPanel = viewPanel;
         this.account=account;
         selectedPanelTitle = "Init";
@@ -32,7 +36,7 @@ public class PupilDashboardController {
         selectedLabel.setBackground(new Color(96, 100, 191));
         viewPanel.removeAll();
         viewPanel.setLayout(new BorderLayout());
-        viewPanel.add(new InitPanel(account));
+        viewPanel.add(new MenuInitPanel(account));
         viewPanel.validate();
         viewPanel.repaint();
     }
@@ -67,7 +71,11 @@ public class PupilDashboardController {
             System.out.println(sideFeatureOptionTitle);
             switch (sideFeatureOptionTitle) {
                 case "Init": {
-                    // view = new InitPanel(account);
+                try {
+                    view = new MenuInitPanel(account);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(PupilDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     break;
                 }
                 case "Absence register": {
@@ -95,7 +103,11 @@ public class PupilDashboardController {
                     break;
                 }
                 default: {
-                    view = new InitPanel(account);
+                try {
+                    view = new MenuInitPanel(account);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(PupilDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     break;
                 }
             }

@@ -90,19 +90,18 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="mainPanel" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="informationPanel" alignment="1" pref="300" max="32767" attributes="0"/>
                           <Component id="paymentPanel" alignment="0" pref="300" max="32767" attributes="0"/>
                           <Component id="classPanel" alignment="0" pref="300" max="32767" attributes="0"/>
+                          <Component id="absenceRegisterPanel" alignment="1" max="32767" attributes="0"/>
+                          <Component id="viewAbsenceHistoryPanel" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="logOutLabel" min="-2" pref="106" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="absenceRegisterPanel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="viewAbsenceHistoryPanel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -124,7 +123,7 @@
                       <Component id="informationPanel" min="-2" pref="80" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="logOutLabel" min="-2" pref="39" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -450,9 +449,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Absence Register"/>
                   </Properties>
-                  <AccessibilityProperties>
-                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Absence Register"/>
-                  </AccessibilityProperties>
                 </Component>
               </SubComponents>
             </Container>

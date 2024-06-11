@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.dashboard_controller.admin_dashboard_controller.AdminDashboardController;
+import java.io.IOException;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.login.Login;
 
 public class AdminDashboard extends javax.swing.JFrame {
 
-    public AdminDashboard(Account account) {
+    public AdminDashboard(Account account) throws IOException {
         initComponents();
         setTitle("Boarding Management");
         

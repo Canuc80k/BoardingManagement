@@ -5,21 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.dashboard_controller.teacher_dashboard_controller.TeacherDashboardController;
+import java.io.IOException;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.login.Login;
 
 public class TeacherDashboard extends javax.swing.JFrame {
-    public TeacherDashboard(Account account) throws ClassNotFoundException, SQLException {
+    public TeacherDashboard(Account account) throws ClassNotFoundException, SQLException, IOException {
         initComponents();
         setTitle("Boarding Management");
         
         TeacherDashboardController controller = new TeacherDashboardController(viewPanel, mainPanel, mainLabel,account);
         List<SideFeatureOption> listItem = new ArrayList<>();
         listItem.add(new SideFeatureOption("Init", mainPanel, mainLabel));
-       // listItem.add(new SideFeatureOption("Teacher", teacherPanel, teacherLabel));
-     //   listItem.add(new SideFeatureOption("Manager", managerPanel, managerLabel));
-       // listItem.add(new SideFeatureOption("Pupil", pupilPanel, pupilLabel));
+
         listItem.add(new SideFeatureOption("Class", classPanel, classLabel));
         listItem.add(new SideFeatureOption("Absence Register", absenceRegisterPanel, absenceRegisterLabel));
       //  listItem.add(new SideFeatureOption("BoardingRoom", boardingRoomPanel, boardingRoomLabel));
@@ -242,8 +241,6 @@ public class TeacherDashboard extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        absenceRegisterLabel.getAccessibleContext().setAccessibleName("Absence Register");
-
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
@@ -255,12 +252,11 @@ public class TeacherDashboard extends javax.swing.JFrame {
                     .addComponent(informationPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(paymentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addComponent(classPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(absenceRegisterPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewAbsenceHistoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addComponent(absenceRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewAbsenceHistoryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
@@ -279,7 +275,7 @@ public class TeacherDashboard extends javax.swing.JFrame {
                 .addComponent(informationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout rootPanelLayout = new javax.swing.GroupLayout(rootPanel);
