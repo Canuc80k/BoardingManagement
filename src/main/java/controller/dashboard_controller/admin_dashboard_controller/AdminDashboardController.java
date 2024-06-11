@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import constant.Role;
+import java.io.IOException;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.BoardingroomPanel;
@@ -31,7 +32,7 @@ public class AdminDashboardController {
     private List<SideFeatureOption> listItem;
     private Account account = null;
 
-    public AdminDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) {
+    public AdminDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) throws IOException {
         this.viewPanel = viewPanel;
         this.account = account;
         selectedPanelTitle = "Init";
@@ -71,7 +72,11 @@ public class AdminDashboardController {
         public void mouseClicked(MouseEvent e) {
             switch (sideFeatureOptionTitle) {
                 case "Init": {
+                try {
                     view = new InitPanel(account);
+                } catch (IOException ex) {
+                    Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     break;
                 }
                 case "Teacher": {
@@ -146,7 +151,11 @@ public class AdminDashboardController {
                 }
                 }
                 default: {
+                try {
                     view = new InitPanel(account);
+                } catch (IOException ex) {
+                    Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     break;
                 }
             }

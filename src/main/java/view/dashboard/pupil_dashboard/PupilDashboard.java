@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.dashboard_controller.pupil_dashboard_controller.PupilDashboardController;
+import java.io.IOException;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.login.Login;
 
 public class PupilDashboard extends javax.swing.JFrame {
-    public PupilDashboard(Account account) throws ClassNotFoundException, SQLException {
+    public PupilDashboard(Account account) throws ClassNotFoundException, SQLException, IOException {
         initComponents();
         setTitle("Boarding Management");
         
         PupilDashboardController controller = new PupilDashboardController(viewPanel, mainPanel, mainLabel, account);
         List<SideFeatureOption> listItem = new ArrayList<>();
-        listItem.add(new SideFeatureOption("Main", mainPanel, mainLabel));
+        listItem.add(new SideFeatureOption("Init", mainPanel, mainLabel));
         listItem.add(new SideFeatureOption("Absence register", absenceRegisterPanel, absenceRegisterLabel));
         listItem.add(new SideFeatureOption("Absence history", absenceHistoryPanel, absenceHistoryLabel));
         listItem.add(new SideFeatureOption("Payment", paymentPanel, paymentLabel));

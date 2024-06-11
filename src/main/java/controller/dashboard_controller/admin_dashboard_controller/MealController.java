@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,14 +25,14 @@ import javax.swing.table.DefaultTableModel;
 import model.meal.MealDatabase;
 import model.menu.Menu;
 import model.menu.MenuDatabase;
-import model.people.teacher.Teacher;
-import model.people.teacher.TeacherDatabase;
-import view.dashboard.admin_dashboard.ManageTeacherJFrame;
 
 public class MealController {
 
+    private static final Logger LOGGER = Logger.getLogger(MealController.class.getName());
+    
     private JPanel viewPanel;
-    private JComboBox menuComboBox;
+    private JComboBox<String> menuComboBox;
+    private JComboBox<String> dayComboBox;
     private JButton addMenuButton;
     private JButton addDishButton;
     private JButton deleteButton;
@@ -43,12 +42,17 @@ public class MealController {
     private JButton choosePhotoButton;
     private JTable table;
     private String[] listColumn = {"Food Name"};
-    private String foodname;
+    private String foodName;
     private String imgPath;
+    private String day;
+    private String id;
 
-    public MealController(JPanel viewPanel, JComboBox menuComboBox, JButton addMenuButton, JButton addDishButton, JButton deleteButton, JButton saveButton, JTextField foodNameTextField, JLabel mealPhotoLabel, JButton choosePhotoButton) {
+    public MealController(JPanel viewPanel, JComboBox<String> menuComboBox, JButton addMenuButton, 
+                          JButton addDishButton, JButton deleteButton, JComboBox<String> dayComboBox, 
+                          JButton saveButton, JTextField foodNameTextField, JLabel mealPhotoLabel, JButton choosePhotoButton) {
         this.viewPanel = viewPanel;
         this.menuComboBox = menuComboBox;
+        this.dayComboBox = dayComboBox;
         this.addMenuButton = addMenuButton;
         this.addDishButton = addDishButton;
         this.deleteButton = deleteButton;
@@ -59,138 +63,145 @@ public class MealController {
         this.id = menuComboBox.getSelectedItem().toString();
     }
 
-    public void setComboBox() throws SQLException, ClassNotFoundException {
-        List<String> list = new ArrayList<>();
-        List<Menu> temp = MenuDatabase.getAllMenuItems("SELECT * FROM menu ");
+    public void setComboBox() {
+        try {
+            List<String> list = new ArrayList<>();
+            List<Menu> temp = MenuDatabase.getAllMenuItems("SELECT * FROM menu");
 
-        for (Menu menu : temp) {
-            String menuID = menu.getMenuID();
-            System.out.print(menuID + "\n");
-            if (!list.contains(menuID)) { // Check for duplicates
-                list.add(menuID);
-            }
-        }
-
-        // Assuming menuComboBox is your JComboBox
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(list.toArray(new String[0]));
-        menuComboBox.setModel(model);
-    }
-    private String id = null;
-
-    public void setDataToTable() throws SQLException, ClassNotFoundException {
-        List<Menu> listItem = MenuDatabase.getAllMenuItems("SELECT * FROM menu where menuid='" + id + "'");
-
-        DefaultTableModel model = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        model.setColumnIdentifiers(listColumn);
-        for (Menu menu : listItem) {
-            model.addRow(new Object[]{
-                menu.getFoodName(),});
-        }
-        table = new JTable(model);
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    DefaultTableModel model = (DefaultTableModel) table.getModel();
-                    int selectedRowIndex = table.getSelectedRow();
-                    selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
-
-                    // Retrieve data from the selected row in the model
-                    String temp = model.getValueAt(selectedRowIndex, 0).toString();
-                    foodNameTextField.setText(temp);
-                    foodname = temp;
-                    System.out.println("food clicked :" + foodname + "\n");
+            for (Menu menu : temp) {
+                String menuID = menu.getMenuID();
+                if (!list.contains(menuID)) {
+                    list.add(menuID);
                 }
             }
-        });
 
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
-        table.getTableHeader().setPreferredSize(new Dimension(100, 50));
-        table.setRowHeight(50);
-        table.validate();
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.getViewport().add(table);
-        scrollPane.setPreferredSize(new Dimension(1100, 400));
-        viewPanel.removeAll();
-        viewPanel.setLayout(new BorderLayout());
-        viewPanel.add(scrollPane);
-        viewPanel.validate();
-        viewPanel.repaint();
-        MealDatabase mealDatabase = new MealDatabase(); // Create an instance
-        mealDatabase.displayPhoto(id, mealPhotoLabel, 300, 300);
+            DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(list.toArray(new String[0]));
+            menuComboBox.setModel(model);
+        } catch (SQLException | ClassNotFoundException ex) {
+            LOGGER.log(Level.SEVERE, "Error setting combo box.", ex);
+        }
+    }
+
+    public void setDataToTable() {
+        try {
+            List<Menu> listItem = MenuDatabase.getAllMenuItems("SELECT * FROM menu WHERE MenuID = '" + id + "'");
+            MealDatabase mealDatabase = new MealDatabase();
+            day = mealDatabase.getDay(id);
+            if (day != null) dayComboBox.setSelectedItem(day);
+            else dayComboBox.setSelectedIndex(0);
+
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            model.setColumnIdentifiers(listColumn);
+            for (Menu menu : listItem) {
+                model.addRow(new Object[]{menu.getFoodName()});
+            }
+            table = new JTable(model);
+            table.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                        int selectedRowIndex = table.getSelectedRow();
+                        selectedRowIndex = table.convertRowIndexToModel(selectedRowIndex);
+                        String temp = table.getModel().getValueAt(selectedRowIndex, 0).toString();
+                        foodNameTextField.setText(temp);
+                        foodName = temp;
+                    }
+                }
+            });
+
+            table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
+            table.getTableHeader().setPreferredSize(new Dimension(100, 50));
+            table.setRowHeight(50);
+
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setPreferredSize(new Dimension(1100, 400));
+            viewPanel.removeAll();
+            viewPanel.setLayout(new BorderLayout());
+            viewPanel.add(scrollPane, BorderLayout.CENTER);
+            viewPanel.validate();
+            viewPanel.repaint();
+            
+            mealDatabase.displayPhoto(id, mealPhotoLabel, 300, 300);
+        } catch (SQLException | ClassNotFoundException ex) {
+            LOGGER.log(Level.SEVERE, "Error setting data to table.", ex);
+        }
     }
 
     public void setEvent() {
         addMenuButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MealDatabase mealDatabase = new MealDatabase(); // Create an instance
-                String temp = mealDatabase.generateNewMenuID(); // Call the method on the instance
+                MealDatabase mealDatabase = new MealDatabase();
+                String temp = mealDatabase.generateNewMenuID();
                 if (temp != null) {
                     menuComboBox.addItem(temp);
                 } else {
-                    // Handle the case when unable to generate new MenuID
-                    System.out.println("Unable to generate new MenuID.");
+                    LOGGER.log(Level.WARNING, "Unable to generate new MenuID.");
                 }
             }
-
         });
+
         menuComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle selection change event here
                 id = (String) menuComboBox.getSelectedItem();
-                try {
-                    //System.out.println("Selected item: " + selectedItem);
-                    setDataToTable();
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(MealController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                setDataToTable();
             }
         });
+
+        dayComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String newSelectedDay = (String) dayComboBox.getSelectedItem();
+                if (!newSelectedDay.equals(day)) {
+                    MealDatabase mealDatabase = new MealDatabase();
+                    mealDatabase.addOrUpdateMeal(id, imgPath, newSelectedDay);
+                    day = newSelectedDay;
+                }
+                setDataToTable();
+            }
+        });
+
         addDishButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Menu menu = new Menu(id, foodNameTextField.getText());
                 MenuDatabase.createMenuItem(menu);
+                setDataToTable();
             }
-
         });
+
         saveButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Menu menu = new Menu(id, foodNameTextField.getText());
-                MenuDatabase.updateMenuItem(id, foodname, menu.getFoodName());
+                MenuDatabase.updateMenuItem(id, foodName, menu.getFoodName());
+                setDataToTable();
             }
-
         });
+
         choosePhotoButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] imgPathTemp = new String[1]; // Create a string array to hold the image path
-                MealDatabase mealDatabase = new MealDatabase(); // Create an instance
-                mealDatabase.browseImage(mealPhotoLabel, 300, 300, imgPathTemp); // Pass the imgPath array
-                //System.out.println(imgPath[0] + "\n"); // Print the selected image path
+                String[] imgPathTemp = new String[1];
+                MealDatabase mealDatabase = new MealDatabase();
+                mealDatabase.browseImage(mealPhotoLabel, 300, 300, imgPathTemp);
                 imgPath = imgPathTemp[0];
-                System.out.println("imgpath: " + imgPath + "\n");
-                mealDatabase.addOrUpdateMeal(id, imgPath); //
+                mealDatabase.addOrUpdateMeal(id, imgPath, day);
             }
-
         });
+
         deleteButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("food deleted :" + foodname + "\n");
-                System.out.println(MenuDatabase.deleteMenuItem(id, foodname) + "\n");// Create an instance
-
+                MenuDatabase.deleteMenuItem(id, foodName);
+                setDataToTable();
             }
-
         });
     }
-
 }

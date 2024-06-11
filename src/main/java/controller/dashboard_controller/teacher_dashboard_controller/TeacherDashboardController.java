@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import constant.Role;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.account.Account;
 import model.classroom.Classroom;
 import model.classroom.ClassroomDatabase;
@@ -23,6 +26,7 @@ import view.dashboard.admin_dashboard.PaymentPanel;
 import view.dashboard.pupil_dashboard.AbsenceHistoryPanel;
 import view.dashboard.teacher_dashboard.AbsenceRegisterPanel;
 import view.dashboard.teacher_dashboard.ClassroomPanel;
+import view.dashboard.teacher_dashboard.MenuInitPanel;
 
 public class TeacherDashboardController {
 
@@ -31,7 +35,7 @@ public class TeacherDashboardController {
     private List<SideFeatureOption> listItem;
     private Account account = null;
 
-    public TeacherDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) throws ClassNotFoundException, SQLException {
+    public TeacherDashboardController(JPanel viewPanel, JPanel selectedPanel, JLabel selectedLabel, Account account) throws ClassNotFoundException, SQLException, IOException {
         this.viewPanel = viewPanel;
         this.account = account;
         selectedPanelTitle = "Init";
@@ -39,7 +43,7 @@ public class TeacherDashboardController {
         selectedLabel.setBackground(new Color(96, 100, 191));
         viewPanel.removeAll();
         viewPanel.setLayout(new BorderLayout());
-        viewPanel.add(new InitPanel(account));
+        viewPanel.add(new MenuInitPanel(account));
         viewPanel.validate();
         viewPanel.repaint();
     }
@@ -75,7 +79,11 @@ public class TeacherDashboardController {
             System.out.println(sideFeatureOptionTitle);
             switch (sideFeatureOptionTitle) {
                 case "Init": {
-                    // view = new InitPanel(account);
+                try {
+                    view = new MenuInitPanel(account);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(TeacherDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     break;
                 }
                 case "Class": {
@@ -153,7 +161,13 @@ public class TeacherDashboardController {
                     break;
                 }
                 default: {
-                    view = new InitPanel(account);
+                try {
+                    view = new MenuInitPanel(account);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TeacherDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TeacherDashboardController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                     break;
                 }
             }
