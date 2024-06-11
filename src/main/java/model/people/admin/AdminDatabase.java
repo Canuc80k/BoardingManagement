@@ -8,12 +8,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import model.people.teacher.Teacher;
 
 public class AdminDatabase {
 
     public AdminDatabase() {
     }
+    public static Admin getAdmin(String id) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("Select * from admin where id = '" + id + "'");
 
+        Admin res = null;
+        while (rs.next()) {
+            res = new Admin(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getString(5), rs.getString(6));
+        }
+        rs.close();
+        stmt.close();
+        con.close();
+        return res;
+    }
     public static List<Admin> getAllAdmin(String query) throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");

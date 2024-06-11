@@ -103,9 +103,9 @@ public class InitController {
 
     public void setDataToTable() throws SQLException, ClassNotFoundException, IOException {
         System.out.println("..........................SetDatatoTable InitPanel..........................");
-        List<Teacher> listItemTeacher = TeacherDatabase.getAllTeacher("SELECT * FROM teacher where ID=" + account.getID());
+      //  List<Teacher> listItemTeacher = TeacherDatabase.getAllTeacher("SELECT * FROM teacher where ID=" + account.getID());
         List<Admin> listItemAdmin = AdminDatabase.getAllAdmin("SELECT * FROM admin where ID=" + account.getID());
-        List<Pupil> listItemPupil = PupilDatabase.getAllPupil("SELECT * FROM pupil where ID=" + account.getID());
+      //  List<Pupil> listItemPupil = PupilDatabase.getAllPupil("SELECT * FROM pupil where ID=" + account.getID());
         //  System.out.println("SQL Query: " + "SELECT * FROM teacher where ID=" + account.getID());
         DefaultTableModel model = loadFromFile(FileName);
         //model.setColumnIdentifiers(listColumn);
@@ -114,30 +114,7 @@ public class InitController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedTime = currentTime.format(formatter);
         //    System.out.println("Time:" + formattedTime);
-        for (Teacher teacher : listItemTeacher) {
-
-            model.addRow(new Object[]{
-                teacher.getID(),
-                teacher.getName(),
-                teacher.getClassID(),
-                formattedTime // Adding the current date/time to each row
-            });
-        }
-        for (Pupil pupil : listItemPupil) {
-
-
-            model.addRow(new Object[]{
-                pupil.getID(),
-                pupil.getName(),
-                pupil.getClassID(),
-                formattedTime // Adding the current date/time to each row
-            });
-        }
         for (Admin admin : listItemAdmin) {
-//            System.out.println("ID:" + teacher.getID());
-//            System.out.println("Name:" + teacher.getID());
-//            System.out.println("ClassID:" + teacher.getClassID());
-//            System.out.println("Time:" + formattedTime);
 
             model.addRow(new Object[]{
                 admin.getID(),

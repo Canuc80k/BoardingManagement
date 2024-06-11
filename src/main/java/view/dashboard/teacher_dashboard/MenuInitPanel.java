@@ -1,29 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.dashboard.teacher_dashboard;
 
 import controller.dashboard_controller.teacher_dashboard_controller.MenuInitController;
 import java.sql.SQLException;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import model.account.Account;
 
-/**
- *
- * @author huant
- */
 public class MenuInitPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form MenuInitPanel
-     */
     public MenuInitPanel(Account account) throws ClassNotFoundException, SQLException {
         initComponents();
         MenuInitController controller = new MenuInitController(teacherLabel, pupilLabel, classroomLabel, boardingroomLabel,account, mondayTextArea, tuesdayTextArea,wednesdayTextArea,thursdayTextArea,fridayTextArea, mondayLabel,tuesdayLabel,wednesdayLabel,thursdayLabel,fridayLabel);
         controller.setData();
-        controller.getUser();
+        //controller.getUser();
     }
 
     /**

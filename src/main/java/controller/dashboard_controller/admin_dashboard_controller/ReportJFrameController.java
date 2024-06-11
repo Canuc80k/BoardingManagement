@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,6 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.account.Account;
 import model.classroom.Classroom;
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
@@ -30,24 +32,26 @@ import view.dashboard.admin_dashboard.ManagePupilJFrame;
 
 public class ReportJFrameController {
 
-    private final JPanel jpnView;
-    private final JTextField jtfSearch;
+    private  JPanel jpnView;
+    private  JTextField jtfSearch;
     private JButton exportButton;
-    private final Classroom classroom;
+    private  Classroom classroom;
     private JTable table;
     private JComboBox dateComboBox;
-    private final JButton refeshButton;
-    private final String[] listColumn = {"Name", "Class", "Boarding Room", "Date", "Absence Days", "Status"};
+    private  JButton refeshButton;
+    private Account account;
+    private String[] listColumn = {"Name", "Class", "Boarding Room", "Date", "Absence Days", "Status"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public ReportJFrameController(JPanel jpnView, JTextField jtfSearch, JButton exportButton, JComboBox dateComboBox, JButton refeshButton, Classroom classroom) {
+    public ReportJFrameController(JPanel jpnView, JTextField jtfSearch, JButton exportButton, JComboBox dateComboBox, JButton refeshButton, Classroom classroom,Account account) {
+        System.out.println("Constructed\n");
         this.jpnView = jpnView;
         this.jtfSearch = jtfSearch;
         this.refeshButton = refeshButton;
         this.dateComboBox = dateComboBox;
         this.exportButton = exportButton;
         this.classroom = classroom;
-
+        this.account=account;
     }
 
     public void setDataToTable() throws SQLException, ClassNotFoundException {
@@ -207,8 +211,12 @@ public class ReportJFrameController {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    ExportController controller = new ExportController(table, classroom);
+                    ExportController controller = new ExportController(table, classroom,account);
                 } catch (IOException ex) {
+                    Logger.getLogger(ReportJFrameController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReportJFrameController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
                     Logger.getLogger(ReportJFrameController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

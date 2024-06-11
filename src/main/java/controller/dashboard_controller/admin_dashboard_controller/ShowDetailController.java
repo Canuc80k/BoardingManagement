@@ -1,13 +1,18 @@
 package controller.dashboard_controller.admin_dashboard_controller;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,29 +25,38 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.account.Account;
 
 import model.classroom.Classroom;
 import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
+import view.dashboard.admin_dashboard.ManageClassroomJFrame;
 import view.dashboard.admin_dashboard.ManagePupilJFrame;
+import view.dashboard.admin_dashboard.ReportJFrame;
 
 public class ShowDetailController {
 
-    private final JPanel jpnView;
-    private final JTextField jtfSearch;
-    private final JLabel jlbClassroom;
-    private final Classroom classroom;
+    private  JPanel jpnView;
+    private  JTextField jtfSearch;
+    private  JLabel jlbClassroom;
+    private  JLabel jlbTeacher;
+    private  JButton btnExportReport;
+    private  Classroom classroom;
+    private Account account;
     private JTable table;
-    private final String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
+    private  String[] listColumn = {"ID", "Name", "Date of Birth", "Gender", "Class", "Parent Name", "Phone", "Address", "Boarding Room"};
     private TableRowSorter<TableModel> rowSorter = null;
 
     public JTable getTable() {return table;}
-    public ShowDetailController(JPanel jpnView, JTextField jtfSearch, JLabel jlbClass, Classroom classroom) {
+    public ShowDetailController(JPanel jpnView, JTextField jtfSearch, JLabel jlbClass,JLabel jlbTeacher,JButton btnExportReport, Classroom classroom,Account account) {
         this.jpnView = jpnView;
         this.jtfSearch = jtfSearch;
+        this.btnExportReport=btnExportReport;
         this.jlbClassroom = jlbClass;
+        this.jlbTeacher=jlbTeacher;
+        this.account=account;
         this.classroom = classroom;
     }
 
@@ -83,7 +97,7 @@ public class ShowDetailController {
         }
         for (Teacher teacher : listItemTeacher) {
             //System.out.println("Test Teacher.....");
-            // jlbTeacher.setText(teacher.getName());
+             jlbTeacher.setText(teacher.getName());
         }
         table = new JTable(model);
         //table.setEnabled(false);
@@ -167,5 +181,25 @@ public class ShowDetailController {
     }
 
     public void setEvent() {
+        btnExportReport.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                
+                try { 
+                    System.out.println("Opening export pdf\n");
+                    ReportJFrame frame=new ReportJFrame(classroom,account);
+                         frame.setTitle("Export");
+                        frame.setResizable(false);
+                        frame.setLocationRelativeTo(null);
+                        frame.setVisible(true);
+                } catch (SQLException | ClassNotFoundException | IOException ex) {
+                    Logger.getLogger(ShowDetailController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+               
+            }
+
+            
+
+        });
     }
 }

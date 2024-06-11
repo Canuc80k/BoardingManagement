@@ -22,6 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import model.account.Account;
 
 import model.classroom.Classroom;
 import model.classroom.ClassroomDatabase;
@@ -36,12 +37,14 @@ public class ClassroomController {
     private JButton btnRefresh;
     private JTextField jtfSearch;
     private JTable table;
+    private Account account;
     private String[] listColumn = {"Class ID", "Room", "Quantity"};
     private TableRowSorter<TableModel> rowSorter = null;
 
-    public ClassroomController(JPanel jpnView, JButton btnAdd, JButton btnDetail, JTextField jtfSearch, JButton btnRefresh) {
+    public ClassroomController(JPanel jpnView, JButton btnAdd, JButton btnDetail, JTextField jtfSearch, JButton btnRefresh,Account account) {
         this.jpnView = jpnView;
         this.btnAdd = btnAdd;
+        this.account=account;
         this.btnDetail = btnDetail;
         this.jtfSearch = jtfSearch;
         this.btnRefresh = btnRefresh;
@@ -197,8 +200,8 @@ public class ClassroomController {
                     // Create a new Classroom object with the parsed data
                     Classroom classroom = new Classroom(classID, room, quantity);
                     // Open the ManageClassroomJFrame to display detailed classroom information
-                    ShowDetailJFrame frame1 = new ShowDetailJFrame(classroom);
-                    frame1 = new ShowDetailJFrame(classroom);
+                    ShowDetailJFrame frame1 = new ShowDetailJFrame(classroom,account);
+                   // frame1 = new ShowDetailJFrame(classroom);
                     frame1.setTitle("Classroom Detail");
                     frame1.setResizable(false);
                     frame1.setLocationRelativeTo(null);

@@ -89,12 +89,15 @@ public class MenuInitController {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedTime = currentTime.format(formatter);
+        int count=0;
         for (Teacher teacher : listItemTeacher) {
-            String res = teacher.getID() + "," + teacher.getName() + "," + teacher.getClassID() + "," + formattedTime;
+            count++;
+            String res = teacher.getID() + "," + teacher.getName() + "," + teacher.getClassID() + ",111" + formattedTime;
             appendToFile(FileName, res);
         }
+        System.out.println(" Count: "+ count+"\n");
         for (Pupil pupil : listItemPupil) {
-            String res = pupil.getID() + "," + pupil.getName() + "," + pupil.getClassID() + "," + formattedTime;
+            String res = pupil.getID() + "," + pupil.getName() + "," + pupil.getClassID() + ",222" + formattedTime;
             appendToFile(FileName, res);
         }
     }
@@ -125,7 +128,7 @@ public class MenuInitController {
                     String foodName = resultSet.getString("FoodName");
                     String id = resultSet.getString("MenuID");
 
-                    System.out.println("day:" + day + " foodname:" + foodName + " id:" + id + "\n");
+                   // System.out.println("day:" + day + " foodname:" + foodName + " id:" + id + "\n");
                     if (day != null) {
                         switch (day) {
                             case "Monday":
