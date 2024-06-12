@@ -32,13 +32,14 @@ public class MenuDatabase {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", "");
-
+            
             String query = "INSERT INTO menu VALUES (?, ?)";
 
             PreparedStatement pstmt = con.prepareStatement(query);
+            
             pstmt.setString(1, menu.getMenuID());
             pstmt.setString(2, menu.getFoodName());
-
+            
             int rowsInserted = pstmt.executeUpdate();
 
             pstmt.close();

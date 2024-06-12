@@ -18,7 +18,7 @@ public class MealPanel extends javax.swing.JPanel {
      */
     public MealPanel() throws SQLException, ClassNotFoundException {
         initComponents();
-        MealController controller = new MealController(viewPanel,menuComboBox,addMenuButton, addDishButton, deleteButton,dayComboBox,saveButton , foodNameTextField,mealPhotoLabel,choosePhotoButton);
+        MealController controller = new MealController(viewPanel,menuComboBox,addMenuButton,removeMenuButton, addDishButton, deleteButton,dayComboBox,saveButton , foodNameTextField,mealPhotoLabel,choosePhotoButton);
         controller.setComboBox();
         controller.setDataToTable();
         controller.setEvent();
@@ -45,6 +45,7 @@ public class MealPanel extends javax.swing.JPanel {
         addMenuButton = new javax.swing.JButton();
         choosePhotoButton = new javax.swing.JButton();
         dayComboBox = new javax.swing.JComboBox<>();
+        removeMenuButton = new javax.swing.JButton();
 
         viewPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -119,6 +120,12 @@ public class MealPanel extends javax.swing.JPanel {
 
         dayComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NULL", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" }));
 
+        removeMenuButton.setBackground(new java.awt.Color(255, 0, 51));
+        removeMenuButton.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 14)); // NOI18N
+        removeMenuButton.setForeground(new java.awt.Color(255, 255, 255));
+        removeMenuButton.setText("Remove Menu");
+        removeMenuButton.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,6 +137,8 @@ public class MealPanel extends javax.swing.JPanel {
                         .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(addMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addDishButton, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,7 +172,8 @@ public class MealPanel extends javax.swing.JPanel {
                     .addComponent(menuComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addDishButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeMenuButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -197,6 +207,7 @@ public class MealPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel mealPhotoLabel;
     private javax.swing.JComboBox<String> menuComboBox;
+    private javax.swing.JButton removeMenuButton;
     private javax.swing.JButton saveButton;
     private javax.swing.JPanel viewPanel;
     // End of variables declaration//GEN-END:variables
