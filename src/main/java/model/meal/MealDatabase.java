@@ -55,6 +55,26 @@ public class MealDatabase {
         }
     }
 
+    public String dayUsed(String day) {
+        String sql = "SELECT MenuID FROM meal WHERE day = ?";
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, day);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String id=rs.getString("MenuID");
+                    System.out.println("using day :"+day+"is Id:"+id+"\n");
+                    return rs.getString("MenuID");
+                } else {
+                    LOGGER.log(Level.INFO, "No meal found for the specified day.");
+                    return null;
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error checking menu ID existence.", e);
+            return null;
+        }
+    }
+
     public String generateNewMenuID() {
         String sql = "SELECT MAX(CAST(SUBSTRING(MenuID, 5) AS UNSIGNED)) AS maxID FROM meal";
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
@@ -68,11 +88,97 @@ public class MealDatabase {
         return null;
     }
 
+    public void addOrUpdateDay(String menuID, String day) throws SQLException {
+        if (menuIDExists(menuID)) {
+            System.out.println("update menuID:"+menuID+", to day:"+day+"\n");
+            updateDay(menuID, day);
+        } else {
+            insertDay(menuID, day);
+        }
+    }
+
     public void addOrUpdateMeal(String menuID, String imagePath, String day) {
         if (menuIDExists(menuID)) {
             updateMeal(menuID, imagePath, day);
         } else {
             insertMeal(menuID, imagePath, day);
+        }
+    }
+
+    public void insertDay(String menuID, String day) {
+        String sql = "INSERT INTO meal (MenuID,Day) VALUES (?, ?)";
+        String sql1 = "UPDATE meal SET  Day = ? WHERE MenuID = ?";
+        if (dayUsed(day) == null) {
+            try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, menuID);
+                // try (FileInputStream fis = new FileInputStream(imagePath)) {
+                // pstmt.setBlob(2, fis);
+                pstmt.setString(2, day);
+                pstmt.executeUpdate();
+                //}
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error inserting meal.", e);
+            }
+        } else {
+            try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql1)) {
+                pstmt.setString(2, dayUsed(day));
+                // try (FileInputStream fis = new FileInputStream(imagePath)) {
+                // pstmt.setBlob(2, fis);
+                pstmt.setString(1, "NULL");
+                pstmt.executeUpdate();
+                //}
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error inserting meal.", e);
+            }
+            try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, menuID);
+                // try (FileInputStream fis = new FileInputStream(imagePath)) {
+                // pstmt.setBlob(2, fis);
+                pstmt.setString(2, day);
+                pstmt.executeUpdate();
+                //}
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error inserting meal.", e);
+            }
+        }
+    }
+
+    public void updateDay(String menuID, String day) throws SQLException {
+        String sql = "UPDATE meal SET  Day = ? WHERE MenuID = ?";
+        String sql1 = "UPDATE meal SET  Day = ? WHERE MenuID = ?";
+        if (dayUsed(day) == null) {
+            try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(2, menuID);
+                // try (FileInputStream fis = new FileInputStream(imagePath)) {
+                // pstmt.setBlob(2, fis);
+                pstmt.setString(1, day);
+                pstmt.executeUpdate();
+                //}
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error inserting meal.", e);
+            }
+        } else {
+            try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql1)) {
+                pstmt.setString(2, dayUsed(day));
+                // try (FileInputStream fis = new FileInputStream(imagePath)) {
+                // pstmt.setBlob(2, fis);
+                System.out.println("update setting menuID:"+dayUsed(day)+", to day:"+"NULL"+"\n");
+                pstmt.setString(1, "NULL");
+                pstmt.executeUpdate();
+                //}
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error inserting meal.", e);
+            }
+            try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(2, menuID);
+                // try (FileInputStream fis = new FileInputStream(imagePath)) {
+                // pstmt.setBlob(2, fis);
+                pstmt.setString(1, day);
+                pstmt.executeUpdate();
+                //}
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Error inserting meal.", e);
+            }
         }
     }
 

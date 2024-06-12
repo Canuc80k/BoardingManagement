@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import controller.dashboard_controller.teacher_dashboard_controller.AbsenceRegisterController;
+import model.account.Account;
 import model.classroom.Classroom;
 
 /**
@@ -21,9 +22,9 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
      * @throws SQLException 
      * @throws ClassNotFoundException 
      */
-    public AbsenceRegisterPanel(Classroom classroom) throws ClassNotFoundException, SQLException {
+    public AbsenceRegisterPanel(Classroom classroom,Account account) throws ClassNotFoundException, SQLException {
         initComponents();
-        classroomPanel = new ClassroomPanel(classroom);
+        classroomPanel = new ClassroomPanel(classroom,account);
         classroomPanel.setSize(1500, 800);
         this.add(classroomPanel);
         AbsenceRegisterController controller = new AbsenceRegisterController(classroomPanel, registerAbsenceButton);

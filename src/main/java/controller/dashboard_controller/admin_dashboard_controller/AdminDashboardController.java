@@ -115,7 +115,7 @@ public class AdminDashboardController {
 
                 case "Class": {
                     try {
-                        view = new ClassroomPanel();
+                        view = new ClassroomPanel(account);
                         break;
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);

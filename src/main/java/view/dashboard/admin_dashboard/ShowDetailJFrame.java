@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import controller.dashboard_controller.admin_dashboard_controller.ShowDetailController;
+import model.account.Account;
 import model.classroom.Classroom;
 
 /**
@@ -16,11 +17,11 @@ public class ShowDetailJFrame extends javax.swing.JFrame {
     /**
      * Creates new form ShowJFrame
      */
-    public ShowDetailJFrame(Classroom classroom) {
+    public ShowDetailJFrame(Classroom classroom,Account account) {
         initComponents();
         try {
             ShowDetailController controller;
-            controller = new ShowDetailController(viewPanel, searchTextField, classroomLabel, classroom);
+            controller = new ShowDetailController(viewPanel, searchTextField, classroomLabel,teacherLabel,exportReportButton, classroom,account);
             controller.setDataToTable();
              controller.setEvent();
         } catch (SQLException | ClassNotFoundException ex) {

@@ -99,6 +99,8 @@ public class MealController {
             model.setColumnIdentifiers(listColumn);
             for (Menu menu : listItem) {
                 model.addRow(new Object[]{menu.getFoodName()});
+                
+                //imgPath=mealDatabase.
             }
             table = new JTable(model);
             table.addMouseListener(new MouseAdapter() {
@@ -160,7 +162,12 @@ public class MealController {
                 String newSelectedDay = (String) dayComboBox.getSelectedItem();
                 if (!newSelectedDay.equals(day)) {
                     MealDatabase mealDatabase = new MealDatabase();
-                    mealDatabase.addOrUpdateMeal(id, imgPath, newSelectedDay);
+                    System.out.println("id: "+id+",imgpath: "+imgPath+",newSelected day:"+newSelectedDay+",old_day:"+day);
+                    try {
+                        mealDatabase.addOrUpdateDay(id,  newSelectedDay);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MealController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     day = newSelectedDay;
                 }
                 setDataToTable();

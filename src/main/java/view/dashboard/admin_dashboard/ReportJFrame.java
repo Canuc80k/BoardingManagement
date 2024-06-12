@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import model.account.Account;
 import model.classroom.Classroom;
 
 /**
@@ -23,10 +24,11 @@ public class ReportJFrame extends javax.swing.JFrame {
      * Creates new form ReportJFrame
      */
     private Classroom classroom;
-    public ReportJFrame(Classroom classroom) throws SQLException, ClassNotFoundException, IOException {
+    public ReportJFrame(Classroom classroom,Account account) throws SQLException, ClassNotFoundException, IOException {
         initComponents();
+        System.out.println("Constructing\n");
         this.classroom=classroom;
-        ReportJFrameController controller =new ReportJFrameController(viewPanel,searchTextField, exportButton, dateComboBox,refreshButton, classroom);
+        ReportJFrameController controller =new ReportJFrameController(viewPanel,searchTextField, exportButton, dateComboBox,refreshButton, classroom,account);
         controller.setDataToTable();
         controller.setEvent();
     }

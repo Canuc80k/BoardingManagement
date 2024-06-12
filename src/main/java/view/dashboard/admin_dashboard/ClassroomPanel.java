@@ -5,6 +5,7 @@
 package view.dashboard.admin_dashboard;
 
 import controller.dashboard_controller.admin_dashboard_controller.ClassroomController;
+import model.account.Account;
 
 /**
  *
@@ -15,9 +16,9 @@ public class ClassroomPanel extends javax.swing.JPanel {
     /**
      * Creates new form ClassJPanel
      */
-    public ClassroomPanel() throws ClassNotFoundException {
+    public ClassroomPanel(Account account) throws ClassNotFoundException {
         initComponents();
-        ClassroomController controller = new ClassroomController(viewPanel, addButton,detailButton, searchTextField,refreshButton);
+        ClassroomController controller = new ClassroomController(viewPanel, addButton,detailButton, searchTextField,refreshButton,account);
         controller.setDataToTable();
         controller.setEvent();
     }

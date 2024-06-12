@@ -104,7 +104,7 @@ public class TeacherDashboardController {
                             if (!classes.isEmpty()) {
                                 Classroom classroom = classes.get(0); // Get the first classroom
                                // System.out.println("checking.......constructor classroompanel");
-                                view = new ClassroomPanel(classroom);
+                                view = new ClassroomPanel(classroom,account);
                             } else {
                                 // Handle case where no classroom is found for the teacher
                                 // You can show a message to the user indicating that no classroom is assigned to the teacher
@@ -133,7 +133,7 @@ public class TeacherDashboardController {
                             List<Classroom> classes = ClassroomDatabase.getAllClassrooms("SELECT * FROM classroom WHERE classid='" + temp + "'");
                             if (!classes.isEmpty()) {
                                 Classroom classroom = classes.get(0); // Get the first classroom
-                                view = new AbsenceRegisterPanel(classroom);
+                                view = new AbsenceRegisterPanel(classroom,account);
                             } else {}
                         } else {
                             // Handle case where the teacher's class ID is null
