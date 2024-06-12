@@ -12,6 +12,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,6 +44,7 @@ public class ReportJFrameController {
     private String[] listColumn = {"Name", "Class", "Boarding Room", "Date", "Absence Days", "Status"};
     private TableRowSorter<TableModel> rowSorter = null;
 
+    List<Object[]> originalRows = new ArrayList<>();
     public ReportJFrameController(JPanel jpnView, JTextField jtfSearch, JButton exportButton, JComboBox dateComboBox, JButton refeshButton, Classroom classroom,Account account) {
         System.out.println("Constructed\n");
         this.jpnView = jpnView;
@@ -112,6 +114,13 @@ public class ReportJFrameController {
                 }
             }
             table = new JTable(model);
+            for (int i = 0; i < model.getRowCount(); i++) {
+                Object[] row = new Object[model.getColumnCount()];
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    row[j] = model.getValueAt(i, j);
+                }
+                originalRows.add(row);
+            }
         }
 
         rowSorter = new TableRowSorter<>(table.getModel());
@@ -119,27 +128,17 @@ public class ReportJFrameController {
         jtfSearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = jtfSearch.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                filterTable(jtfSearch.getText());
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String text = jtfSearch.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                filterTable(jtfSearch.getText());
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-
+                filterTable(jtfSearch.getText());
             }
         });
         // Other settings for table (font, size, etc.)
@@ -192,7 +191,35 @@ public class ReportJFrameController {
         jpnView.validate();
         jpnView.repaint();
     }
+ private void filterTable(String query) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
 
+        if (query.trim().isEmpty()) {
+            model.setRowCount(0); // Reset the table to its original state
+            for (Object[] row : originalRows) {
+                model.addRow(row);
+            }
+        } else {
+            List<Object[]> filteredRows = new ArrayList<>();
+            for (Object[] row : originalRows) {
+                boolean match = false;
+                for (Object cell : row) {
+                    // Case-insensitive partial string match (startsWith)
+                    if (cell.toString().toLowerCase().startsWith(query.toLowerCase())) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match) {
+                    filteredRows.add(row);
+                }
+            }
+            model.setRowCount(0);
+            for (Object[] row : filteredRows) {
+                model.addRow(row);
+            }
+        }
+    }
     public void setEvent() throws IOException {
         refeshButton.addMouseListener(new MouseAdapter() {
             @Override

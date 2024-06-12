@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,11 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import constant.Role;
-import java.io.IOException;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.dashboard.admin_dashboard.BoardingroomPanel;
 import view.dashboard.admin_dashboard.ClassroomPanel;
+import view.dashboard.admin_dashboard.HolidayPanel;
 import view.dashboard.admin_dashboard.InformationPanel;
 import view.dashboard.admin_dashboard.InitPanel;
 import view.dashboard.admin_dashboard.ManagerPanel;
@@ -149,6 +150,15 @@ public class AdminDashboardController {
                 } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(AdminDashboardController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                }
+                case "Holiday": {
+                    try {
+                        view = new HolidayPanel(account);
+                    } catch (ClassNotFoundException | SQLException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                    break;
                 }
                 default: {
                 try {

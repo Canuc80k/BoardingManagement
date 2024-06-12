@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JLabel;
@@ -18,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -30,9 +30,7 @@ import model.boardingroom.BoardingroomDatabase;
 import model.classroom.ClassroomDatabase;
 import model.people.admin.Admin;
 import model.people.admin.AdminDatabase;
-import model.people.pupil.Pupil;
 import model.people.pupil.PupilDatabase;
-import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 
 public class InitController {
@@ -48,6 +46,7 @@ public class InitController {
     private Account account;
     private TableRowSorter<TableModel> rowSorter = null;
 
+    List<Object[]> originalRows = new ArrayList<>();
     public InitController(JPanel jpnView, JTextField jtfSearch, JLabel teacherLabel, JLabel pupilLabel, JLabel classroomLabel, JLabel boardingroomLabel, Account account) {
         this.account = account;
         this.jpnView = jpnView;
@@ -125,32 +124,29 @@ public class InitController {
         }
 
         table = new JTable(model);
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Object[] row = new Object[model.getColumnCount()];
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                row[j] = model.getValueAt(i, j);
+            }
+            originalRows.add(row);
+        }
         rowSorter = new TableRowSorter<>(table.getModel());
         table.setRowSorter(rowSorter);
         jtfSearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                String text = jtfSearch.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                filterTable(jtfSearch.getText());
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                String text = jtfSearch.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                filterTable(jtfSearch.getText());
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-
+                filterTable(jtfSearch.getText());
             }
         });
 
@@ -173,7 +169,35 @@ public class InitController {
         // Update labels with counts
         updateLabelCounts();
     }
+ private void filterTable(String query) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
 
+        if (query.trim().isEmpty()) {
+            model.setRowCount(0); // Reset the table to its original state
+            for (Object[] row : originalRows) {
+                model.addRow(row);
+            }
+        } else {
+            List<Object[]> filteredRows = new ArrayList<>();
+            for (Object[] row : originalRows) {
+                boolean match = false;
+                for (Object cell : row) {
+                    // Case-insensitive partial string match (startsWith)
+                    if (cell.toString().toLowerCase().startsWith(query.toLowerCase())) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match) {
+                    filteredRows.add(row);
+                }
+            }
+            model.setRowCount(0);
+            for (Object[] row : filteredRows) {
+                model.addRow(row);
+            }
+        }
+    }
     private void updateLabelCounts() throws ClassNotFoundException {
         try {
             // Get counts from the database using methods from TeacherDatabase class

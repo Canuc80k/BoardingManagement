@@ -1,10 +1,10 @@
 package view.dashboard.admin_dashboard;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import controller.dashboard_controller.admin_dashboard_controller.AdminDashboardController;
-import java.io.IOException;
 import model.account.Account;
 import view.dashboard.SideFeatureOption;
 import view.login.Login;
@@ -26,6 +26,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         listItem.add(new SideFeatureOption("Payment", paymentPanel, paymentLabel));
         listItem.add(new SideFeatureOption("Info", informationPanel, informationLabel));
         listItem.add(new SideFeatureOption("Meal", mealPanel, mealLabel));
+        listItem.add(new SideFeatureOption("Holiday", holidayPanel, holidayLabel));
         controller.setEvent(listItem);
     }
 
@@ -60,6 +61,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         managerLabel = new javax.swing.JLabel();
         mealPanel = new javax.swing.JPanel();
         mealLabel = new javax.swing.JLabel();
+        holidayPanel = new javax.swing.JPanel();
+        holidayLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1500, 765));
@@ -310,14 +313,39 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(mealPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(mealLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         mealPanelLayout.setVerticalGroup(
             mealPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mealPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(mealLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        holidayPanel.setBackground(new java.awt.Color(0, 153, 255));
+
+        holidayLabel.setBackground(new java.awt.Color(238, 238, 228));
+        holidayLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        holidayLabel.setForeground(new java.awt.Color(238, 238, 228));
+        holidayLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/menu.png"))); // NOI18N
+        holidayLabel.setText("Manage Holiday");
+
+        javax.swing.GroupLayout holidayPanelLayout = new javax.swing.GroupLayout(holidayPanel);
+        holidayPanel.setLayout(holidayPanelLayout);
+        holidayPanelLayout.setHorizontalGroup(
+            holidayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(holidayPanelLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(holidayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        holidayPanelLayout.setVerticalGroup(
+            holidayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(holidayPanelLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(holidayLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
@@ -338,7 +366,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(teacherPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(managerPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mealPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(mealPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(holidayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
@@ -361,9 +390,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(informationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mealPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(holidayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(logOutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout rootPanelLayout = new javax.swing.GroupLayout(rootPanel);
@@ -405,6 +436,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel boardingRoomPanel;
     private javax.swing.JLabel classLabel;
     private javax.swing.JPanel classPanel;
+    private javax.swing.JLabel holidayLabel;
+    private javax.swing.JPanel holidayPanel;
     private javax.swing.JLabel informationLabel;
     private javax.swing.JPanel informationPanel;
     private javax.swing.JLabel jlbTeacher1;
