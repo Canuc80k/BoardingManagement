@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -29,11 +30,12 @@ import model.menu.MenuDatabase;
 public class MealController {
 
     private static final Logger LOGGER = Logger.getLogger(MealController.class.getName());
-    
+
     private JPanel viewPanel;
     private JComboBox<String> menuComboBox;
     private JComboBox<String> dayComboBox;
     private JButton addMenuButton;
+    private JButton removeMenuButton;
     private JButton addDishButton;
     private JButton deleteButton;
     private JButton saveButton;
@@ -47,13 +49,14 @@ public class MealController {
     private String day;
     private String id;
 
-    public MealController(JPanel viewPanel, JComboBox<String> menuComboBox, JButton addMenuButton, 
-                          JButton addDishButton, JButton deleteButton, JComboBox<String> dayComboBox, 
-                          JButton saveButton, JTextField foodNameTextField, JLabel mealPhotoLabel, JButton choosePhotoButton) {
+    public MealController(JPanel viewPanel, JComboBox<String> menuComboBox, JButton addMenuButton, JButton removeMenuButton,
+            JButton addDishButton, JButton deleteButton, JComboBox<String> dayComboBox,
+            JButton saveButton, JTextField foodNameTextField, JLabel mealPhotoLabel, JButton choosePhotoButton) {
         this.viewPanel = viewPanel;
         this.menuComboBox = menuComboBox;
         this.dayComboBox = dayComboBox;
         this.addMenuButton = addMenuButton;
+        this.removeMenuButton = removeMenuButton;
         this.addDishButton = addDishButton;
         this.deleteButton = deleteButton;
         this.saveButton = saveButton;
@@ -67,14 +70,24 @@ public class MealController {
         try {
             List<String> list = new ArrayList<>();
             List<Menu> temp = MenuDatabase.getAllMenuItems("SELECT * FROM menu");
-
+            MealDatabase mealDatabase = new MealDatabase();
+            List<String> temp1 = MealDatabase.getAllMenuItemsInMealTable("Select menuID from  meal");
             for (Menu menu : temp) {
+
                 String menuID = menu.getMenuID();
+                System.out.println("ID :" + menuID + "\n");
                 if (!list.contains(menuID)) {
                     list.add(menuID);
                 }
             }
-
+            System.out.println("ID .................................\n");
+            for (String i : temp1) {
+                //String menuID = menu.getMenuID();
+                System.out.println("ID :" + i + "\n");
+                if (!list.contains(i)) {
+                    list.add(i);
+                }
+            }
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(list.toArray(new String[0]));
             menuComboBox.setModel(model);
         } catch (SQLException | ClassNotFoundException ex) {
@@ -87,8 +100,11 @@ public class MealController {
             List<Menu> listItem = MenuDatabase.getAllMenuItems("SELECT * FROM menu WHERE MenuID = '" + id + "'");
             MealDatabase mealDatabase = new MealDatabase();
             day = mealDatabase.getDay(id);
-            if (day != null) dayComboBox.setSelectedItem(day);
-            else dayComboBox.setSelectedIndex(0);
+            if (day != null) {
+                dayComboBox.setSelectedItem(day);
+            } else {
+                dayComboBox.setSelectedIndex(0);
+            }
 
             DefaultTableModel model = new DefaultTableModel() {
                 @Override
@@ -99,7 +115,7 @@ public class MealController {
             model.setColumnIdentifiers(listColumn);
             for (Menu menu : listItem) {
                 model.addRow(new Object[]{menu.getFoodName()});
-                
+
                 //imgPath=mealDatabase.
             }
             table = new JTable(model);
@@ -127,7 +143,7 @@ public class MealController {
             viewPanel.add(scrollPane, BorderLayout.CENTER);
             viewPanel.validate();
             viewPanel.repaint();
-            
+
             mealDatabase.displayPhoto(id, mealPhotoLabel, 300, 300);
         } catch (SQLException | ClassNotFoundException ex) {
             LOGGER.log(Level.SEVERE, "Error setting data to table.", ex);
@@ -162,9 +178,9 @@ public class MealController {
                 String newSelectedDay = (String) dayComboBox.getSelectedItem();
                 if (!newSelectedDay.equals(day)) {
                     MealDatabase mealDatabase = new MealDatabase();
-                    System.out.println("id: "+id+",imgpath: "+imgPath+",newSelected day:"+newSelectedDay+",old_day:"+day);
+                    System.out.println("id: " + id + ",imgpath: " + imgPath + ",newSelected day:" + newSelectedDay + ",old_day:" + day);
                     try {
-                        mealDatabase.addOrUpdateDay(id,  newSelectedDay);
+                        mealDatabase.addOrUpdateDay(id, newSelectedDay);
                     } catch (SQLException ex) {
                         Logger.getLogger(MealController.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -177,9 +193,13 @@ public class MealController {
         addDishButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Menu menu = new Menu(id, foodNameTextField.getText());
-                MenuDatabase.createMenuItem(menu);
-                setDataToTable();
+                if (foodNameTextField.getText() == null || foodNameTextField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please enter a food name!");
+                } else {
+                    Menu menu = new Menu(id, foodNameTextField.getText());
+                    MenuDatabase.createMenuItem(menu);
+                    setDataToTable();
+                }
             }
         });
 
@@ -208,6 +228,15 @@ public class MealController {
             public void mouseClicked(MouseEvent e) {
                 MenuDatabase.deleteMenuItem(id, foodName);
                 setDataToTable();
+            }
+        });
+        removeMenuButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MealDatabase mealDatabase = new MealDatabase();
+                mealDatabase.deleteMenu(id);
+                setComboBox();
+                //setDataToTable();
             }
         });
     }

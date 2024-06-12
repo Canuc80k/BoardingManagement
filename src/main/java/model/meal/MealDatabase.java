@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,8 +63,8 @@ public class MealDatabase {
             pstmt.setString(1, day);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    String id=rs.getString("MenuID");
-                    System.out.println("using day :"+day+"is Id:"+id+"\n");
+                    String id = rs.getString("MenuID");
+                    System.out.println("using day :" + day + "is Id:" + id + "\n");
                     return rs.getString("MenuID");
                 } else {
                     LOGGER.log(Level.INFO, "No meal found for the specified day.");
@@ -90,7 +92,7 @@ public class MealDatabase {
 
     public void addOrUpdateDay(String menuID, String day) throws SQLException {
         if (menuIDExists(menuID)) {
-            System.out.println("update menuID:"+menuID+", to day:"+day+"\n");
+            System.out.println("update menuID:" + menuID + ", to day:" + day + "\n");
             updateDay(menuID, day);
         } else {
             insertDay(menuID, day);
@@ -162,7 +164,7 @@ public class MealDatabase {
                 pstmt.setString(2, dayUsed(day));
                 // try (FileInputStream fis = new FileInputStream(imagePath)) {
                 // pstmt.setBlob(2, fis);
-                System.out.println("update setting menuID:"+dayUsed(day)+", to day:"+"NULL"+"\n");
+                System.out.println("update setting menuID:" + dayUsed(day) + ", to day:" + "NULL" + "\n");
                 pstmt.setString(1, "NULL");
                 pstmt.executeUpdate();
                 //}
@@ -283,6 +285,21 @@ public class MealDatabase {
         return null;
     }
 
+    public static List<String> getAllMenuItemsInMealTable(String query) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // Use try-with-resources to ensure resources are closed automatically
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/boardingmanagement", "root", ""); PreparedStatement stmt = con.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+
+            List<String> res = new ArrayList<>();
+            while (rs.next()) {
+                String temp = rs.getString(1);
+                res.add(temp);
+            }
+            return res;
+        }
+    }
+
     public String getDay(String menuID) {
         String sql = "SELECT Day FROM meal WHERE MenuID = ?";
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -304,6 +321,20 @@ public class MealDatabase {
             label.setIcon(imageIcon);
         } else {
             label.setIcon(null); // Clear the label if no image found
+        }
+    }
+    public void deleteMenu(String menuID) {
+        String sql = "DELETE FROM meal WHERE MenuID = ?";
+        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, menuID);
+            int affectedRows = pstmt.executeUpdate();
+            if (affectedRows > 0) {
+                LOGGER.log(Level.INFO, "Menu with MenuID {0} was deleted successfully.", menuID);
+            } else {
+                LOGGER.log(Level.WARNING, "No menu with MenuID {0} found.", menuID);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error deleting menu.", e);
         }
     }
 }
