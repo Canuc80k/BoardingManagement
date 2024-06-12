@@ -43,6 +43,11 @@ public class AbsenceRegisterController {
     private int currentMonth = -1, currentYear = -1;
     private JPanel boardingDayDescriptionPanel, absentDayDescriptionPanel, offDayDescriptionPanel;
     
+    public Color getOffDayColor() {return OFF_DAY_COLOR;}
+    public Color getBoardingDayColor() {return BOARDING_DAY_COLOR;}
+    public int getCurrentYear() {return currentYear;}
+    public int getCurrentMonth() {return currentMonth;}
+
     public AbsenceRegisterController(Account account, JButton[][] calendarCell, JComboBox<String> monthChooser, JLabel currentMonthInformationLabel, JPanel boardingDayDescriptionPanel, JPanel absentDayDescriptionPanel, JPanel offDayDescriptionPanel) {
         this.account = account;
         this.boardingDayDescriptionPanel = boardingDayDescriptionPanel;
@@ -155,7 +160,7 @@ public class AbsenceRegisterController {
                     continue;
                 }
                 calendarCell[i][j].addActionListener(event -> {
-                    if (!LocalDate.of(currentYear, currentMonth, day).isAfter(LocalDate.now()) && LocalDateTime.now().getHour() >= 1) {
+                    if (!LocalDate.of(currentYear, currentMonth, day).isAfter(LocalDate.now()) && LocalDateTime.now().getHour() >= 7) {
                         JOptionPane.showMessageDialog(null, "Too late, you can't register absence current day after 7am", "Register Absence", JOptionPane.ERROR_MESSAGE);
                         return;
                     }

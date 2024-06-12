@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import constant.AvailableMonth;
 import controller.dashboard_controller.pupil_dashboard_controller.AbsenceRegisterController;
@@ -26,7 +27,9 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
     private final int ROW = 6;
     private final int COL = 7;
     private JButton[][] calendarCell = new JButton[ROW + 1][COL + 1];
-
+    public JPanel getDescriptionPanel() {return jPanel1;}
+    public JButton[][] getCalendarCell() {return calendarCell;}
+    public AbsenceRegisterController getController() {return controller;}
     public AbsenceRegisterPanel(Account account) throws ClassNotFoundException, SQLException {
         this.account = account;
         initComponents();
@@ -56,7 +59,6 @@ public class AbsenceRegisterPanel extends javax.swing.JPanel {
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         currentMonthInformationLabel = new javax.swing.JLabel();
         chooseAnotherMonthLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
