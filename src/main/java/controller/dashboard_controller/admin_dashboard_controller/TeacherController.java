@@ -7,7 +7,9 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,8 +27,6 @@ import javax.swing.table.TableRowSorter;
 import model.people.teacher.Teacher;
 import model.people.teacher.TeacherDatabase;
 import view.dashboard.admin_dashboard.ManageTeacherJFrame;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TeacherController {
 
@@ -37,6 +37,7 @@ public class TeacherController {
     private JTable table;
     private String[] listColumn = {"Teacher ID", "Name", "Date of birth", "Gender", "Phone", "Address", "Class ID"};
     private TableRowSorter<TableModel> rowSorter = null;
+    List<Object[]> originalRows = new ArrayList<>();
 
     public TeacherController(JPanel jpnView, JButton btnAdd, JTextField jtfSearch, JButton btnRefresh) {
         this.jpnView = jpnView;
@@ -64,10 +65,15 @@ public class TeacherController {
                 teacher.getAddress(),
                 teacher.getClassID(),});
         }
-
         table = new JTable(model);
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Object[] row = new Object[model.getColumnCount()];
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                row[j] = model.getValueAt(i, j);
+            }
+            originalRows.add(row);
+        }
 
-        // Manual Sorting
         table.getTableHeader().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -76,7 +82,6 @@ public class TeacherController {
             }
         });
 
-        // Manual Searching
         jtfSearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -165,44 +170,35 @@ public class TeacherController {
         }
     }
 
-  private void filterTable(String query) {
-    DefaultTableModel model = (DefaultTableModel) table.getModel();
-    List<Object[]> originalRows = new ArrayList<>();
+    private void filterTable(String query) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
 
-    for (int i = 0; i < model.getRowCount(); i++) {
-      Object[] row = new Object[model.getColumnCount()];
-      for (int j = 0; j < model.getColumnCount(); j++) {
-        row[j] = model.getValueAt(i, j);
-      }
-      originalRows.add(row);
-    }
-
-    if (query.trim().isEmpty()) {
-      model.setRowCount(0); // Reset the table to its original state
-      for (Object[] row : originalRows) {
-        model.addRow(row);
-      }
-    } else {
-      List<Object[]> filteredRows = new ArrayList<>();
-      for (Object[] row : originalRows) {
-        boolean match = false;
-        for (Object cell : row) {
-          // Case-insensitive partial string match (startsWith)
-          if (cell.toString().toLowerCase().startsWith(query.toLowerCase())) {
-            match = true;
-            break;
-          }
+        if (query.trim().isEmpty()) {
+            model.setRowCount(0); // Reset the table to its original state
+            for (Object[] row : originalRows) {
+                model.addRow(row);
+            }
+        } else {
+            List<Object[]> filteredRows = new ArrayList<>();
+            for (Object[] row : originalRows) {
+                boolean match = false;
+                for (Object cell : row) {
+                    // Case-insensitive partial string match (startsWith)
+                    if (cell.toString().toLowerCase().startsWith(query.toLowerCase())) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (match) {
+                    filteredRows.add(row);
+                }
+            }
+            model.setRowCount(0);
+            for (Object[] row : filteredRows) {
+                model.addRow(row);
+            }
         }
-        if (match) {
-          filteredRows.add(row);
-        }
-      }
-      model.setRowCount(0);
-      for (Object[] row : filteredRows) {
-        model.addRow(row);
-      }
     }
-  }
 
     public void setEvent() {
         btnAdd.addMouseListener(new MouseAdapter() {
