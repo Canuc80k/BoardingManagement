@@ -12,7 +12,6 @@ Welcome to the **Boarding Management System** project repository! This project i
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -57,15 +56,23 @@ To set up the Boarding Management System locally, follow these steps:
 2. **Teacher Access**: Log in as a teacher to report absences and view student information.
 3. **Student Access**: Log in as a student to view your information and report absences.
 
-## Project Structure
-The repository is organized as follows:... To be continue
+Here are some screenshots of the Boarding Management System:
+
+![Dashboard](Pictures/PBL3/Picture1.png)
+*Admin Dashboard*
+
+![Student List](Pictures/PBL3/Picture2.png)
+*Student Management Page*
+
+![Attendance Report](Pictures/PBL3/Picture3.png)
+*Attendance Tracking*
 
 ## Contributing
-Contributions to this project are welcome! If you have suggestions for improvements or find any issues, please open an issue or submit a pull request. Ensure that your contributions follow the project’s coding standards and are well-documented.
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-Thank you for exploring the Boarding Management System project! Feel free to contribute and enhance the system. 🚀
+Thank you for exploring the Boarding Management System project! 🚀
