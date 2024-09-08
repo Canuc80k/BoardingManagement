@@ -58,13 +58,13 @@ To set up the Boarding Management System locally, follow these steps:
 
 Here are some screenshots of the Boarding Management System:
 
-![Dashboard](Pictures/PBL3/Picture1.png)
+![Dashboard](PBL3/Picture1.png)
 *Admin Dashboard*
 
-![Student List](Pictures/PBL3/Picture2.png)
+![Student List](PBL3/Picture2.png)
 *Student Management Page*
 
-![Attendance Report](Pictures/PBL3/Picture3.png)
+![Attendance Report](PBL3/Picture3.png)
 *Attendance Tracking*
 
 ## Contributing
