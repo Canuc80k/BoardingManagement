@@ -5,7 +5,7 @@ Welcome to the **Boarding Management System** project repository! This project i
 ## About
 - **Project Name**: Boarding Management System for Primary School
 - **Objective**: To develop a web-based system that simplifies the management of boarding activities for primary school students.
-- **Technology Stack**: HTML, CSS, JavaScript, and [Additional technologies based on your stack].
+- **Technology Stack**: Java swing , MySQL , XAMPP and NetBeans for build and run.
 
 ## Table of Contents
 - [Introduction](#introduction)
